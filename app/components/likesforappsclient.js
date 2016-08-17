@@ -4,7 +4,8 @@ import {
   Text,
   View
 } from 'react-native';
-import { Provider } from 'react-redux'
+import Button from 'react-native-button'
+import { connect, Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
@@ -13,22 +14,36 @@ import app from '../reducers';
 
 let store = createStore(app, applyMiddleware(thunkMiddleware, createLogger()));
 
+class MainView extends Component {
+  render(){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit index.ios.js
+        </Text>
+        <Text style={styles.instructions}>
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
+        </Text>
+        <Button
+          onPress={() => this.props.dispatch({type: 'FOO'})}>
+          Press me
+        </Button>
+      </View>
+    )
+  }
+};
+
+const MainViewContainer = connect()(MainView);
+
 class LikesForAppsClient extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <Text style={styles.welcome}>
-            Welcome to React Native!
-          </Text>
-          <Text style={styles.instructions}>
-            To get started, edit index.ios.js
-          </Text>
-          <Text style={styles.instructions}>
-            Press Cmd+R to reload,{'\n'}
-            Cmd+D or shake for dev menu
-          </Text>
-        </View>
+        <MainViewContainer />
       </Provider>
     );
   }
