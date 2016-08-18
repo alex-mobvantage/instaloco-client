@@ -14,6 +14,7 @@ import { Actions, Scene, Router } from 'react-native-router-flux'
 import app from '../reducers';
 
 import MainView from './mainview';
+import Login from './login';
 
 let store = createStore(app, applyMiddleware(thunkMiddleware, createLogger()));
 
@@ -23,13 +24,8 @@ class LikesForAppsClient extends Component {
       <Provider store={store}>
         <Router>
           <Scene key='root'>
+            <Scene key='login' component={Login} />
             <Scene key='main' component={MainView} />
-            <Scene key='second' component={
-              () => (
-                <View style={{flex: 1, backgroundColor: '#F5FCFF', alignItems: 'center', justifyContent: 'center'}}>
-                  <Text style={{textAlign: 'center', color: '#000000'}}>Second View</Text>
-                </View>
-              )} />
           </Scene>
         </Router>
       </Provider>
