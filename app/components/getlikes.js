@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ListView } from 'react-native';
 import { connect } from 'react-redux';
 
-class GetLikesLayout extends Component {
+const GetLikesLayout = React.createClass({
+  getInitialState(){
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    let data = Array.apply(null, {length: 1000}).map(Number.call, Number);
+    return {
+      dataSource: ds.cloneWithRows(data)
+    };
+  },
+
   render(){
     return (
-      <View style={styles.view}>
-        <Text style={styles.text}>Get likes</Text>
-      </View>
+      <ListView contentContainerStyle={styles.list}
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) => <Text style={styles.item}>{rowData}</Text>} />
     );
   }
-}
+});
 
 const styles = StyleSheet.create({
-  text: {
-    textAlign: 'center',
-    color: '#000000'
-  },
-  view: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
+  list: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'flex-start'
+  },
+  item: {
+    backgroundColor: 'red',
+    margin: 3,
+    width: 150,
+    height: 150
   }
 });
 
