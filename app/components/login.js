@@ -1,9 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Linking, View } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
 
-class LoginLayout extends Component {
+const LoginLayout = React.createClass({
+  componentDidMount() {
+    Linking.addEventListener('url', this._handleOpenURL);
+  },
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this._handleOpenURL);
+  },
+
+  _handleOpenURL(event) {
+    console.log(event.url);
+  },
+
   render(){
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -13,7 +25,7 @@ class LoginLayout extends Component {
         </Button>
       </View>
     );
-  }
-};
+  },
+});
 
 export default Login = connect()(LoginLayout);
