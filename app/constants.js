@@ -1,0 +1,1 @@
+export const API_HOST = 'http://likesforapps.herokuapp.com';

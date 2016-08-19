@@ -5,7 +5,8 @@ export const login = (state = {logged_in : false}, action) => {
     case LOADED_ACCESS_TOKEN:
     case SAVED_ACCESS_TOKEN:
       return Object.assign({}, state, {
-        logged_in: true
+        logged_in: true,
+        access_token: action.access_token
       });
     default:
       return state;
