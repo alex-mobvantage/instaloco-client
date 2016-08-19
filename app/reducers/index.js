@@ -1,11 +1,8 @@
 import { combineReducers } from 'redux';
-
-const dummy = (state = [], action) => {
-  return state;
-};
+import { login } from './auth';
 
 const app = combineReducers({
-  dummy
+  login
 });
 
 export default app;

@@ -5,15 +5,14 @@ import { connect } from 'react-redux';
 import qs from 'qs';
 import { Actions } from 'react-native-router-flux'
 
+import { loadAccessToken, saveAccessToken } from '../actions/auth';
+
 const LoginLayout = React.createClass({
   componentDidMount(){
     Linking.addEventListener('url', this._handleOpenURL);
-
-    AsyncStorage.getItem('access_token', (error, token) => {
-      if (token){
-        Actions.main();
-      }
-    });
+    
+    let { dispatch } = this.props;
+    dispatch(loadAccessToken());
   },
 
   componentWillUnmount(){
@@ -27,9 +26,16 @@ const LoginLayout = React.createClass({
       let params = url.search.substring(1); // chop off initial '?'
       let data = qs.parse(params);
 
-      AsyncStorage.setItem('access_token', data.access_token, (error) => {
-        Actions.main();
-      });
+      let { dispatch } = this.props;
+      dispatch(saveAccessToken(data.access_token));
+    }
+  },
+
+  componentWillUpdate(nextProps){
+    if (nextProps.logged_in === false){
+      Actions.login();
+    } else if (nextProps.logged_in === true){
+      Actions.main();
     }
   },
 
@@ -45,4 +51,10 @@ const LoginLayout = React.createClass({
   },
 });
 
-export default Login = connect()(LoginLayout);
+const mapStateToProps = (state) => {
+  return {
+    logged_in: state.login.logged_in
+  };
+};
+
+export default Login = connect(mapStateToProps)(LoginLayout);

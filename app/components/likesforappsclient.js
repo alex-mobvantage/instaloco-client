@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import Button from 'react-native-button'
 import { connect, Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import { Actions, Scene, Router } from 'react-native-router-flux'
+import { Scene, Router } from 'react-native-router-flux'
 
 import app from '../reducers';
 
