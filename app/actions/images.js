@@ -1,8 +1,13 @@
 import { API_HOST } from '../constants';
 
 export const LOAD_IMAGES = 'LOAD_IMAGES';
-export const loadImages = (token) => {
-  return (dispatch) => {
+export const loadImages = () => {
+  return (dispatch, getState) => {
+    let token = getState().login.access_token;
+    if (!token){
+      return;
+    }
+
     fetch(API_HOST + '/images?access_token=' + token)
       .then(response => response.json())
       .then(images => dispatch(loadedImages(images)))

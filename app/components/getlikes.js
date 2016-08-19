@@ -22,7 +22,7 @@ const GetLikesLayout = React.createClass({
 
   componentDidMount(){
     let { dispatch } = this.props;
-    dispatch(loadImages('14357312.cfa0b79.be30ed5f36a74812b4f81b0d23f324a2'));
+    dispatch(loadImages());
   }
 });
 
