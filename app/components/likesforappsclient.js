@@ -9,6 +9,7 @@ import app from '../reducers';
 
 import MainView from './mainview';
 import Login from './login';
+import PurchaseLikes from './purchaselikes';
 
 let store = createStore(app, applyMiddleware(thunkMiddleware, createLogger()));
 
@@ -20,6 +21,7 @@ class LikesForAppsClient extends Component {
           <Scene key='root'>
             <Scene key='login' component={Login} />
             <Scene key='main' component={MainView} />
+            <Scene key='purchaseLikes' component={PurchaseLikes} />
           </Scene>
         </Router>
       </Provider>

@@ -14,8 +14,8 @@ const GetLikesLayout = React.createClass({
         renderRow={(rowData) => (
           <GetLikeImage
             image_url={rowData.images.thumbnail.url}
-            imageWidth={150}
-            imageHeight={150} />
+            image_width={150}
+            image_height={150} />
         )} />
     );
   },
