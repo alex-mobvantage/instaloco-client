@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import { login } from './auth';
-import { images } from './images';
+import { nextImage, images } from './images';
 
 const app = combineReducers({
   login,
+  nextImage,
   images
 });
 
