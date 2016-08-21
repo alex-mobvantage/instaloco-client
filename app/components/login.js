@@ -43,7 +43,13 @@ const LoginLayout = React.createClass({
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Button
-          onPress={() => Linking.openURL('https://api.instagram.com/oauth/authorize/?client_id=cfa0b79d5bbe413492a09c9069ccbe58&redirect_uri=' + encodeURIComponent('http://likesforapps.herokuapp.com/auth') + '&response_type=code')}>
+          onPress={() => Linking.openURL(
+            'https://api.instagram.com/oauth/authorize/?' + qs.stringify({
+              client_id: 'cfa0b79d5bbe413492a09c9069ccbe58',
+              redirect_uri: 'http://likesforapps.herokuapp.com/auth',
+              response_type: 'code',
+              scope: 'likes public_content'
+            }))}>
           Login
         </Button>
       </View>

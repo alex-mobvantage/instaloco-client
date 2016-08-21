@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import Button from 'react-native-button';
 
-import { nextImage } from '../actions/images';
+import { nextImage, likeImage } from '../actions/images';
+
+class ImageDisplayLayout extends Component {
+  render(){
+    let { image_url, media_id, dispatch } = this.props;
+
+    return (
+      <View>
+        <Image
+          source={{uri: image_url}}
+          style={{width: 150, height: 150}} />
+        <Button onPress={() => dispatch(likeImage(media_id))}>Like</Button>
+      </View>
+    );
+  }
+}
+
+const ImageDisplay = connect()(ImageDisplayLayout);
 
 const GetCoinsLayout = React.createClass({
   componentDidMount(){
@@ -11,15 +29,13 @@ const GetCoinsLayout = React.createClass({
   },
 
   render(){
-    let { image_url } = this.props;
+    let { image_url, media_id } = this.props;
 
     return (
       <View style={styles.view}>
         {
           image_url
-          ? <Image
-              source={{uri: image_url}}
-              style={{width: 150, height: 150}} />
+          ? <ImageDisplay image_url={image_url} media_id={media_id} />
           : <Text>There are currently no images to like. Check back later</Text>
         }
       </View>
@@ -28,9 +44,7 @@ const GetCoinsLayout = React.createClass({
 });
 
 const mapStateToProps = (state) => {
-  return {
-    image_url: state.nextImage
-  };
+  return state.nextImage;
 };
 
 const styles = StyleSheet.create({

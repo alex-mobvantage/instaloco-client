@@ -9,10 +9,13 @@ export const images = (state = [], action) => {
   }
 };
 
-export const nextImage = (state = '', action) => {
+export const nextImage = (state = {}, action) => {
   switch (action.type){
     case RECEIVED_NEXT_IMAGE:
-      return action.image_url;
+      return {
+        image_url: action.image_url,
+        media_id: action.media_id
+      };
     default:
       return state;
   }
