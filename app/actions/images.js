@@ -67,3 +67,23 @@ export const likedImage = (data) => {
     dispatch(nextImage());
   };
 };
+
+export const skipImage = (media_id) => {
+  return (dispatch, getState) => {
+    let { access_token } = getState().login;
+    if (!access_token){
+      return;
+    }
+
+    fetch(API_HOST + '/images/skip?' + qs.stringify({access_token, media_id}), {method: 'POST'})
+      .then(response => response.json().catch(err => {}))
+      .then(data => dispatch(skippedImage(data)))
+      .catch(err => console.log(err));    
+  }
+};
+
+export const skippedImage = (data) => {
+  return (dispatch, getState) => {
+    dispatch(nextImage());
+  };
+};

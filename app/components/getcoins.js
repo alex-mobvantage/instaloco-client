@@ -3,7 +3,7 @@ import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 
-import { nextImage, likeImage } from '../actions/images';
+import { nextImage, likeImage, skipImage } from '../actions/images';
 
 class ImageDisplayLayout extends Component {
   render(){
@@ -14,6 +14,7 @@ class ImageDisplayLayout extends Component {
         <Image
           source={{uri: image_url}}
           style={{width: 150, height: 150}} />
+        <Button onPress={() => dispatch(skipImage(media_id))}>Skip</Button>
         <Button onPress={() => dispatch(likeImage(media_id))}>Like</Button>
       </View>
     );
