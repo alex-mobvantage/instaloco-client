@@ -20,22 +20,14 @@ const LoginLayout = React.createClass({
   },
 
   _handleOpenURL(event){
-    let url = new URL(event.url);
-    let path = url.pathname.substring(2); // chop off initial '//'
+    // TODO: Harden this 
+    let path = event.url.substring('likesforapps://'.length, event.url.indexOf('?'));
     if (path === 'login'){
-      let params = url.search.substring(1); // chop off initial '?'
+      let params = event.url.substring(event.url.indexOf('?') + 1);
       let data = qs.parse(params);
 
       let { dispatch } = this.props;
       dispatch(saveAccessToken(data.access_token));
-    }
-  },
-
-  componentWillUpdate(nextProps){
-    if (nextProps.logged_in === false){
-      Actions.login();
-    } else if (nextProps.logged_in === true){
-      Actions.main();
     }
   },
 
@@ -57,10 +49,4 @@ const LoginLayout = React.createClass({
   },
 });
 
-const mapStateToProps = (state) => {
-  return {
-    logged_in: state.login.logged_in
-  };
-};
-
-export default Login = connect(mapStateToProps)(LoginLayout);
+export default Login = connect()(LoginLayout);

@@ -3,7 +3,7 @@ import { connect, Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-import { Scene, Router } from 'react-native-router-flux'
+import { Scene, Router, Switch } from 'react-native-router-flux'
 
 import app from '../reducers';
 
@@ -19,8 +19,14 @@ class LikesForAppsClient extends Component {
       <Provider store={store}>
         <Router>
           <Scene key='root'>
-            <Scene key='login' component={Login} />
-            <Scene key='main' component={MainView} />
+            <Scene
+              key='auth'
+              tabs={true}
+              component={connect(mapStatesToProps)(Switch)}
+              selector={mapPropsToScene}>
+              <Scene key='login' component={Login} />
+              <Scene key='main' component={MainView} />
+            </Scene>
             <Scene key='purchaseLikes' component={PurchaseLikes} />
           </Scene>
         </Router>
@@ -28,5 +34,15 @@ class LikesForAppsClient extends Component {
     );
   }
 }
+
+const mapStatesToProps = (state) => {
+  return {
+    logged_in: state.login.logged_in
+  };
+};
+
+const mapPropsToScene = (props) => {
+  return props.logged_in ? 'main' : 'login';
+};
 
 export default LikesForAppsClient;
