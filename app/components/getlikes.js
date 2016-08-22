@@ -9,8 +9,10 @@ import GetLikeImage from './getlikeimage';
 const GetLikesLayout = React.createClass({
   render(){
     return (
-      <ListView contentContainerStyle={styles.list}
+      <ListView
+        contentContainerStyle={styles.list}
         dataSource={this.props.dataSource}
+        enableEmptySections={true}
         renderRow={(rowData) => (
           <GetLikeImage
             image_url={rowData.images.thumbnail.url}

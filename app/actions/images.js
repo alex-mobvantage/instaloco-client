@@ -4,7 +4,7 @@ import qs from 'qs';
 export const LOAD_IMAGES = 'LOAD_IMAGES';
 export const loadImages = () => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login.access_token;
+    let { access_token } = getState().login;
     if (!access_token){
       return;
     }
