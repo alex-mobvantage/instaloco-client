@@ -33,8 +33,8 @@ const GetLikesLayout = React.createClass({
   },
 
   loadMoreContentAsync(){
-    let { dispatch, images } = this.props;
-    dispatch(loadImages(images[images.length - 1].id));
+    let { dispatch, last_media_id } = this.props;
+    dispatch(loadImages(last_media_id));
   }
 });
 
@@ -54,9 +54,9 @@ const dataSourceFromImages = (images) => {
 
 const mapStateToParams = (state) => {
   return {
-    images: state.images,
-    dataSource: dataSourceFromImages(state.images),
-    canLoadMoreContent: state.images.length === 20
+    last_media_id: state.images.images.length > 0 ? state.images.images[state.images.images.length - 1].id : null,
+    dataSource: dataSourceFromImages(state.images.images),
+    canLoadMoreContent: state.images.canLoadMore
   };
 };
 

@@ -1,9 +1,12 @@
 import { LOADED_IMAGES, RECEIVED_NEXT_IMAGE } from '../actions/images';
 
-export const images = (state = [], action) => {
+export const images = (state = {images: [], canLoadMore: true}, action) => {
   switch (action.type){
     case LOADED_IMAGES:
-      return state.concat(action.images);
+      return Object.assign({}, state, {
+        images: state.images.concat(action.images),
+        canLoadMore: action.images.length === 20
+      });
     default:
       return state;
   }
