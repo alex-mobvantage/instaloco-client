@@ -18,7 +18,7 @@ class PurchaseLikesLayout extends Component {
         </Text>
         {
           [25, 50, 100, 300, 1000, 5000, 10000].map((likes) => (
-            <View>
+            <View key={'like-row-' + likes}>
               <Text style={styles.text}>+{likes} likes</Text>
               <Button onPress={() => dispatch(purchaseLikes(media_id, image_url, likes))}>{likes * 2}</Button>
             </View>
