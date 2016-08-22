@@ -3,7 +3,7 @@ import { LOADED_IMAGES, RECEIVED_NEXT_IMAGE } from '../actions/images';
 export const images = (state = [], action) => {
   switch (action.type){
     case LOADED_IMAGES:
-      return action.images;
+      return state.concat(action.images);
     default:
       return state;
   }

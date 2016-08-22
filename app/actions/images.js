@@ -2,14 +2,14 @@ import { API_HOST } from '../constants';
 import qs from 'qs';
 
 export const LOAD_IMAGES = 'LOAD_IMAGES';
-export const loadImages = () => {
+export const loadImages = (last_media_id) => {
   return (dispatch, getState) => {
     let { access_token } = getState().login;
     if (!access_token){
       return;
     }
 
-    fetch(API_HOST + '/images?' + qs.stringify({ access_token }))
+    fetch(API_HOST + '/images?' + qs.stringify({ access_token, last_media_id }))
       .then(response => response.json())
       .then(images => dispatch(loadedImages(images)))
       .catch((err) => {
