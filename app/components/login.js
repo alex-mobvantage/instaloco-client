@@ -40,7 +40,7 @@ const LoginLayout = React.createClass({
               client_id: 'cfa0b79d5bbe413492a09c9069ccbe58',
               redirect_uri: 'http://likesforapps.herokuapp.com/auth',
               response_type: 'code',
-              scope: 'likes public_content'
+              scope: 'likes public_content relationships'
             }))}>
           Login
         </Button>
