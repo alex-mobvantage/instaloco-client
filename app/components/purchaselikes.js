@@ -15,12 +15,13 @@ class PurchaseLikesLayout extends Component {
   }
 
   render(){
-    let { image_url, media_id, dispatch } = this.props;
+    let { image_url, media_id, likes, dispatch } = this.props;
     return (
       <View style={styles.view}>
         <Image 
           source={{uri: image_url}}
           style={{width: 150, height: 150}} />
+        <Text>{likes} likes</Text>
         <Text style={styles.text}>
           Choose how many likes you would like to get
         </Text>
