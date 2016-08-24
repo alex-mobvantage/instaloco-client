@@ -15,7 +15,7 @@ class PurchaseLikesLayout extends Component {
   }
 
   render(){
-    let { image_url, media_id, likes, dispatch } = this.props;
+    let { image_url, media_id, likes, coins_per_like, dispatch } = this.props;
     return (
       <View style={styles.view}>
         <Image 
@@ -29,7 +29,7 @@ class PurchaseLikesLayout extends Component {
           [25, 50, 100, 300, 1000, 5000, 10000].map((likes) => (
             <View key={'like-row-' + likes}>
               <Text style={styles.text}>+{likes} likes</Text>
-              <Button onPress={() => dispatch(purchaseLikes(media_id, image_url, likes))}>{likes * 2}</Button>
+              <Button onPress={() => dispatch(purchaseLikes(media_id, image_url, likes))}>{likes * coins_per_like}</Button>
             </View>
           ))
         }
@@ -55,4 +55,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PurchaseLikes = connect()(PurchaseLikesLayout);
+const mapStateToProps = (state) => {
+  return {
+    coins_per_like: state.config.coins_per_like
+  };
+};
+
+export default PurchaseLikes = connect(mapStateToProps)(PurchaseLikesLayout);

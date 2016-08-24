@@ -7,7 +7,7 @@ import { purchaseFollowers } from '../actions/followers';
 
 class GetFollowersLayout extends Component {
   render(){
-    let { profile_image, followers, following, dispatch } = this.props;
+    let { profile_image, followers, following, coins_per_follower, dispatch } = this.props;
 
     return (
       <View style={styles.view}>
@@ -21,7 +21,7 @@ class GetFollowersLayout extends Component {
             [20, 60, 200, 600, 1000, 2000, 6000].map(val => (
               <View key={'follower-row-' + val}>
                 <Text>+{val} followers</Text>
-                <Button onPress={() => dispatch(purchaseFollowers(val))}>{val * 10}</Button>
+                <Button onPress={() => dispatch(purchaseFollowers(val))}>{val * coins_per_follower}</Button>
               </View>
             ))
           }
@@ -48,7 +48,8 @@ const mapStateToProps = (state) => {
   return {
     profile_image: state.user.profile.profile_picture,
     followers: state.user.profile.counts.followed_by,
-    following: state.user.profile.counts.follows
+    following: state.user.profile.counts.follows,
+    coins_per_follower: state.config.coins_per_follower
   }
 }
 

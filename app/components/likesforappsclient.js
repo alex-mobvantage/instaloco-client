@@ -12,6 +12,8 @@ import MainView from './mainview';
 import Login from './login';
 import PurchaseLikes from './purchaselikes';
 
+import { loadConfig } from '../actions/config';
+
 let store = createStore(
   app,
   applyMiddleware(
@@ -20,6 +22,8 @@ let store = createStore(
     accessTokenMiddleware
   )
 );
+
+store.dispatch(loadConfig());
 
 class LikesForAppsClient extends Component {
   render() {
@@ -30,8 +34,8 @@ class LikesForAppsClient extends Component {
             <Scene
               key='auth'
               tabs={true}
-              component={connect(mapStatesToProps)(Switch)}
-              selector={mapPropsToScene}>
+              component={connect(mapStatesToSceneProps)(Switch)}
+              selector={mapScenePropsToScene}>
               <Scene key='login' component={Login} />
               <Scene key='main' component={MainView} />
             </Scene>
@@ -43,13 +47,13 @@ class LikesForAppsClient extends Component {
   }
 }
 
-const mapStatesToProps = (state) => {
+const mapStatesToSceneProps = (state) => {
   return {
     logged_in: state.login.logged_in
   };
 };
 
-const mapPropsToScene = (props) => {
+const mapScenePropsToScene = (props) => {
   return props.logged_in ? 'main' : 'login';
 };
 
