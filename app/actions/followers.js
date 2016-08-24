@@ -36,7 +36,10 @@ export const follow = (user_id) => {
 
     fetch(API_HOST + '/followers/follow?' + qs.stringify({ access_token, user_id }), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(followed(data)))
+      .then(data => {
+        dispatch(followed(data));
+        dispatch(getCoins());
+      })
       .catch(err => console.log(err));    
   };
 };
