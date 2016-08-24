@@ -70,8 +70,13 @@ export const likeImage = (media_id) => {
   }
 };
 
+export const LIKED_IMAGE = 'LIKED_IMAGE';
 export const likedImage = (data) => {
   return (dispatch, getState) => {
+    dispatch({
+      type: LIKED_IMAGE,
+      ...data
+    });
     dispatch(nextImage());
   };
 };
@@ -90,8 +95,13 @@ export const skipImage = (media_id) => {
   }
 };
 
+export const SKIPPED_IMAGE = 'SKIPPED_IMAGE';
 export const skippedImage = (data) => {
   return (dispatch, getState) => {
+    dispatch({
+      type: SKIPPED_IMAGE,
+      ...data
+    });
     dispatch(nextImage());
   };
 };
