@@ -6,9 +6,7 @@ import { NavBar } from 'react-native-router-flux';
 class CustomNavBar extends NavBar {
   renderRightButton(){
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-        <Text>{this.props.coins}</Text>
-      </View>
+      <Text style={{position: 'absolute', right: 10, top: 22}}>{this.props.coins}</Text>
     );
   }
 }
