@@ -1,6 +1,8 @@
 import { API_HOST } from '../constants';
 import qs from 'qs';
 
+import { getCoins } from './user';
+
 export const purchaseLikes = (media_id, image_url, likes) => {
   return (dispatch, getState) => {
     let { access_token } = getState().login;
@@ -9,7 +11,10 @@ export const purchaseLikes = (media_id, image_url, likes) => {
       { method: 'POST' }
     )
     .then(response => response.json().catch(err => {}))
-    .then(data => dispatch(purchasedLikes(data)))
+    .then(data => {
+      dispatch(purchasedLikes(data));
+      dispatch(getCoins());
+    })
     .catch(err => console.log(err));
   }
 };

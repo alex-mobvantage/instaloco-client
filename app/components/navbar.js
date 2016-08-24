@@ -26,7 +26,7 @@ class NavBarLayout extends Component {
 const mapStateToProps = (state) => {
   return {
     title: state.navTitle,
-    coins: 500
+    coins: state.user.coins
   };
 };
 
