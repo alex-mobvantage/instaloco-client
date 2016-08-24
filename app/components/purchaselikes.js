@@ -37,7 +37,7 @@ class PurchaseLikesLayout extends Component {
   }
 
   static renderNavigationBar(navProps){
-    return <NavBar {...navProps} />;
+    return <NavBar {...navProps} profileVisible={false} />;
   }
 }
 
