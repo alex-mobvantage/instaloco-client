@@ -3,9 +3,17 @@ import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 
+import NavBar from './navbar';
+
 import { purchaseLikes } from '../actions/likes';
+import { changeNavTitle } from '../actions/nav';
 
 class PurchaseLikesLayout extends Component {
+  componentDidMount(){
+    let { dispatch } = this.props;
+    dispatch(changeNavTitle('Get Likes'));
+  }
+
   render(){
     let { image_url, media_id, dispatch } = this.props;
     return (
@@ -26,6 +34,10 @@ class PurchaseLikesLayout extends Component {
         }
       </View>
     );
+  }
+
+  static renderNavigationBar(navProps){
+    return <NavBar {...navProps} />;
   }
 }
 
