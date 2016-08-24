@@ -6,12 +6,20 @@ import createLogger from 'redux-logger'
 import { Scene, Router, Switch } from 'react-native-router-flux'
 
 import app from '../reducers';
+import accessTokenMiddleware from '../middleware/accesstoken';
 
 import MainView from './mainview';
 import Login from './login';
 import PurchaseLikes from './purchaselikes';
 
-let store = createStore(app, applyMiddleware(thunkMiddleware, createLogger()));
+let store = createStore(
+  app,
+  applyMiddleware(
+    thunkMiddleware,
+    createLogger(),
+    accessTokenMiddleware
+  )
+);
 
 class LikesForAppsClient extends Component {
   render() {

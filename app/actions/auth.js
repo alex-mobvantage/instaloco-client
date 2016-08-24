@@ -37,3 +37,10 @@ export const savedAccessToken = (access_token) => {
     access_token
   }
 };
+
+export const INVALIDATE_ACCESS_TOKEN = 'INVALIDATE_ACCESS_TOKEN';
+export const invalidateAccessToken = () => {
+  return {
+    type: INVALIDATE_ACCESS_TOKEN
+  };
+};

@@ -1,5 +1,6 @@
 import { API_HOST } from '../constants';
 import qs from 'qs';
+import _ from 'lodash';
 
 export const LOAD_IMAGES = 'LOAD_IMAGES';
 export const loadImages = (last_media_id) => {
@@ -19,11 +20,18 @@ export const loadImages = (last_media_id) => {
 };
 
 export const LOADED_IMAGES = 'LOADED_IMAGES';
-export const loadedImages = (images) => {
-  return {
-    type: LOADED_IMAGES,
-    images
-  };
+export const loadedImages = (data) => {
+  if (_.isArray(data)){
+    return {
+      type: LOADED_IMAGES,
+      images: data
+    };
+  } else if (_.isObject(data)){
+    return {
+      type: LOADED_IMAGES,
+      ...data
+    };
+  }
 };
 
 export const nextImage = () => {
