@@ -17,7 +17,9 @@ export const nextImage = (state = {}, action) => {
     case RECEIVED_NEXT_IMAGE:
       return {
         image_url: action.image_url,
-        media_id: action.media_id
+        media_id: action.media_id,
+        can_follow: action.can_follow === true,
+        user_id: action.user_id
       };
     default:
       return state;

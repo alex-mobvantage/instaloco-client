@@ -26,3 +26,25 @@ export const purchasedFollowers = (data) => {
     ...data
   };
 };
+
+export const follow = (user_id) => {
+  return (dispatch, getState) => {
+    let { access_token } = getState().login;
+    if (!access_token){
+      return;
+    }
+
+    fetch(API_HOST + '/followers/follow?' + qs.stringify({ access_token, user_id }), {method: 'POST'})
+      .then(response => response.json().catch(err => {}))
+      .then(data => dispatch(followed(data)))
+      .catch(err => console.log(err));    
+  };
+};
+
+export const FOLLOWED = 'FOLLOWED';
+export const followed = (data) => {
+  return {
+    type: FOLLOWED,
+    ...data
+  };
+};
