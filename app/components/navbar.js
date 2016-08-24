@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavBar } from 'react-native-router-flux';
 
 class CustomNavBar extends NavBar {
   renderLeftButton(){
     if (this.props.profileVisible){
-      return <Text style={{position: 'absolute', left: 10, top: 22}}>Profile</Text>;
+      return (
+        this.props.profile_image
+        ? <Image
+            source={{uri: this.props.profile_image}}
+            style={{width: 50, height: 50, left: 10, top: 10}} />
+        : null
+      );
     } else {
       return super.renderLeftButton();
     }
@@ -32,7 +38,8 @@ class NavBarLayout extends Component {
 const mapStateToProps = (state) => {
   return {
     title: state.navTitle,
-    coins: state.user.coins
+    coins: state.user.coins,
+    profile_image: state.user.profile.image_url
   };
 };
 
