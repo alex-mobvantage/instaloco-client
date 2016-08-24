@@ -8,7 +8,7 @@ export const user = (state = {coins: 0, profile: {image_url: ''}}, action) => {
       });
     case PROFILE_RECEIVED:
       return Object.assign({}, state, {
-        profile: {image_url: action.data.profile_picture}
+        profile: action.data
       });
     default:
       return state;
