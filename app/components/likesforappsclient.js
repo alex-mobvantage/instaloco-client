@@ -11,6 +11,8 @@ import accessTokenMiddleware from '../middleware/accesstoken';
 import MainView from './mainview';
 import Login from './login';
 import PurchaseLikes from './purchaselikes';
+import FAQ from './faq';
+import Legal from './legal';
 
 import { loadConfig } from '../actions/config';
 
@@ -40,6 +42,8 @@ class LikesForAppsClient extends Component {
               <Scene key='main' component={MainView} />
             </Scene>
             <Scene key='purchaseLikes' component={PurchaseLikes} />
+            <Scene key='faq' component={FAQ} />
+            <Scene key='legal' component={Legal} />
           </Scene>
         </Router>
       </Provider>
