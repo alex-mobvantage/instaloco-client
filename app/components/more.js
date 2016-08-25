@@ -4,14 +4,18 @@ import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
+import { invalidateAccessToken } from '../actions/auth';
+
 class MoreLayout extends Component {
   render(){
+    let { dispatch } = this.props;
+
     return (
       <View style={styles.view}>
         <Button onPress={() => Actions.faq()}>FAQ</Button>
         <Button>Support</Button>
         <Button onPress={() => Actions.legal()}>Legal</Button>
-        <Button>Logout</Button>
+        <Button onPress={() => dispatch(invalidateAccessToken())}>Logout</Button>
       </View>
     );
   }

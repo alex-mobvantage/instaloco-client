@@ -38,9 +38,17 @@ export const savedAccessToken = (access_token) => {
   }
 };
 
-export const INVALIDATE_ACCESS_TOKEN = 'INVALIDATE_ACCESS_TOKEN';
 export const invalidateAccessToken = () => {
+  return (dispatch) => {
+    AsyncStorage.removeItem('access_token', (err) => {
+      dispatch(invalidatedAccessToken());
+    });
+  };
+};
+
+export const INVALIDATED_ACCESS_TOKEN = 'INVALIDATE_ACCESS_TOKEN';
+export const invalidatedAccessToken = () => {
   return {
-    type: INVALIDATE_ACCESS_TOKEN
+    type: INVALIDATED_ACCESS_TOKEN
   };
 };
