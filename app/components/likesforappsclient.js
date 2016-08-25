@@ -7,6 +7,7 @@ import { Scene, Router, Switch } from 'react-native-router-flux'
 
 import app from '../reducers';
 import accessTokenMiddleware from '../middleware/accesstoken';
+import errorMiddleware from '../middleware/error';
 
 import MainView from './mainview';
 import Login from './login';
@@ -21,7 +22,8 @@ let store = createStore(
   applyMiddleware(
     thunkMiddleware,
     createLogger(),
-    accessTokenMiddleware
+    accessTokenMiddleware,
+    errorMiddleware
   )
 );
 
