@@ -6,14 +6,8 @@ import Button from 'react-native-button';
 import NavBar from './navbar';
 
 import { purchaseLikes } from '../actions/likes';
-import { changeNavTitle } from '../actions/nav';
 
 class PurchaseLikesLayout extends Component {
-  componentDidMount(){
-    let { dispatch } = this.props;
-    dispatch(changeNavTitle('Get Likes'));
-  }
-
   render(){
     let { image_url, media_id, likes, coins_per_like, dispatch } = this.props;
     return (
@@ -38,7 +32,7 @@ class PurchaseLikesLayout extends Component {
   }
 
   static renderNavigationBar(navProps){
-    return <NavBar {...navProps} profileVisible={false} />;
+    return <NavBar {...navProps} title='Get likes' />;
   }
 }
 
