@@ -4,7 +4,7 @@ import { nextImage, images } from './images';
 import { navTitle } from './nav';
 import { user } from './user';
 import { config } from './config';
-import { purchase } from './purchase';
+import { products } from './purchase';
 
 const app = combineReducers({
   login,
@@ -13,7 +13,7 @@ const app = combineReducers({
   navTitle,
   user,
   config,
-  purchase
+  products
 });
 
 export default app;
