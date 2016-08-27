@@ -6,9 +6,11 @@ import Button from 'react-native-button';
 
 import NavBar from './navbar';
 
+import { purchaseCoins } from '../actions/purchase';
+
 class PurchaseCoinsLayout extends Component {
   render(){
-    let { products, media_id, image_url, likes } = this.props;
+    let { dispatch, products, media_id, image_url, likes } = this.props;
 
     return (
       <View style={styles.view}>
@@ -16,7 +18,7 @@ class PurchaseCoinsLayout extends Component {
           products.map((product) => (
             <View key={'product-' + product.identifier}>
               <Text>{product.title}</Text>
-              <Button>{product.priceString}</Button>
+              <Button onPress={() => dispatch(purchaseCoins(product.identifier))}>{product.priceString}</Button>
             </View>
           ))
         }
