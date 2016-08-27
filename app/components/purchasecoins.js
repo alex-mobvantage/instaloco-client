@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
+
+import NavBar from './navbar';
 
 class PurchaseCoinsLayout extends Component {
   render(){
-    let { products } = this.props;
+    let { products, media_id, image_url, likes } = this.props;
 
     return (
       <View style={styles.view}>
@@ -17,13 +20,17 @@ class PurchaseCoinsLayout extends Component {
             </View>
           ))
         }
+        <Button onPress={() => Actions.purchaseLikes({media_id, image_url, likes})}>Skip</Button>
       </View>
     );
+  }
+
+  static renderNavigationBar(navProps){
+    return <NavBar {...navProps} title='Bonus Coins' />;
   }
 }
 
 const mapStatesToProps = (state) => {
-  console.log(state);
   return {
     products: state.products
   }

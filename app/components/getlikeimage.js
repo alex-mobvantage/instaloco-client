@@ -7,7 +7,7 @@ const GetLikeImageLayout = React.createClass({
   render(){
     let { image_url, image_width, image_height, media_id, likes } = this.props;
     return (
-      <TouchableHighlight onPress={() => Actions.purchaseLikes({media_id, image_url, likes})}>
+      <TouchableHighlight onPress={() => Actions.purchaseCoins({media_id, image_url, likes})}>
         <View>
           <Image
             source={{uri: image_url}}
