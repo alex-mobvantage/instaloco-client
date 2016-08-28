@@ -1,5 +1,5 @@
 import { API_HOST } from '../constants';
-import { loadCoins } from './user';
+import { getCoins } from './user';
 import { NativeModules } from 'react-native'
 import { InAppUtils } from 'NativeModules'
 import qs from 'qs';
@@ -42,13 +42,18 @@ export const purchaseCoins = (identifier) => {
 };
 
 const transactionComplete = (transactionIdentifier) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    let { access_token } = getState().login;
+    if (!access_token){
+      return;
+    }
+
     InAppUtils.receiptData((error, receiptData) => {
-      fetch(API_HOST + '/purchase?' + qs.stringify({ transactionIdentifier, receiptData }))
+      fetch(API_HOST + '/purchase?' + qs.stringify({ transactionIdentifier, receiptData, access_token }), {method: 'POST'})
         .then(response => response.json().catch(err => {}))
         .then(data => {
           dispatch(purchasedCoins(data));
-          dispatch(loadCoins());
+          dispatch(getCoins());
         })
         .catch(err => console.log(err));
     });
