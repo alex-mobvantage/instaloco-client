@@ -1,28 +1,43 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 
+import { fetchOffers } from '../actions/offers';
+
+import Offer from './offer';
+
 class OfferWallLayout extends Component {
+  componentDidMount(){
+    let { dispatch } = this.props;
+    dispatch(fetchOffers());
+  }
+  
   render(){
     return (
-      <View style={styles.view}>
-        <Text style={styles.text}>Free coins</Text>
-      </View>
+      <ListView
+        dataSource={this.props.dataSource}
+        enableEmptySections={true}
+        renderRow={(rowData) => (
+          <Offer
+            id={rowData.id}
+            title={rowData.title}
+            image={rowData.image}
+            points={rowData.points}
+            description={rowData.description} />
+        )} />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  text: {
-    textAlign: 'center',
-    color: '#000000'
-  },
-  view: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
+const dataSourceFromOffers = (offers) => {
+  let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  return ds.cloneWithRows(offers || []);
+}
 
-export default OfferWall = connect()(OfferWallLayout);
+const mapStateToProps = (state) => {
+  return {
+    dataSource: dataSourceFromOffers(state.offers)
+  };
+};
+
+export default OfferWall = connect(mapStateToProps)(OfferWallLayout);

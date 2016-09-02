@@ -5,6 +5,7 @@ import { navTitle } from './nav';
 import { user } from './user';
 import { config } from './config';
 import { products } from './purchase';
+import { offers } from './offers';
 
 const app = combineReducers({
   login,
@@ -13,7 +14,8 @@ const app = combineReducers({
   navTitle,
   user,
   config,
-  products
+  products,
+  offers
 });
 
 export default app;
