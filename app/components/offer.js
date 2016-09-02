@@ -5,9 +5,9 @@ import { Actions } from 'react-native-router-flux';
 
 class OfferLayout extends Component {
   render(){
-    let { id, title, points, image, description, click_id } = this.props;
+    let { id, title, points, image, description, click_id, redirect_url } = this.props;
     return (
-      <TouchableOpacity onPress={() => Actions.offerDetails({ id, title, points, image, description, click_id })}>
+      <TouchableOpacity onPress={() => Actions.offerDetails({ id, title, points, image, description, click_id, redirect_url })}>
         <View style={{flex: 1, flexDirection: 'row'}}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             {image && <Image source={{uri: image}} style={{width: 50, height: 50}} />}

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Image, View, Text, StyleSheet } from 'react-native';
+import { Image, View, Text, StyleSheet, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 
 import NavBar from './navbar';
 
+import { beginOffer } from '../actions/offers';
+
 class OfferDetailsLayout extends Component {
   render(){
-    let { id, title, points, image, description, click_id } = this.props;
+    let { dispatch, id, title, points, image, description, click_id, redirect_url } = this.props;
 
     return (
       <View style={{flex: 1, marginTop: 70}}>
@@ -21,8 +23,8 @@ class OfferDetailsLayout extends Component {
           </View>
         </View>
         <Text>{description}</Text>
-        <Button disabled={!!click_id}>{click_id ? 'In progess' : 'Download'}</Button>
-        {click_id && <Button>Link not working? Click here to try again</Button>}
+        <Button disabled={!!click_id} onPress={() => dispatch(beginOffer(id, redirect_url))}>{click_id ? 'In progess' : 'Download'}</Button>
+        {click_id && <Button onPress={() => Linking.openURL(redirect_url)}>Link not working? Click here to try again</Button>}
         <Text>To Get Your Points...</Text>
         
         <Text>Download and test the app for 30-60 seconds</Text>

@@ -24,7 +24,8 @@ class OfferWallLayout extends Component {
             image={rowData.image}
             points={rowData.points}
             description={rowData.description}
-            click_id={rowData.click_id} />
+            click_id={rowData.click_id}
+            redirect_url={rowData.redirect_url} />
         )}
         style={{marginTop: 70}} />
     );
