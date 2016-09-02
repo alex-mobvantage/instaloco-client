@@ -7,13 +7,13 @@ import NavBar from './navbar';
 
 class OfferDetailsLayout extends Component {
   render(){
-    let { id, title, points, image, description } = this.props;
+    let { id, title, points, image, description, click_id } = this.props;
 
     return (
       <View style={{flex: 1, marginTop: 70}}>
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, flexDirection: 'row'}}>
-            <Image source={{uri: image}} style={{width: 50, height: 50}} />
+            {image && <Image source={{uri: image}} style={{width: 50, height: 50}} />}
             <Text>{title}</Text>
           </View>
           <View>
@@ -21,7 +21,8 @@ class OfferDetailsLayout extends Component {
           </View>
         </View>
         <Text>{description}</Text>
-        <Button>Download</Button>
+        <Button disabled={!!click_id}>{click_id ? 'In progess' : 'Download'}</Button>
+        {click_id && <Button>Link not working? Click here to try again</Button>}
         <Text>To Get Your Points...</Text>
         
         <Text>Download and test the app for 30-60 seconds</Text>

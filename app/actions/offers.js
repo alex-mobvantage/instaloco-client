@@ -1,3 +1,6 @@
+import { API_HOST } from '../constants';
+import qs from 'qs';
+
 export const fetchOffers = () => {
   return (dispatch, getState) => {
     let { access_token } = getState().login;
@@ -5,7 +8,7 @@ export const fetchOffers = () => {
       return;
     }
 
-    fetch('http://cashforapps.herokuapp.com/ping')
+    fetch(API_HOST + '/offers?' + qs.stringify({ access_token }))
       .then(response => response.json())
       .then(data => dispatch(fetchedOffers(data)))
       .catch(err => console.log(err));
