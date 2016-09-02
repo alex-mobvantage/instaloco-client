@@ -44,4 +44,10 @@ class OfferDetailsLayout extends Component {
   }
 }
 
-export default OfferDetails = connect()(OfferDetailsLayout);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    click_id: ownProps.click_id || state.offer.click_id
+  };
+};
+
+export default OfferDetails = connect(mapStateToProps)(OfferDetailsLayout);
