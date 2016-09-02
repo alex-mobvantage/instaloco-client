@@ -15,6 +15,7 @@ import PurchaseLikes from './purchaselikes';
 import FAQ from './faq';
 import Legal from './legal';
 import PurchaseCoins from './purchasecoins';
+import OfferDetails from './offerdetails';
 
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
@@ -50,6 +51,7 @@ class LikesForAppsClient extends Component {
             <Scene key='purchaseCoins' component={PurchaseCoins} />
             <Scene key='faq' component={FAQ} />
             <Scene key='legal' component={Legal} />
+            <Scene key='offerDetails' component={OfferDetails} />
           </Scene>
         </Router>
       </Provider>
