@@ -1,4 +1,6 @@
 import { API_HOST } from '../constants';
+import DeviceInfo from 'react-native-device-info';
+import qs from 'qs';
 
 export const getProfile = () => {
   return (dispatch, getState) => {
@@ -43,3 +45,26 @@ export const coinsReceived = (data) => {
     ...data
   };
 };
+
+export const saveDeviceInfo = () => {
+  return (dispatch, getState) => {
+    let { access_token } = getState().login;
+    if (!access_token){
+      return;
+    }
+
+    let device_os = DeviceInfo.getSystemVersion(),
+      device_kind = DeviceInfo.getModel();
+
+    fetch(API_HOST + '/user/device?' + qs.stringify({ access_token, device_os, device_kind }), {method: 'POST'})
+      .then(() => dispatch(savedDeviceInfo()))
+      .catch(err => console.log(err));
+  };
+};
+
+export const SAVED_DEVICE_INFO = 'SAVED_DEVICE_INFO';
+export const savedDeviceInfo = () => {
+  return {
+    type: SAVED_DEVICE_INFO
+  }
+}
