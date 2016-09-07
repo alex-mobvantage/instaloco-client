@@ -1,7 +1,7 @@
 import { API_HOST } from '../constants';
 import DeviceInfo from 'react-native-device-info';
 import qs from 'qs';
-import { AdSupportIOS } from 'react-native';
+import { AdSupportIOS, AsyncStorage, PushNotificationIOS } from 'react-native';
 
 export const getProfile = () => {
   return (dispatch, getState) => {
@@ -70,5 +70,46 @@ export const SAVED_DEVICE_INFO = 'SAVED_DEVICE_INFO';
 export const savedDeviceInfo = () => {
   return {
     type: SAVED_DEVICE_INFO
+  };
+};
+
+export const saveDeviceToken = (token) => {
+  return (dispatch, getState) => {
+    let { access_token } = getState().login;
+    if (!access_token){
+      return;
+    }
+
+    fetch(API_HOST + '/user/device_token?' + qs.stringify({ access_token, token }), {method: 'POST'})
+      .then(() => dispatch(savedDeviceToken(token)))
+      .catch(err => console.log(err));
+  };
+};
+
+export const SAVED_DEVICE_TOKEN = 'SAVED_DEVICE_TOKEN';
+export const savedDeviceToken = (token) => {
+  return {
+    type: SAVED_DEVICE_INFO,
+    token
+  };
+};
+
+export const refreshDeviceToken = () => {
+  return (dispatch) => {
+    AsyncStorage.getItem('push_notifications_enabled')
+      .then(enabled => {
+        if (enabled === 'true'){
+          PushNotificationIOS.requestPermissions({alert: true});
+        }
+      })
+      .then(() => dispatch(refreshedDeviceToken()))
+      .catch(err => console.log(err));
   }
 }
+
+export const REFRESHED_DEVICE_TOKEN = 'REFRESHED_DEVICE_TOKEN';
+export const refreshedDeviceToken = () => {
+  return {
+    type: REFRESHED_DEVICE_TOKEN
+  };
+};

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
 
-import { getProfile, getCoins, saveDeviceInfo } from '../actions/user';
+import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken } from '../actions/user';
 import { changeNavTitle } from '../actions/nav';
 
 import NavBar from './navbar';
@@ -19,6 +19,7 @@ class MainViewLayout extends Component {
     dispatch(getProfile());
     dispatch(getCoins());
     dispatch(saveDeviceInfo());
+    dispatch(refreshDeviceToken());
 
     // TODO: Get this value automatically
     dispatch(changeNavTitle('Earn coins'));

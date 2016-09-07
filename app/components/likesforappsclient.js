@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { Scene, Router, Switch } from 'react-native-router-flux'
+import { PushNotificationIOS } from 'react-native'
 
 import app from '../reducers';
 import accessTokenMiddleware from '../middleware/accesstoken';
@@ -19,6 +20,7 @@ import OfferDetails from './offerdetails';
 
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
+import { saveDeviceToken } from '../actions/user';
 
 let store = createStore(
   app,
@@ -34,6 +36,10 @@ store.dispatch(loadConfig());
 store.dispatch(loadProducts());
 
 class LikesForAppsClient extends Component {
+  componentDidMount(){
+    PushNotificationIOS.addEventListener('register', this.onPushNotificationRegistration.bind(this));
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -56,6 +62,11 @@ class LikesForAppsClient extends Component {
         </Router>
       </Provider>
     );
+  }
+
+  onPushNotificationRegistration(token){
+    let { dispatch } = this.props;
+    dispatch(saveDeviceToken(token));
   }
 }
 
