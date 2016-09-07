@@ -25,6 +25,7 @@
 		2BE6BCCCAB6447C5BB9525DA /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 311C3F2CC9704BBC88257772 /* libRNDeviceInfo.a */; };
 		5C328DFE1D808426003C590C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C328DFD1D808426003C590C /* AdSupport.framework */; };
 		5C328DFF1D8085A5003C590C /* libRCTAdSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C328DFC1D8083F5003C590C /* libRCTAdSupport.a */; };
+		5C328E061D809DCA003C590C /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C328E051D809DC3003C590C /* libRCTPushNotification.a */; };
 		6479C5C83EA24BC8B932EB4C /* libInAppUtils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BEA7046E19245659A1B8015 /* libInAppUtils.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -107,6 +108,13 @@
 			remoteGlobalIDString = 832C81801AAF6DEF007FA2F7;
 			remoteInfo = RCTAdSupport;
 		};
+		5C328E041D809DC3003C590C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C328E001D809DC3003C590C /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
 		5C54E9691D663A0F0085245B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5C54E9611D663A0F0085245B /* RCTLinking.xcodeproj */;
@@ -170,6 +178,7 @@
 		36ECDC388B9F4360A082E903 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		5C328DF71D8083F5003C590C /* RCTAdSupport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAdSupport.xcodeproj; path = "../node_modules/react-native/Libraries/AdSupport/RCTAdSupport.xcodeproj"; sourceTree = "<group>"; };
 		5C328DFD1D808426003C590C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		5C328E001D809DC3003C590C /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		5C54E9611D663A0F0085245B /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -188,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C328E061D809DCA003C590C /* libRCTPushNotification.a in Frameworks */,
 				5C328DFF1D8085A5003C590C /* libRCTAdSupport.a in Frameworks */,
 				5C328DFE1D808426003C590C /* AdSupport.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -319,6 +329,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5C328E011D809DC3003C590C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C328E051D809DC3003C590C /* libRCTPushNotification.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5C54E9621D663A0F0085245B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +365,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5C328E001D809DC3003C590C /* RCTPushNotification.xcodeproj */,
 				5C328DF71D8083F5003C590C /* RCTAdSupport.xcodeproj */,
 				5C54E9611D663A0F0085245B /* RCTLinking.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -497,6 +516,10 @@
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
 				},
 				{
+					ProductGroup = 5C328E011D809DC3003C590C /* Products */;
+					ProjectRef = 5C328E001D809DC3003C590C /* RCTPushNotification.xcodeproj */;
+				},
+				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
 					ProjectRef = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
 				},
@@ -598,6 +621,13 @@
 			fileType = archive.ar;
 			path = libRCTAdSupport.a;
 			remoteRef = 5C328DFB1D8083F5003C590C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5C328E051D809DC3003C590C /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = 5C328E041D809DC3003C590C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		5C54E96A1D663A0F0085245B /* libRCTLinking.a */ = {
@@ -767,6 +797,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-in-app-utils/InAppUtils",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = LikesForAppsClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -793,6 +824,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS",
 					"$(SRCROOT)/../node_modules/react-native-in-app-utils/InAppUtils",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 				);
 				INFOPLIST_FILE = LikesForAppsClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
