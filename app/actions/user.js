@@ -1,6 +1,7 @@
 import { API_HOST } from '../constants';
 import DeviceInfo from 'react-native-device-info';
 import qs from 'qs';
+import { AdSupportIOS } from 'react-native';
 
 export const getProfile = () => {
   return (dispatch, getState) => {
@@ -53,12 +54,15 @@ export const saveDeviceInfo = () => {
       return;
     }
 
-    let device_os = DeviceInfo.getSystemVersion(),
-      device_kind = DeviceInfo.getModel();
+    AdSupportIOS.getAdvertisingId(idfa => {
+      let device_os = DeviceInfo.getSystemVersion(),
+        device_kind = DeviceInfo.getModel();
 
-    fetch(API_HOST + '/user/device?' + qs.stringify({ access_token, device_os, device_kind }), {method: 'POST'})
-      .then(() => dispatch(savedDeviceInfo()))
-      .catch(err => console.log(err));
+      fetch(API_HOST + '/user/device?' + qs.stringify({ access_token, device_os, device_kind, idfa }), {method: 'POST'})
+        .then(() => dispatch(savedDeviceInfo()))
+        .catch(err => console.log(err));
+    },
+    err => console.log('error fetching idfa', err));
   };
 };
 
