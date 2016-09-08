@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { AppState, ListView } from 'react-native';
 import { connect } from 'react-redux';
 
 import { fetchOffers } from '../actions/offers';
@@ -8,8 +8,13 @@ import Offer from './offer';
 
 class OfferWallLayout extends Component {
   componentDidMount(){
-    let { dispatch } = this.props;
-    dispatch(fetchOffers());
+    this.fetchOffers();
+
+    AppState.addEventListener('change', this.onAppStateChange.bind(this));
+  }
+
+  componentWillUnmount(){
+    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
   }
   
   render(){
@@ -29,6 +34,17 @@ class OfferWallLayout extends Component {
         )}
         style={{marginTop: 70}} />
     );
+  }
+
+  onAppStateChange(currentState){
+    if (currentState === 'active'){
+      this.fetchOffers();
+    }
+  }
+
+  fetchOffers(){
+    let { dispatch } = this.props;
+    dispatch(fetchOffers());
   }
 }
 

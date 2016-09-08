@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Image, Text, View } from 'react-native';
+import { AppState, Image, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavBar } from 'react-native-router-flux';
+
+import { getCoins } from '../actions/user';
 
 class CustomNavBar extends NavBar {
   renderLeftButton(){
@@ -26,12 +28,27 @@ class CustomNavBar extends NavBar {
 }
 
 class NavBarLayout extends Component {
+  componentDidMount(){
+    AppState.addEventListener('change', this.onAppStateChange.bind(this));
+  }
+
+  componentWillUnmount(){
+    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
+  }
+
   render(){
     return (
       <CustomNavBar 
         {...this.props}
         getTitle={() => this.props.title} />
     );
+  }
+
+  onAppStateChange(currentState){
+    if (currentState === 'active'){
+      let { dispatch } = this.props;
+      dispatch(getCoins());
+    }
   }
 }
 
