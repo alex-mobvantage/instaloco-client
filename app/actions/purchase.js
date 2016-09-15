@@ -57,6 +57,8 @@ const transactionComplete = (transactionIdentifier) => {
       return;
     }
 
+    dispatch(beginTransactionComplete());
+
     InAppUtils.receiptData((error, receiptData) => {
       fetch(API_HOST + '/purchase?' + qs.stringify({ transactionIdentifier, receiptData, access_token }), {method: 'POST'})
         .then(response => response.json().catch(err => {}))
@@ -66,6 +68,13 @@ const transactionComplete = (transactionIdentifier) => {
         })
         .catch(unexpectedError);
     });
+  };
+};
+
+export const BEGIN_TRANSACTION_COMPLETE = 'BEGIN_TRANSACTION_COMPLETE';
+export const beginTransactionComplete = () => {
+  return {
+    type: BEGIN_TRANSACTION_COMPLETE
   };
 };
 

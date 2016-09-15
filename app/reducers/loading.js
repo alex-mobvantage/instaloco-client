@@ -17,6 +17,8 @@ import {
   BEGIN_OFFER_START, BEGAN_OFFER
 } from '../actions/offers';
 
+import { BEGIN_TRANSACTION_COMPLETE, PURCHASED_COINS } from '../actions/purchase';
+
 export const loading = (state, action) => {
   if (!state){
     state = {
@@ -25,7 +27,8 @@ export const loading = (state, action) => {
       getLikes: false,
       purchaseLikes: false,
       offerwall: false,
-      offerDetails: false
+      offerDetails: false,
+      purchaseCoins: false
     }
   }
 
@@ -83,6 +86,14 @@ export const loading = (state, action) => {
     case BEGAN_OFFER:
       return Object.assign({}, state, {
         offerDetails: false
+      });
+    case BEGIN_TRANSACTION_COMPLETE:
+      return Object.assign({}, state, {
+        purchaseCoins: true
+      });
+    case PURCHASED_COINS:
+      return Object.assign({}, state, {
+        purchaseCoins: false
       });
     default:
       return state;

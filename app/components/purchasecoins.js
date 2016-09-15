@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import NavBar from './navbar';
 
@@ -10,10 +11,11 @@ import { purchaseCoins } from '../actions/purchase';
 
 class PurchaseCoinsLayout extends Component {
   render(){
-    let { dispatch, products, media_id, image_url, likes } = this.props;
+    let { loading, dispatch, products, media_id, image_url, likes } = this.props;
 
     return (
       <View style={styles.view}>
+        <Spinner visible={loading} />
         {
           products.map((product) => (
             <View key={'product-' + product.identifier}>
@@ -34,7 +36,8 @@ class PurchaseCoinsLayout extends Component {
 
 const mapStatesToProps = (state) => {
   return {
-    products: state.products
+    products: state.products,
+    loading: state.loading.purchaseCoins
   }
 };
 
