@@ -1,10 +1,21 @@
-import { BEGIN_PURCHASE_FOLLOWERS, PURCHASED_FOLLOWERS, BEGIN_FOLLOW, FOLLOWED } from '../actions/followers';
+import { 
+  BEGIN_PURCHASE_FOLLOWERS, PURCHASED_FOLLOWERS,
+  BEGIN_FOLLOW, FOLLOWED
+} from '../actions/followers';
+
+import {
+  BEGIN_LOADING_IMAGES, LOADED_IMAGES,
+  BEGIN_LOAD_NEXT_IMAGE, LOADED_NEXT_IMAGE,
+  BEGIN_LIKE_IMAGE, LIKED_IMAGE,
+  BEGIN_SKIP_IMAGE, SKIPPED_IMAGE
+} from '../actions/images';
 
 export const loading = (state, action) => {
   if (!state){
     state = {
       getFollowers: false,
-      getCoins: false
+      getCoins: false,
+      getLikes: false
     }
   }
 
@@ -18,12 +29,26 @@ export const loading = (state, action) => {
         getFollowers: false
       });
     case BEGIN_FOLLOW:
+    case BEGIN_LOAD_NEXT_IMAGE:
+    case BEGIN_LIKE_IMAGE:
+    case BEGIN_SKIP_IMAGE:
       return Object.assign({}, state, {
         getCoins: true
       });
     case FOLLOWED:
+    case LOADED_NEXT_IMAGE:
+    case LIKED_IMAGE:
+    case SKIPPED_IMAGE:
       return Object.assign({}, state, {
         getCoins: false
+      });
+    case BEGIN_LOADING_IMAGES:
+      return Object.assign({}, state, {
+        getLikes: true
+      });
+    case LOADED_IMAGES:
+      return Object.assign({}, state, {
+        getLikes: false
       });
     default:
       return state;

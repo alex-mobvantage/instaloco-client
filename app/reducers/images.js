@@ -1,4 +1,4 @@
-import { LOADED_IMAGES, RECEIVED_NEXT_IMAGE } from '../actions/images';
+import { LOADED_IMAGES, LOADED_NEXT_IMAGE } from '../actions/images';
 import { FOLLOWED } from '../actions/followers';
 
 export const images = (state = {images: [], canLoadMore: true}, action) => {
@@ -15,7 +15,7 @@ export const images = (state = {images: [], canLoadMore: true}, action) => {
 
 export const nextImage = (state = {}, action) => {
   switch (action.type){
-    case RECEIVED_NEXT_IMAGE:
+    case LOADED_NEXT_IMAGE:
       return Object.assign({}, state, {
         image_url: action.image_url,
         media_id: action.media_id,
