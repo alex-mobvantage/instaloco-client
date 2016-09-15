@@ -10,12 +10,15 @@ import {
   BEGIN_SKIP_IMAGE, SKIPPED_IMAGE
 } from '../actions/images';
 
+import { BEGIN_PURCHASE_LIKES, PURCHASED_LIKES } from '../actions/likes';
+
 export const loading = (state, action) => {
   if (!state){
     state = {
       getFollowers: false,
       getCoins: false,
-      getLikes: false
+      getLikes: false,
+      purchaseLikes: false
     }
   }
 
@@ -49,6 +52,14 @@ export const loading = (state, action) => {
     case LOADED_IMAGES:
       return Object.assign({}, state, {
         getLikes: false
+      });
+    case BEGIN_PURCHASE_LIKES:
+      return Object.assign({}, state, {
+        purchaseLikes: true
+      });
+    case PURCHASED_LIKES:
+      return Object.assign({}, state, {
+        purchaseLikes: false
       });
     default:
       return state;
