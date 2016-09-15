@@ -34,7 +34,7 @@ class MainViewLayout extends Component {
         <GetCoins tabLabel='Earn coins' />
         <GetLikes tabLabel='Get likes' />
         <GetFollowers tabLabel='Get followers' />
-        <OfferWall tabLabel='Free coins' />
+        {this.props.offerwallEnabled && <OfferWall tabLabel='Free coins' />}
         <More tabLabel='More' />
       </ScrollableTabView>
     );
@@ -55,4 +55,10 @@ class MainViewLayout extends Component {
   }
 };
 
-export default MainView = connect()(MainViewLayout);
+const mapStateToProps = (state) => {
+  return {
+    offerwallEnabled: state.offerwallEnabled
+  };
+};
+
+export default MainView = connect(mapStateToProps)(MainViewLayout);
