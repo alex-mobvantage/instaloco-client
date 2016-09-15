@@ -1,20 +1,29 @@
-import { BEGIN_PURCHASE_FOLLOWERS, PURCHASED_FOLLOWERS } from '../actions/followers';
+import { BEGIN_PURCHASE_FOLLOWERS, PURCHASED_FOLLOWERS, BEGIN_FOLLOW, FOLLOWED } from '../actions/followers';
 
 export const loading = (state, action) => {
   if (!state){
     state = {
-      followers: false
+      getFollowers: false,
+      getCoins: false
     }
   }
 
   switch (action.type){
     case BEGIN_PURCHASE_FOLLOWERS:
       return Object.assign({}, state, {
-        followers: true
+        getFollowers: true
       });
     case PURCHASED_FOLLOWERS:
       return Object.assign({}, state, {
-        followers: false
+        getFollowers: false
+      });
+    case BEGIN_FOLLOW:
+      return Object.assign({}, state, {
+        getCoins: true
+      });
+    case FOLLOWED:
+      return Object.assign({}, state, {
+        getCoins: false
       });
     default:
       return state;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import { nextImage, likeImage, skipImage } from '../actions/images';
 import { follow } from '../actions/followers';
@@ -32,10 +33,11 @@ const GetCoinsLayout = React.createClass({
   },
 
   render(){
-    let { image_url, media_id, can_follow, user_id } = this.props;
+    let { loading, image_url, media_id, can_follow, user_id } = this.props;
 
     return (
       <View style={styles.view}>
+        <Spinner visible={loading} />
         {
           image_url
           ? <ImageDisplay
@@ -51,7 +53,10 @@ const GetCoinsLayout = React.createClass({
 });
 
 const mapStateToProps = (state) => {
-  return state.nextImage;
+  return {
+    ...state.nextImage,
+    loading: state.loading.getCoins
+  };
 };
 
 const styles = StyleSheet.create({

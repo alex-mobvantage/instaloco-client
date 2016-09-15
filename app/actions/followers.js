@@ -44,6 +44,8 @@ export const follow = (user_id) => {
       return;
     }
 
+    dispatch(beginFollow());
+
     fetch(API_HOST + '/followers/follow?' + qs.stringify({ access_token, user_id }), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => {
@@ -51,6 +53,13 @@ export const follow = (user_id) => {
         dispatch(getCoins());
       })
       .catch(unexpectedError);
+  };
+};
+
+export const BEGIN_FOLLOW = 'BEGIN_FOLLOW';
+export const beginFollow = () => {
+  return {
+    type: BEGIN_FOLLOW
   };
 };
 

@@ -52,7 +52,7 @@ const mapStateToProps = (state) => {
     followers: state.user.profile.counts.followed_by,
     following: state.user.profile.counts.follows,
     coins_per_follower: state.config.coins_per_follower,
-    loading: state.loading.followers
+    loading: state.loading.getFollowers
   }
 }
 
