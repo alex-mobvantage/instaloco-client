@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
-import Spinner from 'react-native-loading-spinner-overlay';
+
+import Spinner from './spinner';
 
 import { nextImage, likeImage, skipImage } from '../actions/images';
 import { follow } from '../actions/followers';
@@ -37,7 +38,6 @@ const GetCoinsLayout = React.createClass({
 
     return (
       <View style={styles.view}>
-        <Spinner visible={loading} />
         {
           image_url
           ? <ImageDisplay
@@ -47,6 +47,7 @@ const GetCoinsLayout = React.createClass({
               user_id={user_id} />
           : <Text>There are currently no images to like. Check back later</Text>
         }
+        {loading && <Spinner />}
       </View>
     );
   }

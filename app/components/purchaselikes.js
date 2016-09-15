@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
-import Spinner from 'react-native-loading-spinner-overlay';
 
+import Spinner from './spinner';
 import NavBar from './navbar';
 
 import { purchaseLikes } from '../actions/likes';
@@ -13,7 +13,6 @@ class PurchaseLikesLayout extends Component {
     let { loading, image_url, media_id, likes, coins_per_like, dispatch } = this.props;
     return (
       <View style={styles.view}>
-        <Spinner visible={loading} />
         <Image 
           source={{uri: image_url}}
           style={{width: 150, height: 150}} />
@@ -29,6 +28,7 @@ class PurchaseLikesLayout extends Component {
             </View>
           ))
         }
+        {loading && <Spinner />}
       </View>
     );
   }

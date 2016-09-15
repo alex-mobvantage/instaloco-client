@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
-import Spinner from 'react-native-loading-spinner-overlay';
 
+import Spinner from './spinner';
 import NavBar from './navbar';
 
 import { purchaseCoins } from '../actions/purchase';
@@ -15,7 +15,6 @@ class PurchaseCoinsLayout extends Component {
 
     return (
       <View style={styles.view}>
-        <Spinner visible={loading} />
         {
           products.map((product) => (
             <View key={'product-' + product.identifier}>
@@ -25,6 +24,7 @@ class PurchaseCoinsLayout extends Component {
           ))
         }
         <Button onPress={() => Actions.purchaseLikes({media_id, image_url, likes})}>Skip</Button>
+        {loading && <Spinner />}
       </View>
     );
   }

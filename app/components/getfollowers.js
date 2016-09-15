@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
-import Spinner from 'react-native-loading-spinner-overlay';
+
+import Spinner from './spinner';
 
 import { purchaseFollowers } from '../actions/followers';
 
@@ -12,7 +13,6 @@ class GetFollowersLayout extends Component {
 
     return (
       <View style={styles.view}>
-        <Spinner visible={loading} />
         <Image
           source={{uri: profile_image}}
           style={{width: 150, height: 150}} />
@@ -28,6 +28,7 @@ class GetFollowersLayout extends Component {
             ))
           }
         </View>
+        {loading && <Spinner />}
       </View>
     );
   }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { AppState, ListView, View } from 'react-native';
 import { connect } from 'react-redux';
-import Spinner from 'react-native-loading-spinner-overlay';
 
 import { fetchOffers } from '../actions/offers';
 
+import Spinner from './spinner';
 import Offer from './offer';
 
 class OfferWallLayout extends Component {
@@ -20,8 +20,7 @@ class OfferWallLayout extends Component {
   
   render(){
     return (
-      <View>
-        <Spinner visible={this.props.loading} />
+      <View style={{flex: 1}}>
         <ListView
           dataSource={this.props.dataSource}
           enableEmptySections={true}
@@ -36,6 +35,7 @@ class OfferWallLayout extends Component {
               redirect_url={rowData.redirect_url} />
           )}
           style={{marginTop: 70}} />
+        {this.props.loading && <Spinner />}
       </View>
     );
   }

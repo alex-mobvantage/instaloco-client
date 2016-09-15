@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, ListView, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, ListView, View } from 'react-native';
 import { connect } from 'react-redux';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import Spinner from 'react-native-loading-spinner-overlay';
 
 import { loadImages } from '../actions/images';
 
+import Spinner from './spinner';
 import GetLikeImage from './getlikeimage';
 
 const GetLikesLayout = React.createClass({
   render(){
     return (
-      <View>
-        <Spinner visible={this.props.loading} />
+      <View style={{flex: 1}}>
         <ListView
           contentContainerStyle={styles.list}
           dataSource={this.props.dataSource}
@@ -28,6 +27,7 @@ const GetLikesLayout = React.createClass({
               media_id={rowData.id}
               likes={rowData.likes.count} />
           )} />
+        {this.props.loading && <Spinner />}
         </View>
     );
   },

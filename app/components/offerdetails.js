@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
-import Spinner from 'react-native-loading-spinner-overlay';
 
+import Spinner from './spinner';
 import NavBar from './navbar';
 
 import { beginOffer } from '../actions/offers';
@@ -14,7 +14,6 @@ class OfferDetailsLayout extends Component {
 
     return (
       <View style={{flex: 1, marginTop: 70}}>
-        <Spinner visible={loading} />
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             {image && <Image source={{uri: image}} style={{width: 50, height: 50}} />}
@@ -37,6 +36,7 @@ class OfferDetailsLayout extends Component {
 
         <Text>Can I remove the app from my device?</Text>
         <Text>Yep - be sure you have earned your points first</Text>
+        {loading && <Spinner />}
       </View>
     );
   }
