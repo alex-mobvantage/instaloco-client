@@ -11,11 +11,20 @@ export const fetchOffers = () => {
       return;
     }
 
+    dispatch(beginFetchOffers());
+
     fetch(API_HOST + '/offers?' + qs.stringify({ access_token }))
       .then(response => response.json())
       .then(data => dispatch(fetchedOffers(data)))
       .catch(unexpectedError);
   }
+};
+
+export const BEGIN_FETCH_OFFERS = 'BEGIN_FETCH_OFFERS';
+export const beginFetchOffers = () => {
+  return {
+    type: BEGIN_FETCH_OFFERS
+  };
 };
 
 export const FETCHED_OFFERS = 'FETCHED_OFFERS';
@@ -56,6 +65,7 @@ export const beginOffer = (offer_id, redirect_url) => {
     }
 
     requestPushPermissions()
+      .then(() => dispatch(startBeginOffer()))
       .then(() => fetch(API_HOST + '/offers/begin?' + qs.stringify({ access_token, offer_id }), {method: 'POST'}))
       .then(response => response.json().catch(err => {}))
       .then(data => {
@@ -102,6 +112,13 @@ const requestPushPermissions = () => {
         .catch(err => console.log('error requesting permissions', err));
       }
     });
+};
+
+export const BEGIN_OFFER_START = 'BEGIN_OFFER_START';
+export const startBeginOffer = () => {
+  return {
+    type: BEGIN_OFFER_START
+  };
 };
 
 export const BEGAN_OFFER = 'BEGAN_OFFER';

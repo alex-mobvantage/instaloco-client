@@ -12,13 +12,19 @@ import {
 
 import { BEGIN_PURCHASE_LIKES, PURCHASED_LIKES } from '../actions/likes';
 
+import {
+  BEGIN_FETCH_OFFERS, FETCHED_OFFERS,
+  BEGIN_OFFER_START, BEGAN_OFFER
+} from '../actions/offers';
+
 export const loading = (state, action) => {
   if (!state){
     state = {
       getFollowers: false,
       getCoins: false,
       getLikes: false,
-      purchaseLikes: false
+      purchaseLikes: false,
+      offerwall: false
     }
   }
 
@@ -60,6 +66,16 @@ export const loading = (state, action) => {
     case PURCHASED_LIKES:
       return Object.assign({}, state, {
         purchaseLikes: false
+      });
+    case BEGIN_FETCH_OFFERS:
+    case BEGIN_OFFER_START:
+      return Object.assign({}, state, {
+        offerwall: true
+      });
+    case FETCHED_OFFERS:
+    case BEGAN_OFFER:
+      return Object.assign({}, state, {
+        offerwall: false
       });
     default:
       return state;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { AppState, ListView } from 'react-native';
+import { AppState, ListView, View } from 'react-native';
 import { connect } from 'react-redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import { fetchOffers } from '../actions/offers';
 
@@ -19,20 +20,23 @@ class OfferWallLayout extends Component {
   
   render(){
     return (
-      <ListView
-        dataSource={this.props.dataSource}
-        enableEmptySections={true}
-        renderRow={(rowData) => (
-          <Offer
-            id={rowData.id}
-            title={rowData.title}
-            image={rowData.image}
-            points={rowData.points}
-            description={rowData.description}
-            click_id={rowData.click_id}
-            redirect_url={rowData.redirect_url} />
-        )}
-        style={{marginTop: 70}} />
+      <View>
+        <Spinner visible={this.props.loading} />
+        <ListView
+          dataSource={this.props.dataSource}
+          enableEmptySections={true}
+          renderRow={(rowData) => (
+            <Offer
+              id={rowData.id}
+              title={rowData.title}
+              image={rowData.image}
+              points={rowData.points}
+              description={rowData.description}
+              click_id={rowData.click_id}
+              redirect_url={rowData.redirect_url} />
+          )}
+          style={{marginTop: 70}} />
+      </View>
     );
   }
 
@@ -55,7 +59,8 @@ const dataSourceFromOffers = (offers) => {
 
 const mapStateToProps = (state) => {
   return {
-    dataSource: dataSourceFromOffers(state.offers)
+    dataSource: dataSourceFromOffers(state.offers),
+    loading: state.loading.offerwall
   };
 };
 
