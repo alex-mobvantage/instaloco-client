@@ -1,6 +1,16 @@
 import { COINS_RECEIVED, PROFILE_RECEIVED } from '../actions/user';
 
-export const user = (state = {coins: 0, profile: {image_url: ''}}, action) => {
+export const user = (state = {
+    coins: 0,
+    profile: {
+      image_url: '',
+      counts: {
+        followed_by: 0,
+        following: 0
+      }
+    }
+}, 
+action) => {
   switch (action.type){
     case COINS_RECEIVED:
       return Object.assign({}, state, {
