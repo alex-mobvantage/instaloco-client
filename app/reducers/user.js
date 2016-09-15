@@ -3,7 +3,7 @@ import { COINS_RECEIVED, PROFILE_RECEIVED } from '../actions/user';
 export const user = (state = {
     coins: 0,
     profile: {
-      image_url: '',
+      profile_picture: '',
       counts: {
         followed_by: 0,
         following: 0
