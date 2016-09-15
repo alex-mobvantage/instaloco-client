@@ -1,4 +1,5 @@
 import { API_HOST } from '../constants';
+import { unexpectedError } from '../utils';
 import qs from 'qs';
 
 export const LOAD_IMAGES = 'LOAD_IMAGES';
@@ -12,9 +13,7 @@ export const loadImages = (last_media_id) => {
     fetch(API_HOST + '/images?' + qs.stringify({ access_token, last_media_id }))
       .then(response => response.json())
       .then(images => dispatch(loadedImages(images)))
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(unexpectedError);
   };
 };
 
@@ -36,7 +35,7 @@ export const nextImage = () => {
     fetch(API_HOST + '/image?' + qs.stringify({ access_token }))
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(receivedNextImage(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   }
 };
 
@@ -58,7 +57,7 @@ export const likeImage = (media_id) => {
     fetch(API_HOST + '/images/like?' + qs.stringify({access_token, media_id}), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(likedImage(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   }
 };
 
@@ -83,7 +82,7 @@ export const skipImage = (media_id) => {
     fetch(API_HOST + '/images/skip?' + qs.stringify({access_token, media_id}), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(skippedImage(data)))
-      .catch(err => console.log(err));    
+      .catch(unexpectedError);
   }
 };
 

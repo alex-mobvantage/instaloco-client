@@ -1,4 +1,5 @@
 import { API_HOST } from '../constants';
+import { unexpectedError } from '../utils';
 import DeviceInfo from 'react-native-device-info';
 import qs from 'qs';
 import { AdSupportIOS, AsyncStorage, PushNotificationIOS } from 'react-native';
@@ -13,7 +14,7 @@ export const getProfile = () => {
     fetch(API_HOST + '/user/profile?access_token=' + access_token)
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(profileReceived(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   };
 };
 
@@ -35,7 +36,7 @@ export const getCoins = () => {
     fetch(API_HOST + '/user/coins?access_token=' + access_token)
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(coinsReceived(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   };
 };
 
@@ -62,7 +63,7 @@ export const saveDeviceInfo = () => {
         .then(() => dispatch(savedDeviceInfo()))
         .catch(err => console.log(err));
     },
-    err => console.log('error fetching idfa', err));
+    unexpectedError);
   };
 };
 
@@ -82,7 +83,7 @@ export const saveDeviceToken = (token) => {
 
     fetch(API_HOST + '/user/device_token?' + qs.stringify({ access_token, token }), {method: 'POST'})
       .then(() => dispatch(savedDeviceToken(token)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   };
 };
 
@@ -103,7 +104,7 @@ export const refreshDeviceToken = () => {
         }
       })
       .then(() => dispatch(refreshedDeviceToken()))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   }
 }
 

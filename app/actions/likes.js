@@ -1,4 +1,5 @@
 import { API_HOST } from '../constants';
+import { unexpectedError } from '../utils';
 import qs from 'qs';
 
 import { getCoins } from './user';
@@ -15,7 +16,7 @@ export const purchaseLikes = (media_id, image_url, likes) => {
       dispatch(purchasedLikes(data));
       dispatch(getCoins());
     })
-    .catch(err => console.log(err));
+    .catch(unexpectedError);
   }
 };
 

@@ -1,11 +1,12 @@
 import { API_HOST } from '../constants';
+import { unexpectedError } from '../utils';
 
 export const loadConfig = () => {
   return (dispatch) => {
     fetch(API_HOST + '/config')
       .then(response => response.json())
       .then(data => dispatch(configReceived(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   };
 };
 

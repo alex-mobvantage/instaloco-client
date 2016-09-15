@@ -1,4 +1,5 @@
 import { API_HOST } from '../constants';
+import { unexpectedError } from '../utils';
 import { getCoins } from './user';
 import { NativeModules } from 'react-native'
 import { InAppUtils } from 'NativeModules'
@@ -9,13 +10,18 @@ export const loadProducts = () => {
     fetch(API_HOST + '/products')
       .then(response => response.json())
       .then(data => dispatch(loadedProductIdentifiers(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   };
 };
 
 export const loadedProductIdentifiers = (ids) => {
   return (dispatch) => {
     InAppUtils.loadProducts(ids, (err, products) => {
+      if (err){
+        unexpectedError(err);
+        return;
+      }
+
       dispatch(loadedProducts(products));
     });
   };
@@ -32,7 +38,10 @@ export const loadedProducts = (data) => {
 export const purchaseCoins = (identifier) => {
   return (dispatch) => {
     InAppUtils.purchaseProduct(identifier, (error, response) => {
-      console.log(error, response);
+      if (error){
+        unexpectedError(error);
+        return;
+      }
 
       if (response && response.productIdentifier && response.transactionIdentifier){
         dispatch(transactionComplete(response.transactionIdentifier));
@@ -55,7 +64,7 @@ const transactionComplete = (transactionIdentifier) => {
           dispatch(purchasedCoins(data));
           dispatch(getCoins());
         })
-        .catch(err => console.log(err));
+        .catch(unexpectedError);
     });
   };
 };

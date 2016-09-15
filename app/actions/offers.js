@@ -1,4 +1,5 @@
 import { API_HOST } from '../constants';
+import { unexpectedError } from '../utils';
 import qs from 'qs';
 import { Alert, AsyncStorage, Linking, PushNotificationIOS } from 'react-native';
 import Promise from 'bluebird';
@@ -13,7 +14,7 @@ export const fetchOffers = () => {
     fetch(API_HOST + '/offers?' + qs.stringify({ access_token }))
       .then(response => response.json())
       .then(data => dispatch(fetchedOffers(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   }
 };
 
@@ -35,7 +36,7 @@ export const fetchOffer = (id) => {
     fetch(API_HOST + '/offer/' + id + '?' + qs.stringify({ access_token }))
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(fetchedOffer(data)))
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   }
 }
 
@@ -62,7 +63,7 @@ export const beginOffer = (offer_id, redirect_url) => {
         dispatch(fetchOffer(offer_id));
         dispatch(beganOffer(data));
       })
-      .catch(err => console.log(err));
+      .catch(unexpectedError);
   };
 };
 
