@@ -6,6 +6,7 @@ import { user } from './user';
 import { config } from './config';
 import { products } from './purchase';
 import { offer, offers } from './offers';
+import { loading } from './loading';
 
 const app = combineReducers({
   login,
@@ -16,7 +17,8 @@ const app = combineReducers({
   config,
   products,
   offer,
-  offers
+  offers,
+  loading
 });
 
 export default app;

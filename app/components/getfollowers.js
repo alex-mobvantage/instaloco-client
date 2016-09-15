@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import { purchaseFollowers } from '../actions/followers';
 
 class GetFollowersLayout extends Component {
   render(){
-    let { profile_image, followers, following, coins_per_follower, dispatch } = this.props;
+    let { loading, profile_image, followers, following, coins_per_follower, dispatch } = this.props;
 
     return (
       <View style={styles.view}>
+        <Spinner visible={loading} />
         <Image
           source={{uri: profile_image}}
           style={{width: 150, height: 150}} />
@@ -49,7 +51,8 @@ const mapStateToProps = (state) => {
     profile_image: state.user.profile.profile_picture,
     followers: state.user.profile.counts.followed_by,
     following: state.user.profile.counts.follows,
-    coins_per_follower: state.config.coins_per_follower
+    coins_per_follower: state.config.coins_per_follower,
+    loading: state.loading.followers
   }
 }
 

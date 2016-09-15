@@ -10,6 +10,8 @@ export const purchaseFollowers = (followers) => {
       return;
     }
 
+    dispatch(beginPurchaseFollowers());
+
     fetch(API_HOST + '/followers/get?' + qs.stringify({ access_token, followers }), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => {
@@ -17,6 +19,13 @@ export const purchaseFollowers = (followers) => {
         dispatch(getCoins());
       })
       .catch(unexpectedError);
+  };
+};
+
+export const BEGIN_PURCHASE_FOLLOWERS = 'BEGIN_PURCHASE_FOLLOWERS';
+export const beginPurchaseFollowers = () => {
+  return {
+    type: BEGIN_PURCHASE_FOLLOWERS
   };
 };
 
