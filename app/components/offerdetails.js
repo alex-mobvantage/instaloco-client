@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import NavBar from './navbar';
 
@@ -9,10 +10,11 @@ import { beginOffer } from '../actions/offers';
 
 class OfferDetailsLayout extends Component {
   render(){
-    let { dispatch, id, title, points, image, description, click_id, redirect_url } = this.props;
+    let { loading, dispatch, id, title, points, image, description, click_id, redirect_url } = this.props;
 
     return (
       <View style={{flex: 1, marginTop: 70}}>
+        <Spinner visible={loading} />
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1, flexDirection: 'row'}}>
             {image && <Image source={{uri: image}} style={{width: 50, height: 50}} />}
@@ -46,7 +48,8 @@ class OfferDetailsLayout extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    click_id: ownProps.click_id || state.offer.click_id
+    click_id: ownProps.click_id || state.offer.click_id,
+    loading: state.loading.offerDetails
   };
 };
 

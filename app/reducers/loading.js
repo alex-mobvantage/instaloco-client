@@ -24,7 +24,8 @@ export const loading = (state, action) => {
       getCoins: false,
       getLikes: false,
       purchaseLikes: false,
-      offerwall: false
+      offerwall: false,
+      offerDetails: false
     }
   }
 
@@ -68,14 +69,20 @@ export const loading = (state, action) => {
         purchaseLikes: false
       });
     case BEGIN_FETCH_OFFERS:
-    case BEGIN_OFFER_START:
       return Object.assign({}, state, {
         offerwall: true
       });
     case FETCHED_OFFERS:
-    case BEGAN_OFFER:
       return Object.assign({}, state, {
         offerwall: false
+      });
+    case BEGIN_OFFER_START:
+      return Object.assign({}, state, {
+        offerDetails: true
+      });
+    case BEGAN_OFFER:
+      return Object.assign({}, state, {
+        offerDetails: false
       });
     default:
       return state;
