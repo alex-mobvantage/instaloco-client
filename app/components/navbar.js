@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { AppState, Image, Text, View } from 'react-native';
+import { AppState, Image, Text, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavBar } from 'react-native-router-flux';
 
 import { getCoins } from '../actions/user';
+
+import * as colors from '../styles/colors';
 
 class CustomNavBar extends NavBar {
   renderLeftButton(){
@@ -12,7 +14,7 @@ class CustomNavBar extends NavBar {
         this.props.profile_image
         ? <Image
             source={{uri: this.props.profile_image}}
-            style={{width: 50, height: 50, left: 10, top: 10}} />
+            style={styles.profileImage} />
         : null
       );
     } else {
@@ -22,7 +24,10 @@ class CustomNavBar extends NavBar {
 
   renderRightButton(){
     return (
-      <Text style={{position: 'absolute', right: 10, top: 22}}>{this.props.coins}</Text>
+      <View style={styles.coinContainer}>
+        <Text style={styles.coinText}>{this.props.coins}</Text>
+        <Image source={require('../resources/coins.png')} style={styles.coinImage} />
+      </View>
     );
   }
 }
@@ -40,7 +45,9 @@ class NavBarLayout extends Component {
     return (
       <CustomNavBar 
         {...this.props}
-        getTitle={() => this.props.title} />
+        getTitle={() => this.props.title}
+        navigationBarStyle={styles.nav}
+        titleStyle={styles.navTitle} />
     );
   }
 
@@ -59,5 +66,40 @@ const mapStateToProps = (state, ownProps) => {
     profile_image: state.user.profile.profile_picture
   };
 };
+
+const styles = StyleSheet.create({
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    left: 10,
+    top: 7
+  },
+  nav: {
+    backgroundColor: colors.primary,
+    borderBottomColor: colors.primaryDarker
+  },
+  navTitle: {
+    color: 'white',
+    fontWeight: '500'
+  },
+  coinText: {
+    color: colors.coins,
+    fontWeight: '500'
+  },
+  coinImage: {
+    width: 20,
+    height: 20,
+    resizeMode: 'cover',
+    marginLeft: 5
+  },
+  coinContainer: {
+    position: 'absolute',
+    right: 10,
+    top: 30,
+    flex: 1,
+    flexDirection: 'row'
+  }
+})
 
 export default connect(mapStateToProps)(NavBarLayout);

@@ -7,7 +7,7 @@ export const containers = StyleSheet.create({
   },
   
   tabbed: {
-    marginTop: 60
+    marginTop: 64
   },
 
   centered: {
