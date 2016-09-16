@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, StyleSheet, ListView, View } from 'react-native';
+import { ActivityIndicator, Dimensions, ListView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 
@@ -8,10 +8,13 @@ import { loadImages } from '../actions/images';
 import Spinner from './spinner';
 import GetLikeImage from './getlikeimage';
 
+import * as commonStyles from '../styles/common';
+
 const GetLikesLayout = React.createClass({
   render(){
+    let image_width = Dimensions.get('window').width / 3;
     return (
-      <View style={{flex: 1}}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.tabbed]}>
         <ListView
           contentContainerStyle={styles.list}
           dataSource={this.props.dataSource}
@@ -22,8 +25,8 @@ const GetLikesLayout = React.createClass({
           renderRow={(rowData) => (
             <GetLikeImage
               image_url={rowData.images.thumbnail.url}
-              image_width={150}
-              image_height={150}
+              image_width={image_width}
+              image_height={image_width}
               media_id={rowData.id}
               likes={rowData.likes.count} />
           )} />
