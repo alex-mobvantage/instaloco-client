@@ -1,5 +1,6 @@
 import { API_HOST } from '../constants';
 import { unexpectedError } from '../utils';
+import { getCoins } from './user';
 import qs from 'qs';
 
 export const LOAD_IMAGES = 'LOAD_IMAGES';
@@ -76,8 +77,11 @@ export const likeImage = (media_id) => {
 
     fetch(API_HOST + '/images/like?' + qs.stringify({access_token, media_id}), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(likedImage(data)))
-      .then(() => dispatch(nextImage()))
+      .then(data => {
+        dispatch(likedImage(data));
+        dispatch(nextImage());
+        dispatch(getCoins());
+      })
       .catch(unexpectedError);
   }
 };
