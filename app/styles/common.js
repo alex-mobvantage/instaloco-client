@@ -38,6 +38,10 @@ export const fonts = StyleSheet.create({
     fontFamily: 'Helvetica Neue'
   },
 
+  header: {
+    fontSize: 16
+  },
+
   button: {
     fontSize: 14,
     fontWeight: '400'
