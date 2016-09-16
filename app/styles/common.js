@@ -13,6 +13,25 @@ export const containers = StyleSheet.create({
   centered: {
     alignItems: 'center',
     justifyContent: 'center'
+  },
+
+  list: {
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderColor: colors.secondary,
+    alignSelf: 'stretch',
+    marginTop: 30
+  },
+
+  listItem: {
+    borderBottomWidth: 1,
+    borderColor: colors.secondary,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 5,
+    paddingLeft: 12,
+    paddingRight: 12
   }
 });
 
@@ -21,7 +40,9 @@ export const buttons = StyleSheet.create({
     borderRadius: 5,
     margin: 5,
     height: 30,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingLeft: 8,
+    paddingRight: 8
   },
 
   primary: {
