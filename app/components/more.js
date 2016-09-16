@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 
-import { invalidateAccessToken } from '../actions/auth';
+import { logout } from '../actions/auth';
 
 import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
@@ -39,7 +39,7 @@ class MoreLayout extends Component {
           <View style={[commonStyles.containers.listItem, styles.listItem]}>
             <Button
               style={[commonStyles.fonts.base, commonStyles.fonts.button, styles.button]}
-              onPress={() => dispatch(invalidateAccessToken())}>
+              onPress={() => dispatch(logout())}>
               Logout
             </Button>
           </View>

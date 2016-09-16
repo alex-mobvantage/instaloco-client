@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import { Alert, AsyncStorage } from 'react-native';
 
 export const LOAD_ACCESS_TOKEN = 'LOAD_ACCESS_TOKEN';
 export const loadAccessToken = () => {
@@ -36,6 +36,18 @@ export const savedAccessToken = (access_token) => {
     type: SAVED_ACCESS_TOKEN,
     access_token
   }
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {text: 'Yes', onPress: () => dispatch(invalidateAccessToken())},
+        {text: 'Cancel'}
+      ]);
+  };
 };
 
 export const invalidateAccessToken = () => {
