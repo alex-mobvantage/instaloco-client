@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { Scene, Router, Switch } from 'react-native-router-flux'
+import branch from 'react-native-branch'
 
 import app from '../reducers';
 import accessTokenMiddleware from '../middleware/accesstoken';
@@ -20,7 +21,13 @@ import OfferDetails from './offerdetails';
 
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
-import { saveDeviceToken } from '../actions/user';
+import { saveDeviceToken, sendReferralData } from '../actions/user';
+
+branch.subscribe(({params, error, uri}) => {
+  if (params){
+    store.dispatch(sendReferralData(params));
+  }
+});
 
 let store = createStore(
   app,

@@ -1,6 +1,7 @@
 import { API_HOST } from '../constants';
 import { unexpectedError } from '../utils';
 import DeviceInfo from 'react-native-device-info';
+import branch from 'react-native-branch'
 import qs from 'qs';
 import { AdSupportIOS, AsyncStorage, PushNotificationIOS } from 'react-native';
 
@@ -112,5 +113,41 @@ export const REFRESHED_DEVICE_TOKEN = 'REFRESHED_DEVICE_TOKEN';
 export const refreshedDeviceToken = () => {
   return {
     type: REFRESHED_DEVICE_TOKEN
+  };
+};
+
+export const loadReferralData = () => {
+  return (dispatch) => {
+    branch.getLatestReferringParams()
+      .then(params => dispatch(sendReferralData(params)))
+      .catch(err => console.log(err));
+  };
+};
+
+export const sendReferralData = (data) => {
+  return (dispatch, getState) => {
+    let { access_token } = getState().login,
+      path = API_HOST + '/referral',
+      opts = { ...data };
+
+    if (!access_token){
+      path += '/unauthenticated';
+    } else {
+      path += '/authenticated';
+      opts.access_token = access_token;
+    }
+
+    fetch(path + '?' + qs.stringify(opts), {method: 'POST'})
+      .then(response => response.json().catch(err => {}))
+      .then(data => dispatch(sentReferralData(data)))
+      .catch(err => console.log(err));
+  };
+};
+
+export const SENT_REFERRAL_DATA = 'SENT_REFERRAL_DATA';
+export const sentReferralData = (data) => {
+  return {
+    type: SENT_REFERRAL_DATA,
+    ...data
   };
 };
