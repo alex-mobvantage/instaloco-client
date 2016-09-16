@@ -4,7 +4,6 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { Scene, Router, Switch } from 'react-native-router-flux'
-import branch from 'react-native-branch'
 
 import app from '../reducers';
 import accessTokenMiddleware from '../middleware/accesstoken';
@@ -21,13 +20,7 @@ import OfferDetails from './offerdetails';
 
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
-import { saveDeviceToken, sendReferralData } from '../actions/user';
-
-branch.subscribe(({params, error, uri}) => {
-  if (params){
-    store.dispatch(sendReferralData(params));
-  }
-});
+import { saveDeviceToken, loadReferralData } from '../actions/user';
 
 let store = createStore(
   app,
@@ -42,6 +35,7 @@ let store = createStore(
 
 store.dispatch(loadConfig());
 store.dispatch(loadProducts());
+store.dispatch(loadReferralData());
 
 class LikesForAppsClient extends Component {
   render() {
