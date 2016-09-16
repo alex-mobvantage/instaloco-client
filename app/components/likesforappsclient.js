@@ -20,7 +20,7 @@ import OfferDetails from './offerdetails';
 
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
-import { saveDeviceToken } from '../actions/user';
+import { saveDeviceToken, loadReferralData } from '../actions/user';
 
 let store = createStore(
   app,
@@ -35,6 +35,7 @@ let store = createStore(
 
 store.dispatch(loadConfig());
 store.dispatch(loadProducts());
+store.dispatch(loadReferralData());
 
 class LikesForAppsClient extends Component {
   render() {

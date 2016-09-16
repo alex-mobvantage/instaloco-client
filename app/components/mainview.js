@@ -4,7 +4,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
 import { PushNotificationIOS } from 'react-native'
 
-import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken } from '../actions/user';
+import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from '../actions/user';
 import { changeNavTitle } from '../actions/nav';
 
 import NavBar from './navbar';
@@ -23,6 +23,7 @@ class MainViewLayout extends Component {
     dispatch(getCoins());
     dispatch(saveDeviceInfo());
     dispatch(refreshDeviceToken());
+    dispatch(loadReferralData());
 
     // TODO: Get this value automatically
     dispatch(changeNavTitle('Earn coins'));
