@@ -8,6 +8,8 @@ import Spinner from './spinner';
 import { nextImage, likeImage, skipImage } from '../actions/images';
 import { follow } from '../actions/followers';
 
+import * as styles from '../styles/common';
+
 class ImageDisplayLayout extends Component {
   render(){
     let { image_url, media_id, can_follow, user_id, dispatch } = this.props;
@@ -16,10 +18,32 @@ class ImageDisplayLayout extends Component {
       <View>
         <Image
           source={{uri: image_url}}
-          style={{width: 150, height: 150}} />
-        <Button onPress={() => dispatch(skipImage(media_id))}>Skip</Button>
-        <Button onPress={() => dispatch(likeImage(media_id))}>Like</Button>
-        {can_follow && <Button onPress={() => dispatch(follow(user_id))}>Follow</Button>}
+          style={{width: 300, height: 300}} />
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
+          <View style={{flex: 1}}>
+            <Button
+              containerStyle={[styles.buttons.base, styles.buttons.secondary]}
+              style={styles.fonts.button}
+              onPress={() => dispatch(skipImage(media_id))}>
+              Skip
+            </Button>
+          </View>
+          <View style={{flex: 1}}>
+            <Button
+              containerStyle={[styles.buttons.base, styles.buttons.primary]}
+              style={styles.fonts.button}
+              onPress={() => dispatch(likeImage(media_id))}>
+              Like
+            </Button>
+          </View>
+          {can_follow &&
+            <Button 
+              containerStyle={[styles.buttons.base, styles.buttons.primary]}
+              style={styles.fonts.button}
+              onPress={() => dispatch(follow(user_id))}>
+              Follow
+            </Button>}
+          </View>
       </View>
     );
   }
@@ -37,7 +61,7 @@ const GetCoinsLayout = React.createClass({
     let { loading, image_url, media_id, can_follow, user_id } = this.props;
 
     return (
-      <View style={styles.view}>
+      <View style={[styles.containers.base, styles.containers.tabbed, styles.containers.centered]}>
         {
           image_url
           ? <ImageDisplay
@@ -59,18 +83,5 @@ const mapStateToProps = (state) => {
     loading: state.loading.getCoins
   };
 };
-
-const styles = StyleSheet.create({
-  text: {
-    textAlign: 'center',
-    color: '#000000'
-  },
-  view: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
 
 export default GetCoins = connect(mapStateToProps)(GetCoinsLayout);
