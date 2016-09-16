@@ -18,9 +18,10 @@ export const containers = StyleSheet.create({
 
 export const buttons = StyleSheet.create({
   base: {
-    borderRadius: 5,
-    padding: 5,
-    margin: 5
+    borderRadius: 8,
+    margin: 5,
+    height: 35,
+    justifyContent: 'center'
   },
 
   primary: {
@@ -33,7 +34,12 @@ export const buttons = StyleSheet.create({
 });
 
 export const fonts = StyleSheet.create({
+  base: {
+    fontFamily: 'Helvetica Neue'
+  },
+
   button: {
-    color: 'white'
+    color: 'white',
+    fontWeight: '400'
   }
 });

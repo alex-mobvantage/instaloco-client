@@ -18,12 +18,12 @@ class ImageDisplayLayout extends Component {
       <View>
         <Image
           source={{uri: image_url}}
-          style={{width: 300, height: 300}} />
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
+          style={{width: 320, height: 320}} />
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5}}>
           <View style={{flex: 1}}>
             <Button
               containerStyle={[styles.buttons.base, styles.buttons.secondary]}
-              style={styles.fonts.button}
+              style={[styles.fonts.base, styles.fonts.button]}
               onPress={() => dispatch(skipImage(media_id))}>
               Skip
             </Button>
@@ -31,7 +31,7 @@ class ImageDisplayLayout extends Component {
           <View style={{flex: 1}}>
             <Button
               containerStyle={[styles.buttons.base, styles.buttons.primary]}
-              style={styles.fonts.button}
+              style={[styles.fonts.base, styles.fonts.button]}
               onPress={() => dispatch(likeImage(media_id))}>
               Like
             </Button>
@@ -39,7 +39,7 @@ class ImageDisplayLayout extends Component {
           {can_follow &&
             <Button 
               containerStyle={[styles.buttons.base, styles.buttons.primary]}
-              style={styles.fonts.button}
+              style={[styles.fonts.base, styles.fonts.button]}
               onPress={() => dispatch(follow(user_id))}>
               Follow
             </Button>}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NetInfo, StyleSheet, Text, View } from 'react-native';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
 import { PushNotificationIOS } from 'react-native'
 
@@ -13,6 +13,8 @@ import GetLikes from './getlikes';
 import GetFollowers from './getfollowers';
 import OfferWall from './offerwall';
 import More from './more';
+
+import * as colors from '../styles/colors';
 
 class MainViewLayout extends Component {
   componentDidMount(){
@@ -37,7 +39,10 @@ class MainViewLayout extends Component {
 
   render(){
     return (
-      <ScrollableTabView tabBarPosition='bottom' onChangeTab={this.onChangeTab.bind(this)}>
+      <ScrollableTabView
+        tabBarPosition='bottom'
+        onChangeTab={this.onChangeTab.bind(this)}
+        renderTabBar={()=> <DefaultTabBar underlineStyle={{backgroundColor: colors.primary}} activeTextColor={colors.primary} />}>
         <GetCoins tabLabel='Earn coins' />
         <GetLikes tabLabel='Get likes' />
         <GetFollowers tabLabel='Get followers' />

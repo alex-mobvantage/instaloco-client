@@ -6,6 +6,7 @@ import { NavBar } from 'react-native-router-flux';
 import { getCoins } from '../actions/user';
 
 import * as colors from '../styles/colors';
+import { fonts } from '../styles/common';
 
 class CustomNavBar extends NavBar {
   renderLeftButton(){
@@ -25,7 +26,7 @@ class CustomNavBar extends NavBar {
   renderRightButton(){
     return (
       <View style={styles.coinContainer}>
-        <Text style={styles.coinText}>{this.props.coins}</Text>
+        <Text style={[fonts.base, styles.coinText]}>{this.props.coins}</Text>
         <Image source={require('../resources/coins.png')} style={styles.coinImage} />
       </View>
     );
@@ -46,8 +47,8 @@ class NavBarLayout extends Component {
       <CustomNavBar 
         {...this.props}
         getTitle={() => this.props.title}
-        navigationBarStyle={styles.nav}
-        titleStyle={styles.navTitle} />
+        navigationBarStyle={[styles.nav]}
+        titleStyle={[styles.navTitle, fonts.base]} />
     );
   }
 
@@ -69,11 +70,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const styles = StyleSheet.create({
   profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    left: 10,
-    top: 7
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    left: 12,
+    top: 12
   },
   nav: {
     backgroundColor: colors.primary,
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
   },
   coinContainer: {
     position: 'absolute',
-    right: 10,
+    right: 12,
     top: 30,
     flex: 1,
     flexDirection: 'row'
