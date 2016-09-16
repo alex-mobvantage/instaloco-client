@@ -15,7 +15,7 @@ class GetFollowersLayout extends Component {
     let { loading, profile_image, followers, following, coins_per_follower, dispatch } = this.props;
 
     return (
-      <View style={[commonStyles.containers.centered, commonStyles.containers.tabbed, commonStyles.containers.base, styles.container]}>
+      <View style={[commonStyles.containers.centered, commonStyles.containers.base, commonStyles.containers.tabbed, styles.container]}>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={styles.headerColumn}>
             <Text style={[commonStyles.fonts.base, commonStyles.fonts.header]}>{followers}</Text>

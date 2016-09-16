@@ -17,7 +17,7 @@ class PurchaseLikesLayout extends Component {
     let image_width = Dimensions.get('window').width;
 
     return (
-      <View style={[commonStyles.containers.base, commonStyles.containers.centered, commonStyles.containers.tabbed, styles.container]}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.centered, styles.container]}>
         <ScrollView contentContainerStyle={[commonStyles.containers.centered, styles.scrollView]}>
           <Image 
             source={{uri: image_url}}
