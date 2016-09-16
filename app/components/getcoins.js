@@ -38,12 +38,14 @@ class ImageDisplayLayout extends Component {
             </Button>
           </View>
           {can_follow &&
-            <Button 
-              containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
-              style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
-              onPress={() => dispatch(follow(user_id))}>
-              FOLLOW
-            </Button>}
+            <View style={{flex: 1}}>
+              <Button 
+                containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
+                style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
+                onPress={() => dispatch(follow(user_id))}>
+                FOLLOW
+              </Button>
+            </View>}
           </View>
       </View>
     );
