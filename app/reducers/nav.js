@@ -9,12 +9,3 @@ export const navTitle = (state = '', action) => {
       return state;
   }
 };
-
-export const offerwallEnabled = (state = false, action) => {
-  switch (action.type){
-    case CONFIG_RECEIVED:
-      return action.config.offerwall_enabled;
-    default:
-      return state;
-  }
-};

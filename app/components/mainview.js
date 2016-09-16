@@ -58,7 +58,7 @@ class MainViewLayout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    offerwallEnabled: state.offerwallEnabled
+    offerwallEnabled: state.config.offerwall_enabled
   };
 };
 
