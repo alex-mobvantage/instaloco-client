@@ -17,6 +17,7 @@ import FAQ from './faq';
 import Legal from './legal';
 import PurchaseCoins from './purchasecoins';
 import OfferDetails from './offerdetails';
+import OfflineView from './offlineview';
 
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
@@ -42,20 +43,27 @@ class LikesForAppsClient extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <Scene key='root'>
-            <Scene
-              key='auth'
-              tabs={true}
-              component={connect(mapStatesToSceneProps)(Switch)}
-              selector={mapScenePropsToScene}>
-              <Scene key='login' component={Login} />
-              <Scene key='main' component={MainView} />
+          <Scene
+            key='root'
+            tabs={true}
+            component={connect(mapNetworkStateToSceneProps)(Switch)}
+            selector={mapSceneNetworkPropsToScene}>
+            <Scene key='offline' component={OfflineView} />
+            <Scene key='online'>
+              <Scene
+                key='auth'
+                tabs={true}
+                component={connect(mapAuthStatesToSceneProps)(Switch)}
+                selector={mapSceneAuthPropsToScene}>
+                <Scene key='login' component={Login} />
+                <Scene key='main' component={MainView} />
+              </Scene>
+              <Scene key='purchaseLikes' component={PurchaseLikes} />
+              <Scene key='purchaseCoins' component={PurchaseCoins} />
+              <Scene key='faq' component={FAQ} />
+              <Scene key='legal' component={Legal} />
+              <Scene key='offerDetails' component={OfferDetails} />
             </Scene>
-            <Scene key='purchaseLikes' component={PurchaseLikes} />
-            <Scene key='purchaseCoins' component={PurchaseCoins} />
-            <Scene key='faq' component={FAQ} />
-            <Scene key='legal' component={Legal} />
-            <Scene key='offerDetails' component={OfferDetails} />
           </Scene>
         </Router>
       </Provider>
@@ -63,13 +71,23 @@ class LikesForAppsClient extends Component {
   }
 }
 
-const mapStatesToSceneProps = (state) => {
+const mapNetworkStateToSceneProps = (state) => {
+  return {
+    online: false
+  };
+};
+
+const mapSceneNetworkPropsToScene = (props) => {
+  return props.online ? 'online' : 'offline';
+}
+
+const mapAuthStatesToSceneProps = (state) => {
   return {
     logged_in: state.login.logged_in
   };
 };
 
-const mapScenePropsToScene = (props) => {
+const mapSceneAuthPropsToScene = (props) => {
   return props.logged_in ? 'main' : 'login';
 };
 
