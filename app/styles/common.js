@@ -3,11 +3,12 @@ import { StyleSheet } from 'react-native';
 
 export const containers = StyleSheet.create({
   base: {
-    flex: 1
+    flex: 1,
+    marginTop: 64
   },
   
   tabbed: {
-    marginTop: 64
+    marginTop: 42
   },
 
   centered: {
