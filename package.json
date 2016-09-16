@@ -10,6 +10,7 @@
     "qs": "^6.2.1",
     "react": "15.2.1",
     "react-native": "0.31.0",
+    "react-native-branch": "^0.6.1",
     "react-native-button": "^1.6.0",
     "react-native-device-info": "^0.9.5",
     "react-native-in-app-utils": "^4.0.0",
