@@ -45,7 +45,7 @@ class MainViewLayout extends Component {
     let { dispatch } = this.props;
 
     return (
-      <TabBarIOS>
+      <TabBarIOS tintColor='black'>
         <TabBarIOS.Item
           title='Earn coins'
           selected={this.state.selectedTab === 'earnCoins'}
@@ -74,7 +74,7 @@ class MainViewLayout extends Component {
           title='More'
           selected={this.state.selectedTab === 'more'}
           onPress={() => {this.setState({selectedTab: 'more'}); dispatch(changeNavTitle('More')); }}>
-          <OfferWall />
+          <More />
         </TabBarIOS.Item>
       </TabBarIOS>
     );
