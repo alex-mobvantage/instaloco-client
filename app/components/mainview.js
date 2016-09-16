@@ -14,7 +14,8 @@ import GetFollowers from './getfollowers';
 import OfferWall from './offerwall';
 import More from './more';
 
-import * as styles from '../styles/common';
+import * as commonStyles from '../styles/common';
+import * as colors from '../styles/colors';
 
 class MainViewLayout extends Component {
   componentDidMount(){
@@ -46,7 +47,8 @@ class MainViewLayout extends Component {
           <DefaultTabBar
             underlineStyle={{backgroundColor: 'black'}}
             activeTextColor='black'
-            textStyle={[styles.fonts.base]} />
+            textStyle={[commonStyles.fonts.base]}
+            style={styles.tabBar} />
         }>
         <GetCoins tabLabel='Earn coins' />
         <GetLikes tabLabel='Get likes' />
@@ -88,5 +90,13 @@ const mapStateToProps = (state) => {
     online: state.network !== 'none' && state.network !== 'unknown'
   };
 };
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: colors.primary,
+    borderTopColor: colors.secondary,
+    borderTopWidth: 1
+  }
+})
 
 export default MainView = connect(mapStateToProps)(MainViewLayout);

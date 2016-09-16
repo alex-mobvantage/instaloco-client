@@ -20,7 +20,7 @@ export const buttons = StyleSheet.create({
   base: {
     borderRadius: 5,
     margin: 5,
-    height: 35,
+    height: 30,
     justifyContent: 'center'
   },
 
@@ -39,6 +39,7 @@ export const fonts = StyleSheet.create({
   },
 
   button: {
+    fontSize: 14,
     fontWeight: '400'
   },
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, Text, StyleSheet } from 'react-native';
+import { Dimensions, Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 
@@ -8,7 +8,8 @@ import Spinner from './spinner';
 import { nextImage, likeImage, skipImage } from '../actions/images';
 import { follow } from '../actions/followers';
 
-import * as styles from '../styles/common';
+import * as commonStyles from '../styles/common';
+import * as colors from '../styles/colors';
 
 class ImageDisplayLayout extends Component {
   render(){
@@ -18,30 +19,30 @@ class ImageDisplayLayout extends Component {
       <View>
         <Image
           source={{uri: image_url}}
-          style={{width: 320, height: 320}} />
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5}}>
+          style={styles.image} />
+        <View style={styles.buttonContainer}>
           <View style={{flex: 1}}>
             <Button
-              containerStyle={[styles.buttons.base, styles.buttons.secondary]}
-              style={[styles.fonts.base, styles.fonts.button, styles.fonts.secondaryButton]}
+              containerStyle={[commonStyles.buttons.base, commonStyles.buttons.secondary]}
+              style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.secondaryButton]}
               onPress={() => dispatch(skipImage(media_id))}>
-              Skip
+              SKIP
             </Button>
           </View>
           <View style={{flex: 1}}>
             <Button
-              containerStyle={[styles.buttons.base, styles.buttons.primary]}
-              style={[styles.fonts.base, styles.fonts.button, styles.fonts.primaryButton]}
+              containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
+              style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
               onPress={() => dispatch(likeImage(media_id))}>
-              Like
+              LIKE
             </Button>
           </View>
           {can_follow &&
             <Button 
-              containerStyle={[styles.buttons.base, styles.buttons.primary]}
-              style={[styles.fonts.base, styles.fonts.button, styles.fonts.primaryButton]}
+              containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
+              style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
               onPress={() => dispatch(follow(user_id))}>
-              Follow
+              FOLLOW
             </Button>}
           </View>
       </View>
@@ -61,7 +62,7 @@ const GetCoinsLayout = React.createClass({
     let { loading, image_url, media_id, can_follow, user_id } = this.props;
 
     return (
-      <View style={[styles.containers.base, styles.containers.tabbed, styles.containers.centered]}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.tabbed, commonStyles.containers.centered]}>
         {
           image_url
           ? <ImageDisplay
@@ -69,7 +70,7 @@ const GetCoinsLayout = React.createClass({
               media_id={media_id}
               can_follow={can_follow}
               user_id={user_id} />
-          : <Text>There are currently no images to like. Check back later</Text>
+          : <Text style={[commonStyles.fonts.base]}>There are currently no images to like. Check back later</Text>
         }
         {loading && <Spinner />}
       </View>
@@ -83,5 +84,23 @@ const mapStateToProps = (state) => {
     loading: state.loading.getCoins
   };
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: Dimensions.get('window').width,
+    height: 320,
+    resizeMode: 'cover',
+    borderWidth: 1,
+    borderColor: colors.secondary
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 5,
+    paddingLeft: 12,
+    paddingRight: 12
+  }
+})
 
 export default GetCoins = connect(mapStateToProps)(GetCoinsLayout);

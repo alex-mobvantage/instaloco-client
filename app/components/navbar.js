@@ -70,11 +70,11 @@ const mapStateToProps = (state, ownProps) => {
 
 const styles = StyleSheet.create({
   profileImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
     left: 12,
-    top: 12
+    top: 20
   },
   nav: {
     backgroundColor: colors.primary,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   coinContainer: {
     position: 'absolute',
     right: 12,
-    top: 30,
+    top: 34,
     flex: 1,
     flexDirection: 'row'
   }
