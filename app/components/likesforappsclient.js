@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { Scene, Router, Switch } from 'react-native-router-flux'
+import { NetInfo } from 'react-native';
 
 import app from '../reducers';
 import accessTokenMiddleware from '../middleware/accesstoken';
@@ -22,6 +23,7 @@ import OfflineView from './offlineview';
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
 import { saveDeviceToken, loadReferralData } from '../actions/user';
+import { getNetworkState, networkStateUpdated } from '../actions/network';
 
 let store = createStore(
   app,
@@ -37,6 +39,12 @@ let store = createStore(
 store.dispatch(loadConfig());
 store.dispatch(loadProducts());
 store.dispatch(loadReferralData());
+store.dispatch(getNetworkState());
+
+NetInfo.addEventListener(
+  'change',
+  (state) => store.dispatch(networkStateUpdated(state))
+);
 
 class LikesForAppsClient extends Component {
   render() {
@@ -73,7 +81,7 @@ class LikesForAppsClient extends Component {
 
 const mapNetworkStateToSceneProps = (state) => {
   return {
-    online: false
+    online: state.network !== 'none'
   };
 };
 
