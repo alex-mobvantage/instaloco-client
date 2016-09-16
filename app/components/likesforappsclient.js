@@ -43,7 +43,20 @@ store.dispatch(getNetworkState());
 
 NetInfo.addEventListener(
   'change',
-  (state) => store.dispatch(networkStateUpdated(state))
+  (state) => {
+    // If we're coming back online after being offline,
+    // load up potentially missing pieces
+    let appState = store.getState();
+    if (appState.network === 'none' &&
+        state !== 'none' &&
+        state !== 'unknown'){
+
+      store.dispatch(loadConfig());
+      store.dispatch(loadProducts());
+    }
+
+    store.dispatch(networkStateUpdated(state));
+  }
 );
 
 class LikesForAppsClient extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { NetInfo, StyleSheet, Text, View } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
 import { PushNotificationIOS } from 'react-native'
@@ -17,6 +17,7 @@ import More from './more';
 class MainViewLayout extends Component {
   componentDidMount(){
     PushNotificationIOS.addEventListener('register', this.onPushNotificationRegistration.bind(this));
+    NetInfo.addEventListener('change', this.onNetworkStateChanged.bind(this));
 
     let { dispatch } = this.props;
     dispatch(getProfile());
@@ -54,11 +55,22 @@ class MainViewLayout extends Component {
     let { dispatch } = this.props;
     dispatch(saveDeviceToken(token));
   }
+
+  onNetworkStateChanged(state){
+    let { dispatch, online } = this.props;
+    if (online){
+      dispatch(getProfile());
+      dispatch(getCoins());
+      dispatch(saveDeviceInfo());
+      dispatch(refreshDeviceToken());
+    }
+  }
 };
 
 const mapStateToProps = (state) => {
   return {
-    offerwallEnabled: state.config.offerwall_enabled
+    offerwallEnabled: state.config.offerwall_enabled,
+    online: state.network !== 'none' && state.network !== 'unknown'
   };
 };
 
