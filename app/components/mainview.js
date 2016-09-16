@@ -14,7 +14,7 @@ import GetFollowers from './getfollowers';
 import OfferWall from './offerwall';
 import More from './more';
 
-import * as colors from '../styles/colors';
+import * as styles from '../styles/common';
 
 class MainViewLayout extends Component {
   componentDidMount(){
@@ -42,7 +42,12 @@ class MainViewLayout extends Component {
       <ScrollableTabView
         tabBarPosition='bottom'
         onChangeTab={this.onChangeTab.bind(this)}
-        renderTabBar={()=> <DefaultTabBar underlineStyle={{backgroundColor: colors.primary}} activeTextColor={colors.primary} />}>
+        renderTabBar={() => 
+          <DefaultTabBar
+            underlineStyle={{backgroundColor: 'black'}}
+            activeTextColor='black'
+            textStyle={[styles.fonts.base]} />
+        }>
         <GetCoins tabLabel='Earn coins' />
         <GetLikes tabLabel='Get likes' />
         <GetFollowers tabLabel='Get followers' />

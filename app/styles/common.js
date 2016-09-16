@@ -18,7 +18,7 @@ export const containers = StyleSheet.create({
 
 export const buttons = StyleSheet.create({
   base: {
-    borderRadius: 8,
+    borderRadius: 5,
     margin: 5,
     height: 35,
     justifyContent: 'center'
@@ -39,7 +39,14 @@ export const fonts = StyleSheet.create({
   },
 
   button: {
-    color: 'white',
     fontWeight: '400'
+  },
+
+  primaryButton: {
+    color: 'white'
+  },
+
+  secondaryButton: {
+    color: 'black'
   }
 });

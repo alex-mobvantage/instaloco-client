@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.primaryDarker
   },
   navTitle: {
-    color: 'white',
     fontWeight: '500'
   },
   coinText: {
