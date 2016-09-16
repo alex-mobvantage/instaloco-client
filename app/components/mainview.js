@@ -30,6 +30,11 @@ class MainViewLayout extends Component {
     dispatch(changeNavTitle('Earn coins'));
   }
 
+  componentWillUnmount(){
+    PushNotificationIOS.removeEventListener('register', this.onPushNotificationRegistration.bind(this));
+    NetInfo.removeEventListener('change', this.onNetworkStateChanged.bind(this));
+  }
+
   render(){
     return (
       <ScrollableTabView tabBarPosition='bottom' onChangeTab={this.onChangeTab.bind(this)}>
