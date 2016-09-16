@@ -19,6 +19,8 @@ import {
 
 import { BEGIN_TRANSACTION_COMPLETE, PURCHASED_COINS } from '../actions/purchase';
 
+import { UNEXPECTED_ERROR } from '../actions/error';
+
 export const loading = (state, action) => {
   if (!state){
     state = {
@@ -93,6 +95,16 @@ export const loading = (state, action) => {
       });
     case PURCHASED_COINS:
       return Object.assign({}, state, {
+        purchaseCoins: false
+      });
+    case UNEXPECTED_ERROR:
+      return Object.assign({}, state, {
+        getFollowers: false,
+        getCoins: false,
+        getLikes: false,
+        purchaseLikes: false,
+        offerwall: false,
+        offerDetails: false,
         purchaseCoins: false
       });
     default:

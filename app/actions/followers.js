@@ -1,5 +1,5 @@
 import { API_HOST } from '../constants';
-import { unexpectedError } from '../utils';
+import { unexpectedError } from './error';
 import { getCoins } from './user';
 import qs from 'qs';
 
@@ -18,7 +18,7 @@ export const purchaseFollowers = (followers) => {
         dispatch(purchasedFollowers(data));
         dispatch(getCoins());
       })
-      .catch(unexpectedError);
+      .catch((err) => dispatch(unexpectedError(err)));
   };
 };
 
@@ -52,7 +52,7 @@ export const follow = (user_id) => {
         dispatch(followed(data));
         dispatch(getCoins());
       })
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   };
 };
 

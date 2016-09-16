@@ -1,5 +1,5 @@
 import { API_HOST } from '../constants';
-import { unexpectedError } from '../utils';
+import { unexpectedError } from './error';
 import { getCoins } from './user';
 import { NativeModules } from 'react-native'
 import { InAppUtils } from 'NativeModules'
@@ -10,7 +10,7 @@ export const loadProducts = () => {
     fetch(API_HOST + '/products')
       .then(response => response.json())
       .then(data => dispatch(loadedProductIdentifiers(data)))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   };
 };
 
@@ -66,7 +66,7 @@ const transactionComplete = (transactionIdentifier) => {
           dispatch(purchasedCoins(data));
           dispatch(getCoins());
         })
-        .catch(unexpectedError);
+        .catch(err => dispatch(unexpectedError(err)));
     });
   };
 };

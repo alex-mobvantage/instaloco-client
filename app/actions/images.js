@@ -1,5 +1,5 @@
 import { API_HOST } from '../constants';
-import { unexpectedError } from '../utils';
+import { unexpectedError } from './error';
 import { getCoins } from './user';
 import qs from 'qs';
 
@@ -16,7 +16,7 @@ export const loadImages = (last_media_id) => {
     fetch(API_HOST + '/images?' + qs.stringify({ access_token, last_media_id }))
       .then(response => response.json())
       .then(images => dispatch(loadedImages(images)))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   };
 };
 
@@ -47,7 +47,7 @@ export const nextImage = () => {
     fetch(API_HOST + '/image?' + qs.stringify({ access_token }))
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(loadedNextImage(data)))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   }
 };
 
@@ -82,7 +82,7 @@ export const likeImage = (media_id) => {
         dispatch(nextImage());
         dispatch(getCoins());
       })
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   }
 };
 
@@ -114,7 +114,7 @@ export const skipImage = (media_id) => {
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(skippedImage(data)))
       .then(() => dispatch(nextImage()))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   }
 };
 

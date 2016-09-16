@@ -1,5 +1,5 @@
 import { API_HOST } from '../constants';
-import { unexpectedError } from '../utils';
+import { unexpectedError } from './error';
 import DeviceInfo from 'react-native-device-info';
 import branch from 'react-native-branch'
 import qs from 'qs';
@@ -15,7 +15,7 @@ export const getProfile = () => {
     fetch(API_HOST + '/user/profile?access_token=' + access_token)
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(profileReceived(data)))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   };
 };
 
@@ -37,7 +37,7 @@ export const getCoins = () => {
     fetch(API_HOST + '/user/coins?access_token=' + access_token)
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(coinsReceived(data)))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   };
 };
 
@@ -84,7 +84,7 @@ export const saveDeviceToken = (token) => {
 
     fetch(API_HOST + '/user/device_token?' + qs.stringify({ access_token, token }), {method: 'POST'})
       .then(() => dispatch(savedDeviceToken(token)))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   };
 };
 
@@ -105,7 +105,7 @@ export const refreshDeviceToken = () => {
         }
       })
       .then(() => dispatch(refreshedDeviceToken()))
-      .catch(unexpectedError);
+      .catch(err => dispatch(unexpectedError(err)));
   }
 }
 
