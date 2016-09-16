@@ -7,12 +7,12 @@ import * as commonStyles from '../styles/common';
 
 const GetLikeImageLayout = React.createClass({
   render(){
-    let { image_url, image_width, image_height, media_id, likes } = this.props;
+    let { image_url, thumbnail_url, image_width, image_height, media_id, likes } = this.props;
     return (
       <TouchableHighlight onPress={() => Actions.purchaseCoins({media_id, image_url, likes})}>
         <View style={{width: image_width, height: image_height}}>
           <Image
-            source={{uri: image_url}}
+            source={{uri: thumbnail_url}}
             style={[{width: image_width, height: image_height}, styles.image]} />
           <View style={styles.captionContainer}>
             <View style={{flex: 1, alignItems: 'flex-end'}}>

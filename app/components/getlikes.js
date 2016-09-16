@@ -24,7 +24,8 @@ const GetLikesLayout = React.createClass({
           onLoadMoreAsync={this.loadMoreContentAsync}
           renderRow={(rowData) => (
             <GetLikeImage
-              image_url={rowData.images.thumbnail.url}
+              image_url={rowData.images.standard_resolution.url}
+              thumbnail_url={rowData.images.thumbnail.url}
               image_width={image_width}
               image_height={image_width}
               media_id={rowData.id}
