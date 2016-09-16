@@ -2,12 +2,17 @@ import { Alert } from 'react-native';
 
 export const UNEXPECTED_ERROR = 'UNEXPECTED_ERROR';
 export const unexpectedError = err => {
-  Alert.alert(
-    'Error', 
-    'Something went wrong. Please try again later, or try restarting the app.'
-  );
+  return (dispatch, getState) => {
+    let { network } = getState();
+    if (network !== 'unknown' && network !== 'none'){
+      Alert.alert(
+        'Error',
+        'Something went wrong. Please try again later, or try restarting the app.'
+      );
+    }
 
-  return {
-    type: UNEXPECTED_ERROR
+    dispatch({
+      type: UNEXPECTED_ERROR
+    });
   };
 };
