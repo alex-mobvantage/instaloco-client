@@ -7,6 +7,8 @@ import { fetchOffers } from '../actions/offers';
 import Spinner from './spinner';
 import Offer from './offer';
 
+import * as commonStyles from '../styles/common';
+
 class OfferWallLayout extends Component {
   componentDidMount(){
     this.fetchOffers();
@@ -20,7 +22,7 @@ class OfferWallLayout extends Component {
   
   render(){
     return (
-      <View style={{flex: 1}}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.tabbed]}>
         <ListView
           dataSource={this.props.dataSource}
           enableEmptySections={true}
@@ -33,8 +35,7 @@ class OfferWallLayout extends Component {
               description={rowData.description}
               click_id={rowData.click_id}
               redirect_url={rowData.redirect_url} />
-          )}
-          style={{marginTop: 70}} />
+          )} />
         {this.props.loading && <Spinner />}
       </View>
     );
