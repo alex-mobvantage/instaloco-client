@@ -1,6 +1,7 @@
 package com.likesforappsclient;
 
 import com.facebook.react.ReactActivity;
+import com.oblador.vectoricons.VectorIconsPackage;
 import io.branch.rnbranch.RNBranchPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 

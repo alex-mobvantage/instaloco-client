@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NetInfo, StyleSheet, TabBarIOS, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { PushNotificationIOS } from 'react-native'
 
@@ -46,36 +47,51 @@ class MainViewLayout extends Component {
 
     return (
       <TabBarIOS tintColor='black'>
-        <TabBarIOS.Item
+        <Icon.TabBarItemIOS
           title='Earn coins'
+          iconName='picture-o'
+          selectedIconName='picture-o'
+          iconSize={20}
           selected={this.state.selectedTab === 'earnCoins'}
           onPress={() => {this.setState({selectedTab: 'earnCoins'}); dispatch(changeNavTitle('Earn coins')); }}>
           <GetCoins />
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
           title='Get likes'
+          iconName='heart'
+          selectedIconName='heart'
+          iconSize={20}
           selected={this.state.selectedTab === 'getLikes'}
           onPress={() => {this.setState({selectedTab: 'getLikes'}); dispatch(changeNavTitle('Get likes')); }}>
           <GetLikes />
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
           title='Get followers'
+          iconName='users'
+          selectedIconName='users'
+          iconSize={20}
           selected={this.state.selectedTab === 'getFollowers'}
           onPress={() => {this.setState({selectedTab: 'getFollowers'}); dispatch(changeNavTitle('Get followers')); }}>
           <GetFollowers />
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
           title='Free coins'
+          iconName='plus-circle'
+          selectedIconName='plus-circle'
+          iconSize={20}
           selected={this.state.selectedTab === 'freeCoins'}
           onPress={() => {this.setState({selectedTab: 'freeCoins'}); dispatch(changeNavTitle('Free coins')); }}>
           <OfferWall />
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
+        </Icon.TabBarItemIOS>
+        <Icon.TabBarItemIOS
           title='More'
+          iconName='ellipsis-h'
+          selectedIconName='ellipsis-h'
+          iconSize={20}
           selected={this.state.selectedTab === 'more'}
           onPress={() => {this.setState({selectedTab: 'more'}); dispatch(changeNavTitle('More')); }}>
           <More />
-        </TabBarIOS.Item>
+        </Icon.TabBarItemIOS>
       </TabBarIOS>
     );
   }
