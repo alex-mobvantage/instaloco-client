@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppState, ListView, View } from 'react-native';
+import { AppState, ListView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { fetchOffers } from '../actions/offers';
@@ -22,7 +22,7 @@ class OfferWallLayout extends Component {
   
   render(){
     return (
-      <View style={[commonStyles.containers.base, commonStyles.containers.tabbed]}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.tabbed, styles.container]}>
         <ListView
           dataSource={this.props.dataSource}
           enableEmptySections={true}
@@ -64,5 +64,12 @@ const mapStateToProps = (state) => {
     loading: state.loading.offerwall
   };
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 12,
+    paddingBottom: 50
+  }
+})
 
 export default OfferWall = connect(mapStateToProps)(OfferWallLayout);
