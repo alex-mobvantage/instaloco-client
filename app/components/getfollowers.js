@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Spinner from './spinner';
 
@@ -35,7 +36,10 @@ class GetFollowersLayout extends Component {
           {
             [20, 60, 200, 600, 1000, 2000, 6000].map(val => (
               <View key={'follower-row-' + val} style={commonStyles.containers.listItem}>
-                <Text style={[commonStyles.fonts.base, styles.followerText]}>👥 +{val}</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Icon name='user-plus' size={16} />
+                  <Text style={[commonStyles.fonts.base, styles.followerText]}>{val}</Text>
+                </View>
                 <Button
                   containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
                   style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
     borderColor: colors.secondary
   },
   followerText: {
-    alignSelf: 'center'
+    marginLeft: 5
   }
 });
 
