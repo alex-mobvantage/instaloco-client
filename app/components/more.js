@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
   button: {
     fontSize: 19,
-    color: '#007aff'
+    color: colors.link
   }
 });
 

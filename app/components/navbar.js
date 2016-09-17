@@ -26,7 +26,7 @@ class CustomNavBar extends NavBar {
   renderRightButton(){
     return (
       <View style={styles.coinContainer}>
-        <Text style={[fonts.base, styles.coinText]}>{this.props.coins}</Text>
+        <Text style={[fonts.base, fonts.bold, styles.coinText]}>{this.props.coins}</Text>
         <Image source={require('../resources/coins.png')} style={styles.coinImage} />
       </View>
     );
@@ -48,7 +48,7 @@ class NavBarLayout extends Component {
         {...this.props}
         getTitle={() => this.props.title}
         navigationBarStyle={[styles.nav]}
-        titleStyle={[styles.navTitle, fonts.base]} />
+        titleStyle={[fonts.base, fonts.bold]} />
     );
   }
 
@@ -80,12 +80,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderBottomColor: colors.primaryDarker
   },
-  navTitle: {
-    fontWeight: '500'
-  },
   coinText: {
-    color: colors.coins,
-    fontWeight: '500'
+    color: colors.coins
   },
   coinImage: {
     width: 20,

@@ -16,7 +16,7 @@ class OfferLayout extends Component {
         <View style={styles.container}>
           <View style={styles.titleContainer}>
             {image && <Image source={{uri: image}} style={{width: 50, height: 50}} />}
-            <Text style={[commonStyles.fonts.base, styles.titleStyle]}>{title}</Text>
+            <Text style={[commonStyles.fonts.base, commonStyles.fonts.bold, styles.titleStyle]}>{title}</Text>
           </View>
           <View style={styles.pointsContainer}>
             <Text style={[commonStyles.fonts.base, styles.plusText]}>+</Text>

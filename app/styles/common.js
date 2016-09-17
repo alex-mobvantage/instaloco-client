@@ -64,6 +64,10 @@ export const fonts = StyleSheet.create({
     fontSize: 16
   },
 
+  bold: {
+    fontWeight: '500'
+  },
+
   button: {
     fontSize: 14,
     fontWeight: '400'
@@ -73,7 +77,16 @@ export const fonts = StyleSheet.create({
     color: 'white'
   },
 
+  primaryButtonDisabled: {
+    color: 'rgba(255, 255, 255, 0.5)'
+  },
+
   secondaryButton: {
     color: 'black'
+  },
+
+  link: {
+    color: colors.link,
+    textDecorationLine: 'underline'
   }
 });
