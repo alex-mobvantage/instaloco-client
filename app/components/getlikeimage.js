@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, TouchableHighlight, Text, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as commonStyles from '../styles/common';
 
@@ -14,9 +15,10 @@ const GetLikeImageLayout = React.createClass({
           <Image
             source={{uri: thumbnail_url}}
             style={[{width: image_width, height: image_height}, styles.image]} />
-          <View style={styles.captionContainer}>
-            <View style={{flex: 1, alignItems: 'flex-end'}}>
-              <Text style={[commonStyles.fonts.base, styles.captionText]}>{likes} ❤️</Text>
+          <View style={styles.captionOuterContainer}>
+            <View style={styles.captionInnerContainer}>
+              <Text style={[commonStyles.fonts.base, styles.captionText]}>{likes}</Text>
+              <Icon name='heart' color='rgba(255, 0, 0, 0.8)' />
             </View>
           </View>
         </View>
@@ -30,12 +32,19 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: 'white'
   },
-  captionContainer: {
+  captionOuterContainer: {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     position: 'absolute',
     bottom: 0,
     flex: 1,
     flexDirection: 'row'
+  },
+  captionInnerContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginRight: 5
   },
   captionText: {
     color: 'white',
