@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import * as commonStyles from '../styles/common';
+import * as colors from '../styles/colors';
 
 const GetLikeImageLayout = React.createClass({
   render(){
@@ -18,7 +19,7 @@ const GetLikeImageLayout = React.createClass({
           <View style={styles.captionOuterContainer}>
             <View style={styles.captionInnerContainer}>
               <Text style={[commonStyles.fonts.base, styles.captionText]}>{likes}</Text>
-              <Icon name='heart' color='rgba(255, 0, 0, 0.8)' />
+              <Icon name='heart' color={colors.heart} />
             </View>
           </View>
         </View>

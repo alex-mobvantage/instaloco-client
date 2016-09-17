@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Spinner from './spinner';
 import NavBar from './navbar';
@@ -22,7 +23,10 @@ class PurchaseLikesLayout extends Component {
           <Image 
             source={{uri: image_url}}
             style={[styles.image, {width: image_width, height: image_width}]} />
-          <Text style={[commonStyles.fonts.base]}>{likes} ❤️</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={[commonStyles.fonts.base, commonStyles.fonts.header]}>{likes}</Text>
+            <Icon name='heart' color={colors.heart} size={17} />
+          </View>
 
           <Text style={[commonStyles.fonts.base, commonStyles.fonts.header, {marginTop: 12}]}>
             Choose how many likes you would like to get
@@ -32,7 +36,10 @@ class PurchaseLikesLayout extends Component {
           {
             [25, 50, 100, 300, 1000, 5000, 10000].map((likes) => (
               <View key={'like-row-' + likes} style={commonStyles.containers.listItem}>
-                <Text style={[commonStyles.fonts.base, styles.likesText]}>❤️ +{likes}</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Icon name='heart' color={colors.heart} />
+                  <Text style={[commonStyles.fonts.base, styles.likesText]}>+{likes}</Text>
+                </View>
                 <Button
                   containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
                   style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton, styles.coinButton]}
@@ -65,7 +72,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover'
   },
   likesText: {
-    alignSelf: 'center'
+    marginLeft: 5
   }
 });
 
