@@ -43,7 +43,7 @@ class OfferDetailsLayout extends Component {
           </TouchableOpacity>
         }
         <View style={styles.instructionContainer}>
-          <Text style={[commonStyles.fonts.base, commonStyles.fonts.bold, commonStyles.fonts.header, styles.instructionHeaderText]}>To Get Your Points...</Text>
+          <Text style={[commonStyles.fonts.base, commonStyles.fonts.bold, commonStyles.fonts.header, styles.instructionHeaderText]}>To Get Your Coins...</Text>
           
           <Text style={[commonStyles.fonts.base, commonStyles.fonts.bold, styles.instructionRuleText]}>Download and test the app for 30-60 seconds</Text>
           <Text style={[commonStyles.fonts.base]}>Complete any tutorials</Text>
@@ -52,7 +52,7 @@ class OfferDetailsLayout extends Component {
           <Text style={[commonStyles.fonts.base]}>Like switching from WiFi to 3G</Text>
 
           <Text style={[commonStyles.fonts.base, commonStyles.fonts.bold, styles.instructionRuleText]}>Can I remove the app from my device?</Text>
-          <Text style={[commonStyles.fonts.base]}>Yep - be sure you have earned your points first</Text>
+          <Text style={[commonStyles.fonts.base]}>Yep - be sure you have earned your coins first</Text>
         </View>
         {loading && <Spinner />}
       </View>
