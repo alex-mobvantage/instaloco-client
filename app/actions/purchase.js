@@ -18,7 +18,7 @@ export const loadedProductIdentifiers = (ids) => {
   return (dispatch) => {
     InAppUtils.loadProducts(ids, (err, products) => {
       if (err){
-        unexpectedError(err);
+        dispatch(unexpectedError(err));
         return;
       }
 
@@ -39,7 +39,7 @@ export const purchaseCoins = (identifier) => {
   return (dispatch) => {
     InAppUtils.purchaseProduct(identifier, (error, response) => {
       if (error){
-        unexpectedError(error);
+        dispatch(unexpectedError(error));
         return;
       }
 
