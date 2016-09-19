@@ -24,7 +24,7 @@ class GetFollowersLayout extends Component {
           </View>
           <View style={styles.headerColumn}>
             <Image
-              source={{uri: profile_image}}
+              source={profile_image ? {uri: profile_image} : require('../resources/defaultprofile.jpg')}
               style={styles.image} />
           </View>
           <View style={styles.headerColumn}>

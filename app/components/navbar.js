@@ -12,11 +12,9 @@ class CustomNavBar extends NavBar {
   renderLeftButton(){
     if (this.props.profileVisible){
       return (
-        this.props.profile_image
-        ? <Image
-            source={{uri: this.props.profile_image}}
-            style={styles.profileImage} />
-        : null
+        <Image
+          source={this.props.profile_image ? {uri: this.props.profile_image} : require('../resources/defaultprofile.jpg')}
+          style={styles.profileImage} />
       );
     } else {
       return super.renderLeftButton();
