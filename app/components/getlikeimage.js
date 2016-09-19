@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Image, TouchableHighlight, Text, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { navigateToPurchaseLikes } from '../actions/nav';
 
 import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
 
 const GetLikeImageLayout = React.createClass({
   render(){
-    let { image_url, thumbnail_url, image_width, image_height, media_id, likes } = this.props;
+    let { dispatch, image_url, thumbnail_url, image_width, image_height, media_id, likes } = this.props;
     return (
-      <TouchableHighlight onPress={() => Actions.purchaseCoins({media_id, image_url, likes})}>
+      <TouchableHighlight onPress={() => dispatch(navigateToPurchaseLikes(media_id, image_url, likes))}>
         <View style={{width: image_width, height: image_height}}>
           <Image
             source={{uri: thumbnail_url}}
