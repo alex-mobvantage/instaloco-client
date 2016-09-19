@@ -58,7 +58,7 @@ export const invalidateAccessToken = () => {
   };
 };
 
-export const INVALIDATED_ACCESS_TOKEN = 'INVALIDATE_ACCESS_TOKEN';
+export const INVALIDATED_ACCESS_TOKEN = 'INVALIDATED_ACCESS_TOKEN';
 export const invalidatedAccessToken = () => {
   return {
     type: INVALIDATED_ACCESS_TOKEN

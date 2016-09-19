@@ -1,5 +1,6 @@
 import { LOADED_IMAGES, LOADED_NEXT_IMAGE } from '../actions/images';
 import { FOLLOWED } from '../actions/followers';
+import { INVALIDATED_ACCESS_TOKEN } from '../actions/auth';
 import _ from 'lodash';
 
 export const images = (state = {images: [], canLoadMore: true}, action) => {
@@ -8,6 +9,11 @@ export const images = (state = {images: [], canLoadMore: true}, action) => {
       return Object.assign({}, state, {
         images: _.uniqBy(state.images.concat(action.images), image => image.id),
         canLoadMore: action.images.length === 20
+      });
+    case INVALIDATED_ACCESS_TOKEN:
+      return Object.assign({}, state, {
+        images: [],
+        canLoadMore: true
       });
     default:
       return state;
