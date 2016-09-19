@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, View, Text, StyleSheet } from 'react-native';
+import { AppState, Dimensions, Image, View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 
@@ -54,11 +54,17 @@ class ImageDisplayLayout extends Component {
 
 const ImageDisplay = connect()(ImageDisplayLayout);
 
-const GetCoinsLayout = React.createClass({
+class GetCoinsLayout extends Component {
   componentDidMount(){
+    AppState.addEventListener('change', this.onAppStateChange.bind(this));
+
     let { dispatch } = this.props;
     dispatch(nextImage());
-  },
+  }
+
+  componentWillUnmount(){
+    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
+  }
 
   render(){
     let { loading, image_url, media_id, can_follow, user_id } = this.props;
@@ -78,7 +84,14 @@ const GetCoinsLayout = React.createClass({
       </View>
     );
   }
-});
+
+  onAppStateChange(currentState){
+    let { dispatch, image_url } = this.props;
+    if (currentState === 'active' && !image_url){
+      dispatch(nextImage());
+    }
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
