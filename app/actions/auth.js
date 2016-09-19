@@ -1,5 +1,6 @@
 import { getProfile, getCoins } from './user';
 import { loadImages } from './images';
+import { changeMainTab } from './nav';
 import { Alert, AsyncStorage } from 'react-native';
 
 export const LOAD_ACCESS_TOKEN = 'LOAD_ACCESS_TOKEN';
@@ -65,6 +66,7 @@ export const invalidateAccessToken = () => {
   return (dispatch) => {
     AsyncStorage.removeItem('access_token', (err) => {
       dispatch(invalidatedAccessToken());
+      dispatch(changeMainTab('earnCoins'));
     });
   };
 };

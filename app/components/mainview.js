@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { PushNotificationIOS } from 'react-native'
 
 import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from '../actions/user';
-import { changeNavTitle } from '../actions/nav';
+import { changeMainTab, changeNavTitle } from '../actions/nav';
 
 import NavBar from './navbar';
 import GetCoins from './getcoins';
@@ -18,10 +18,6 @@ import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
 
 class MainViewLayout extends Component {
-  state = {
-    selectedTab: 'earnCoins'
-  };
-
   componentDidMount(){
     PushNotificationIOS.addEventListener('register', this.onPushNotificationRegistration.bind(this));
     NetInfo.addEventListener('change', this.onNetworkStateChanged.bind(this));
@@ -43,7 +39,7 @@ class MainViewLayout extends Component {
   }
 
   render(){
-    let { dispatch } = this.props;
+    let { dispatch, tab } = this.props;
 
     return (
       <TabBarIOS tintColor='black'>
@@ -52,8 +48,8 @@ class MainViewLayout extends Component {
           iconName='picture-o'
           selectedIconName='picture-o'
           iconSize={20}
-          selected={this.state.selectedTab === 'earnCoins'}
-          onPress={() => {this.setState({selectedTab: 'earnCoins'}); dispatch(changeNavTitle('Earn coins')); }}>
+          selected={tab === 'earnCoins'}
+          onPress={() => {dispatch(changeMainTab('earnCoins')); dispatch(changeNavTitle('Earn coins')); }}>
           <GetCoins />
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
@@ -61,8 +57,8 @@ class MainViewLayout extends Component {
           iconName='heart'
           selectedIconName='heart'
           iconSize={20}
-          selected={this.state.selectedTab === 'getLikes'}
-          onPress={() => {this.setState({selectedTab: 'getLikes'}); dispatch(changeNavTitle('Get likes')); }}>
+          selected={tab === 'getLikes'}
+          onPress={() => {dispatch(changeMainTab('getLikes')); dispatch(changeNavTitle('Get likes')); }}>
           <GetLikes />
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
@@ -70,8 +66,8 @@ class MainViewLayout extends Component {
           iconName='users'
           selectedIconName='users'
           iconSize={20}
-          selected={this.state.selectedTab === 'getFollowers'}
-          onPress={() => {this.setState({selectedTab: 'getFollowers'}); dispatch(changeNavTitle('Get followers')); }}>
+          selected={tab === 'getFollowers'}
+          onPress={() => {dispatch(changeMainTab('getFollowers')); dispatch(changeNavTitle('Get followers')); }}>
           <GetFollowers />
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
@@ -79,8 +75,8 @@ class MainViewLayout extends Component {
           iconName='plus-circle'
           selectedIconName='plus-circle'
           iconSize={20}
-          selected={this.state.selectedTab === 'freeCoins'}
-          onPress={() => {this.setState({selectedTab: 'freeCoins'}); dispatch(changeNavTitle('Free coins')); }}>
+          selected={tab === 'freeCoins'}
+          onPress={() => {dispatch(changeMainTab('freeCoins')); dispatch(changeNavTitle('Free coins')); }}>
           <OfferWall />
         </Icon.TabBarItemIOS>
         <Icon.TabBarItemIOS
@@ -88,8 +84,8 @@ class MainViewLayout extends Component {
           iconName='ellipsis-h'
           selectedIconName='ellipsis-h'
           iconSize={20}
-          selected={this.state.selectedTab === 'more'}
-          onPress={() => {this.setState({selectedTab: 'more'}); dispatch(changeNavTitle('More')); }}>
+          selected={tab === 'more'}
+          onPress={() => {dispatch(changeMainTab('more')); dispatch(changeNavTitle('More')); }}>
           <More />
         </Icon.TabBarItemIOS>
       </TabBarIOS>
@@ -119,7 +115,8 @@ class MainViewLayout extends Component {
 const mapStateToProps = (state) => {
   return {
     offerwallEnabled: state.config.offerwall_enabled,
-    online: state.network !== 'none' && state.network !== 'unknown'
+    online: state.network !== 'none' && state.network !== 'unknown',
+    tab: state.mainTab
   };
 };
 

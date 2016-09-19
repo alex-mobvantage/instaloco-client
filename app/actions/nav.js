@@ -5,3 +5,11 @@ export const changeNavTitle = (title) => {
     title
   };
 };
+
+export const MAIN_TAB_CHANGE = 'MAIN_TAB_CHANGE';
+export const changeMainTab = (key) => {
+  return {
+    type: MAIN_TAB_CHANGE,
+    key
+  };
+};
