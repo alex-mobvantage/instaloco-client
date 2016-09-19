@@ -1,11 +1,12 @@
 import { LOADED_IMAGES, LOADED_NEXT_IMAGE } from '../actions/images';
 import { FOLLOWED } from '../actions/followers';
+import _ from 'lodash';
 
 export const images = (state = {images: [], canLoadMore: true}, action) => {
   switch (action.type){
     case LOADED_IMAGES:
       return Object.assign({}, state, {
-        images: state.images.concat(action.images),
+        images: _.uniqBy(state.images.concat(action.images), image => image.id),
         canLoadMore: action.images.length === 20
       });
     default:
