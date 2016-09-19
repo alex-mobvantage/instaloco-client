@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NetInfo, StyleSheet, TabBarIOS, Text, View } from 'react-native';
+import { NetInfo, TabBarIOS, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { PushNotificationIOS } from 'react-native'
@@ -119,13 +119,5 @@ const mapStateToProps = (state) => {
     tab: state.mainTab
   };
 };
-
-const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: colors.primary,
-    borderTopColor: colors.secondary,
-    borderTopWidth: 1
-  }
-})
 
 export default MainView = connect(mapStateToProps)(MainViewLayout);
