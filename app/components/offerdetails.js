@@ -20,7 +20,7 @@ class OfferDetailsLayout extends Component {
         <View style={styles.headerContainer}>
           <View style={styles.titleContainer}>
             {image && <Image source={{uri: image}} style={{width: 50, height: 50}} />}
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <View style={styles.titleWrapper}>
               <Text style={[commonStyles.fonts.base, commonStyles.fonts.bold, styles.titleStyle]}>{title}</Text>
             </View>
           </View>
@@ -84,6 +84,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    overflow: 'hidden'
+  },
+  titleWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
     overflow: 'hidden'
   },
   titleStyle: {
