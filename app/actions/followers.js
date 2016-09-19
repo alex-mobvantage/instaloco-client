@@ -1,6 +1,6 @@
 import { API_HOST } from '../constants';
 import { unexpectedError } from './error';
-import { getCoins } from './user';
+import { getCoins, getProfile } from './user';
 import qs from 'qs';
 
 export const purchaseFollowers = (followers) => {
@@ -51,6 +51,7 @@ export const follow = (user_id) => {
       .then(data => {
         dispatch(followed(data));
         dispatch(getCoins());
+        dispatch(getProfile());
       })
       .catch(err => dispatch(unexpectedError(err)));
   };
