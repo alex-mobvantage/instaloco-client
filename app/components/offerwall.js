@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AppState, ListView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 
-import { fetchOffers } from '../actions/offers';
+import { fetchOffers, showOfferWallTutorial } from '../actions/offers';
 
 import Spinner from './spinner';
 import Offer from './offer';
@@ -11,7 +11,10 @@ import * as commonStyles from '../styles/common';
 
 class OfferWallLayout extends Component {
   componentDidMount(){
+    let { dispatch } = this.props;
+
     this.fetchOffers();
+    dispatch(showOfferWallTutorial());
 
     AppState.addEventListener('change', this.onAppStateChange.bind(this));
   }

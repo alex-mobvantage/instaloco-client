@@ -128,3 +128,19 @@ export const beganOffer = (data) => {
     ...data
   };
 };
+
+export const showOfferWallTutorial = () => {
+  return () => {
+    AsyncStorage.getItem('offerwall_tutorial_shown')
+      .then((shown) => {
+        if (!shown){
+          Alert.alert(
+            'Info',
+            'Download and test the following apps to earn free coins!',
+            [
+              {text: 'Got it', onPress: () => AsyncStorage.setItem('offerwall_tutorial_shown', 'true')}
+            ]);
+        }
+      });
+  };
+};
