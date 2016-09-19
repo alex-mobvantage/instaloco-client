@@ -42,7 +42,7 @@ class MainViewLayout extends Component {
     let { dispatch, tab } = this.props;
 
     return (
-      <TabBarIOS tintColor='black'>
+      <TabBarIOS tintColor='black' removeClippedSubviews>
         <Icon.TabBarItemIOS
           title='Earn coins'
           iconName='picture-o'
