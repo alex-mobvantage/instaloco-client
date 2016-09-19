@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Button from 'react-native-button';
@@ -22,15 +22,17 @@ class PurchaseCoinsLayout extends Component {
         <View style={commonStyles.containers.list}>
         {
           products.map((product) => (
-            <View key={'product-' + product.identifier} style={commonStyles.containers.listItem}>
-              <Text style={[commonStyles.fonts.base, styles.coinTextStyle]}>{product.title}</Text>
-              <Button
-                containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
-                style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton, styles.coinButton]}
-                onPress={() => dispatch(purchaseCoins(product.identifier))}>
-                {product.priceString}
-              </Button>
-            </View>
+            <TouchableOpacity key={'product-btn-' + product.identifier} onPress={() => dispatch(purchaseCoins(product.identifier))}>
+              <View key={'product-' + product.identifier} style={commonStyles.containers.listItem}>
+                <Text style={[commonStyles.fonts.base, styles.coinTextStyle]}>{product.title}</Text>
+                <Button
+                  containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
+                  style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton, styles.coinButton]}
+                  onPress={() => dispatch(purchaseCoins(product.identifier))}>
+                  {product.priceString}
+                </Button>
+              </View>
+            </TouchableOpacity>
           ))
         }
         </View>

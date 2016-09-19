@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -35,16 +35,18 @@ class PurchaseLikesLayout extends Component {
           <View style={[commonStyles.containers.list]}>
           {
             [25, 50, 100, 300, 1000, 5000, 10000].map((likes) => (
-              <View key={'like-row-' + likes} style={commonStyles.containers.listItem}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Icon name='heart' color={colors.heart} />
-                  <Text style={[commonStyles.fonts.base, styles.likesText]}>+{likes}</Text>
+              <TouchableOpacity key={'like-row-btn-' + likes} onPress={() => dispatch(purchaseLikes(media_id, image_url, likes))}>
+                <View key={'like-row-' + likes} style={commonStyles.containers.listItem}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Icon name='heart' color={colors.heart} />
+                    <Text style={[commonStyles.fonts.base, styles.likesText]}>+{likes}</Text>
+                  </View>
+                  <Button
+                    containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
+                    style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton, styles.coinButton]}
+                    onPress={() => dispatch(purchaseLikes(media_id, image_url, likes))}>{likes * coins_per_like}</Button>
                 </View>
-                <Button
-                  containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
-                  style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton, styles.coinButton]}
-                  onPress={() => dispatch(purchaseLikes(media_id, image_url, likes))}>{likes * coins_per_like}</Button>
-              </View>
+              </TouchableOpacity>
             ))
           }
           </View>
