@@ -15,7 +15,10 @@ export const fetchOffers = () => {
 
     fetch(API_HOST + '/offers?' + qs.stringify({ access_token }))
       .then(response => response.json())
-      .then(data => dispatch(fetchedOffers(data)))
+      .then(data => {
+        dispatch(fetchedOffers(data));
+        dispatch(showOfferWallTutorial());
+      })
       .catch(err => dispatch(unexpectedError(err)));
   }
 };
