@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { AppState, Dimensions, Image, View, Text, StyleSheet } from 'react-native';
+import { AppState, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
+import { Actions } from 'react-native-router-flux';
 
 import Spinner from './spinner';
 
@@ -45,8 +46,9 @@ class ImageDisplayLayout extends Component {
                 onPress={() => dispatch(follow(user_id))}>
                 Follow
               </Button>
-            </View>}
-          </View>
+            </View>
+          }
+        </View>
       </View>
     );
   }
@@ -80,6 +82,9 @@ class GetCoinsLayout extends Component {
               user_id={user_id} />
           : <Text style={[commonStyles.fonts.base]}>There are currently no images to like. Check back later</Text>
         }
+        <TouchableOpacity onPress={() => Actions.purchaseCoins()}>
+          <Text style={[commonStyles.fonts.base, commonStyles.fonts.link, styles.link]}>Click here to get more coins faster!</Text>
+        </TouchableOpacity>
         {loading && <Spinner />}
       </View>
     );
@@ -115,6 +120,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingLeft: 12,
     paddingRight: 12
+  },
+  link: {
+    alignSelf: 'center',
+    marginTop: 12
   }
 })
 

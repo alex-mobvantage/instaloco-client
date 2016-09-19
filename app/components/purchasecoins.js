@@ -36,14 +36,16 @@ class PurchaseCoinsLayout extends Component {
           ))
         }
         </View>
-        <View style={{flexDirection: 'row'}}>
-          <Button
-            containerStyle={[commonStyles.buttons.base, commonStyles.buttons.secondary, styles.skipButton]}
-            style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.secondaryButton]}
-            onPress={() => Actions.purchaseLikes({media_id, image_url, likes})}>
-            Skip
-          </Button>
-        </View>
+        {media_id && image_url && likes &&
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              containerStyle={[commonStyles.buttons.base, commonStyles.buttons.secondary, styles.skipButton]}
+              style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.secondaryButton]}
+              onPress={() => Actions.purchaseLikes({media_id, image_url, likes})}>
+              Skip
+            </Button>
+          </View>
+        }
         {loading && <Spinner />}
       </View>
     );
