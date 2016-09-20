@@ -83,7 +83,7 @@ class GetCoinsLayout extends Component {
           : <Text style={[commonStyles.fonts.base]}>There are currently no images to like. Check back later</Text>
         }
         <TouchableOpacity onPress={() => Actions.purchaseCoins()}>
-          <Text style={[commonStyles.fonts.base, commonStyles.fonts.link, styles.link]}>Click here to get more coins faster!</Text>
+          <Text style={[commonStyles.fonts.base, commonStyles.fonts.link, styles.link]}>Click here to get coins faster!</Text>
         </TouchableOpacity>
         {loading && <Spinner />}
       </View>

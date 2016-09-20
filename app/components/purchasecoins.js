@@ -18,7 +18,7 @@ class PurchaseCoinsLayout extends Component {
 
     return (
       <View style={[commonStyles.containers.base, commonStyles.containers.centered, styles.container]}>
-        <Text style={[commonStyles.fonts.base, commonStyles.fonts.header]}>Get more coins faster!</Text>
+        <Text style={[commonStyles.fonts.base, commonStyles.fonts.header]}>Get coins faster!</Text>
         <View style={commonStyles.containers.list}>
         {
           products.map((product) => (
