@@ -81,9 +81,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    profile_image: state.user.profile.profile_picture,
-    followers: state.user.profile.counts.followed_by,
-    following: state.user.profile.counts.follows,
+    profile_image: state.user.profile.picture,
+    followers: state.user.profile.followersCount,
+    following: state.user.profile.followingsCount,
     coins_per_follower: state.config.coins_per_follower,
     loading: state.loading.getFollowers
   }

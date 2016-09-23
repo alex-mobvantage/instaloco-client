@@ -62,7 +62,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     title: ownProps.title || state.navTitle,
     coins: state.user.coins,
-    profile_image: state.user.profile.profile_picture
+    profile_image: state.user.profile.picture
   };
 };
 

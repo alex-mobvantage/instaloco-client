@@ -5,11 +5,9 @@ export const user = (state, action) => {
   let defaultState = {
     coins: 0,
     profile: {
-      profile_picture: '',
-      counts: {
-        followed_by: 0,
-        follows: 0
-      }
+      picture: '',
+      followingsCount: 0,
+      followersCount: 0
     }
   };
 
@@ -24,7 +22,7 @@ export const user = (state, action) => {
       });
     case PROFILE_RECEIVED:
       return Object.assign({}, state, {
-        profile: action.data
+        profile: action.profile
       });
     case INVALIDATED_ACCESS_TOKEN:
       return Object.assign({}, state, defaultState);

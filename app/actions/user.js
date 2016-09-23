@@ -7,12 +7,7 @@ import { AdSupportIOS, AsyncStorage, PushNotificationIOS } from 'react-native';
 
 export const getProfile = () => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
-    fetch(API_HOST + '/user/profile?access_token=' + access_token)
+    fetch(API_HOST + '/user/profile')
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(profileReceived(data)))
       .catch(err => dispatch(unexpectedError(err)));
@@ -20,21 +15,16 @@ export const getProfile = () => {
 };
 
 export const PROFILE_RECEIVED = 'PROFILE_RECEIVED';
-export const profileReceived = (data) => {
+export const profileReceived = (profile) => {
   return {
     type: PROFILE_RECEIVED,
-    ...data
+    profile
   };
 };
 
 export const getCoins = () => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
-    fetch(API_HOST + '/user/coins?access_token=' + access_token)
+    fetch(API_HOST + '/user/coins')
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(coinsReceived(data)))
       .catch(err => dispatch(unexpectedError(err)));
@@ -51,16 +41,11 @@ export const coinsReceived = (data) => {
 
 export const saveDeviceInfo = () => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     AdSupportIOS.getAdvertisingId(idfa => {
       let device_os = DeviceInfo.getSystemVersion(),
         device_kind = DeviceInfo.getModel();
 
-      fetch(API_HOST + '/user/device?' + qs.stringify({ access_token, device_os, device_kind, idfa }), {method: 'POST'})
+      fetch(API_HOST + '/user/device?' + qs.stringify({ device_os, device_kind, idfa }), {method: 'POST'})
         .then(() => dispatch(savedDeviceInfo()))
         .catch(err => console.log(err));
     },
@@ -77,12 +62,7 @@ export const savedDeviceInfo = () => {
 
 export const saveDeviceToken = (token) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
-    fetch(API_HOST + '/user/device_token?' + qs.stringify({ access_token, token }), {method: 'POST'})
+    fetch(API_HOST + '/user/device_token?' + qs.stringify({ token }), {method: 'POST'})
       .then(() => dispatch(savedDeviceToken(token)))
       .catch(err => dispatch(unexpectedError(err)));
   };
@@ -126,18 +106,10 @@ export const loadReferralData = () => {
 
 export const sendReferralData = (data) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login,
-      path = API_HOST + '/referral',
-      opts = { ...data };
+    let { logged_in } = getState().login,
+      path = API_HOST + '/referral/' + (logged_in ? 'authenticated' : 'unauthenticated');
 
-    if (!access_token){
-      path += '/unauthenticated';
-    } else {
-      path += '/authenticated';
-      opts.access_token = access_token;
-    }
-
-    fetch(path + '?' + qs.stringify(opts), {method: 'POST'})
+    fetch(path + '?' + qs.stringify({ ...data }), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(sentReferralData(data)))
       .catch(err => console.log(err));
