@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Dimensions, ListView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
+import _ from 'lodash';
 
 import { loadImages } from '../actions/images';
 
@@ -24,8 +25,8 @@ const GetLikesLayout = React.createClass({
           onLoadMoreAsync={this.loadMoreContentAsync}
           renderRow={(rowData) => (
             <GetLikeImage
-              image_url={this.getImageWithSize(rowData.images, 1080)}
-              thumbnail_url={this.getImageWithSize(rowData.images, 150)}
+              image_url={_.maxBy(rowData.images, image => image.width).url}
+              thumbnail_url={_.minBy(rowData.images, image => image.width).url}
               image_width={image_width}
               image_height={image_width}
               media_id={rowData.id}
@@ -44,11 +45,6 @@ const GetLikesLayout = React.createClass({
   loadMoreContentAsync(){
     let { dispatch, last_media_id } = this.props;
     dispatch(loadImages(last_media_id));
-  },
-
-  getImageWithSize(images, width){
-    let matches = images.filter(image => image.width === width);
-    return matches.length ? matches[0].url : null;
   }
 });
 
@@ -70,7 +66,7 @@ const mapStateToParams = (state) => {
   return {
     last_media_id: state.images.images.length > 0 ? state.images.images[state.images.images.length - 1].id : null,
     dataSource: dataSourceFromImages(state.images.images),
-    canLoadMoreContent: state.images.canLoadMore,
+    canLoadMoreContent: state.images.canLoadMore && !state.loading.getLikes,
     loading: state.loading.getLikes
   };
 };
