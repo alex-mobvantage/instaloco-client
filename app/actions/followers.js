@@ -5,14 +5,9 @@ import qs from 'qs';
 
 export const purchaseFollowers = (followers) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginPurchaseFollowers());
 
-    fetch(API_HOST + '/followers/get?' + qs.stringify({ access_token, followers }), {method: 'POST'})
+    fetch(API_HOST + '/followers/get?' + qs.stringify({ followers }), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => {
         dispatch(purchasedFollowers(data));
@@ -39,14 +34,9 @@ export const purchasedFollowers = (data) => {
 
 export const follow = (user_id) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginFollow());
 
-    fetch(API_HOST + '/followers/follow?' + qs.stringify({ access_token, user_id }), {method: 'POST'})
+    fetch(API_HOST + '/followers/follow?' + qs.stringify({ user_id }), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => {
         dispatch(followed(data));
