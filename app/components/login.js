@@ -29,6 +29,7 @@ class LoginLayout extends Component {
           style={commonStyles.inputs.text}
           placeholder='username'
           autoCorrect={false}
+          autoCapitalize='none'
           onChangeText={(username) => this.setState({username})}
           value={this.state.username} />
         <TextInput
@@ -36,6 +37,7 @@ class LoginLayout extends Component {
           secureTextEntry
           placeholder='password'
           autoCorrect={false}
+          autoCapitalize='none'
           onChangeText={(password) => this.setState({password})}
           value={this.state.password} />
         <Button
