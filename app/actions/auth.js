@@ -73,6 +73,7 @@ export const logout = (silent) => {
     let logoutAction = () => {
       dispatch(loggedOut());
       dispatch(changeMainTab('earnCoins'));
+      AsyncStorage.multiRemove(['username', 'password']);
     }
 
     if (silent){
