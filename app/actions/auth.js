@@ -85,7 +85,10 @@ export const logout = () => {
       'Logout',
       'Are you sure you want to logout?',
       [
-        {text: 'Yes', onPress: () => dispatch(invalidateAccessToken())},
+        {text: 'Yes', onPress: () => {
+          dispatch(loggedOut());
+          dispatch(changeMainTab('earnCoins'));
+        }},
         {text: 'Cancel'}
       ]);
   };
@@ -104,5 +107,12 @@ export const INVALIDATED_ACCESS_TOKEN = 'INVALIDATED_ACCESS_TOKEN';
 export const invalidatedAccessToken = () => {
   return {
     type: INVALIDATED_ACCESS_TOKEN
+  };
+};
+
+export const LOGGED_OUT = 'LOGGED_OUT';
+export const loggedOut = () => {
+  return {
+    type: LOGGED_OUT
   };
 };
