@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { AsyncStorage, TextInput, StyleSheet, View } from 'react-native';
+import { TextInput, StyleSheet, View } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
-import qs from 'qs';
-import { Actions } from 'react-native-router-flux'
 
-import { login } from '../actions/auth';
+import Spinner from './spinner';
+
+import { login, loginFromCachedCredentials } from '../actions/auth';
 
 import * as commonStyles from '../styles/common';
 
@@ -17,10 +17,11 @@ class LoginLayout extends Component {
 
   componentDidMount(){
     let { dispatch } = this.props;
+    dispatch(loginFromCachedCredentials());
   }
 
   render(){
-    let { dispatch } = this.props;
+    let { dispatch, loading } = this.props;
 
     return (
       <View style={[commonStyles.containers.base, commonStyles.containers.centered, styles.container]}>
@@ -43,6 +44,7 @@ class LoginLayout extends Component {
           onPress={() => dispatch(login(this.state.username, this.state.password))}>
           Login
         </Button>
+        {loading && <Spinner />}
       </View>
     );
   }
@@ -54,4 +56,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Login = connect()(LoginLayout);
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading.login
+  };
+};
+
+export default Login = connect(mapStateToProps)(LoginLayout);

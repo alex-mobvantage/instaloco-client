@@ -1,3 +1,5 @@
+import { BEGIN_LOGIN, LOGGED_IN } from '../actions/auth';
+
 import { 
   BEGIN_PURCHASE_FOLLOWERS, PURCHASED_FOLLOWERS,
   BEGIN_FOLLOW, FOLLOWED
@@ -24,6 +26,7 @@ import { UNEXPECTED_ERROR } from '../actions/error';
 export const loading = (state, action) => {
   if (!state){
     state = {
+      login: false,
       getFollowers: false,
       getCoins: false,
       getLikes: false,
@@ -35,6 +38,14 @@ export const loading = (state, action) => {
   }
 
   switch (action.type){
+    case BEGIN_LOGIN:
+      return Object.assign({}, state, {
+        login: true
+      });
+    case LOGGED_IN:
+      return Object.assign({}, state, {
+        login: false
+      });
     case BEGIN_PURCHASE_FOLLOWERS:
       return Object.assign({}, state, {
         getFollowers: true
