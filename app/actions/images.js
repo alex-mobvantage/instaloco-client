@@ -32,14 +32,9 @@ export const loadedImages = (images) => {
 
 export const nextImage = () => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginLoadNextImage());
 
-    fetch(API_HOST + '/image?' + qs.stringify({ access_token }))
+    fetch(API_HOST + '/image')
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(loadedNextImage(data)))
       .catch(err => dispatch(unexpectedError(err)));
