@@ -110,6 +110,7 @@ export const loading = (state, action) => {
       });
     case UNEXPECTED_ERROR:
       return Object.assign({}, state, {
+        login: false,
         getFollowers: false,
         getCoins: false,
         getLikes: false,
