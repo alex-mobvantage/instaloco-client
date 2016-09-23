@@ -58,14 +58,9 @@ export const loadedNextImage = (data) => {
 
 export const likeImage = (media_id) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginLikeImage());
 
-    fetch(API_HOST + '/images/like?' + qs.stringify({access_token, media_id}), {method: 'POST'})
+    fetch(API_HOST + '/images/like?' + qs.stringify({media_id}), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => {
         dispatch(likedImage(data));
@@ -93,14 +88,9 @@ export const likedImage = (data) => {
 
 export const skipImage = (media_id) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginSkipImage());
 
-    fetch(API_HOST + '/images/skip?' + qs.stringify({access_token, media_id}), {method: 'POST'})
+    fetch(API_HOST + '/images/skip?' + qs.stringify({media_id}), {method: 'POST'})
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(skippedImage(data)))
       .then(() => dispatch(nextImage()))
