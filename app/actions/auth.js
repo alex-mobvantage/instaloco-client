@@ -1,7 +1,36 @@
+import { API_HOST } from '../constants';
 import { getProfile, getCoins } from './user';
 import { loadImages } from './images';
 import { changeMainTab } from './nav';
 import { Alert, AsyncStorage } from 'react-native';
+import { unexpectedError } from './error';
+import qs from 'qs';
+
+export const BEGIN_LOGIN = 'BEGIN_LOGIN';
+export const beginLogin = () => {
+  return {
+    type: BEGIN_LOGIN
+  };
+};
+
+export const login = (username, password) => {
+  return (dispatch) => {
+    dispatch(beginLogin());
+
+    fetch(API_HOST + '/auth?' + qs.stringify({ username, password }))
+      .then(res => res.json().catch(err => {}))
+      .then(data => dispatch(loggedIn(data)))
+      .catch(err => dispatch(unexpectedError(err)));
+  }
+};
+
+export const LOGGED_IN = 'LOGGED_IN';
+export const loggedIn = (data) => {
+  return {
+    type: LOGGED_IN,
+    ...data
+  };
+};
 
 export const LOAD_ACCESS_TOKEN = 'LOAD_ACCESS_TOKEN';
 export const loadAccessToken = () => {

@@ -90,3 +90,11 @@ export const fonts = StyleSheet.create({
     textDecorationLine: 'underline'
   }
 });
+
+export const inputs = StyleSheet.create({
+  text: {
+    borderColor: colors.secondary,
+    borderWidth: 1, 
+    height: 26
+  }
+});
