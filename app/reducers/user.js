@@ -22,7 +22,7 @@ export const user = (state, action) => {
       });
     case PROFILE_RECEIVED:
       return Object.assign({}, state, {
-        profile: action.profile
+        profile: action.profile || defaultState.profile
       });
     case LOGGED_OUT:
       return Object.assign({}, state, defaultState);
