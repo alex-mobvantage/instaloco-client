@@ -6,14 +6,9 @@ import { getCoins } from './user';
 
 export const purchaseLikes = (media_id, image_url, likes) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginPurchaseLikes());
 
-    fetch(API_HOST + '/images/getlikes?' + qs.stringify({access_token, media_id, image_url, likes}), { method: 'POST' })
+    fetch(API_HOST + '/images/getlikes?' + qs.stringify({media_id, image_url, likes}), { method: 'POST' })
       .then(response => response.json().catch(err => {}))
       .then(data => {
         dispatch(purchasedLikes(data));
