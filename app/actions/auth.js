@@ -26,87 +26,42 @@ export const login = (username, password) => {
 
 export const LOGGED_IN = 'LOGGED_IN';
 export const loggedIn = (data) => {
-  return {
-    type: LOGGED_IN,
-    ...data
-  };
-};
-
-export const LOAD_ACCESS_TOKEN = 'LOAD_ACCESS_TOKEN';
-export const loadAccessToken = () => {
-  return (dispatch) => {
-    AsyncStorage.getItem('access_token', function(err, token){
-      if (token){
-        dispatch(loadedAccessToken(token));
-      }
-    });
-  }
-};
-
-export const LOADED_ACCESS_TOKEN = 'LOADED_ACCESS_TOKEN';
-export const loadedAccessToken = (access_token) => {
-  return {
-    type: LOADED_ACCESS_TOKEN,
-    access_token
-  };
-};
-
-export const SAVE_ACCESS_TOKEN = 'SAVE_ACCESS_TOKEN';
-export const saveAccessToken = (token) => {
   return (dispatch, getState) => {
-    AsyncStorage.setItem('access_token', token, (err) => {
-      if (!err){
-        let { multi_user } = getState().login;
-        dispatch(savedAccessToken(token));
+    let { multi_user } = getState().login;
 
-        // If we have previously logged out this session,
-        // refresh the new user's data
-        if (multi_user){
-          dispatch(getCoins());
-          dispatch(getProfile());
-          dispatch(loadImages());
-        }
-      }
+    // If we have previously logged out this session,
+    // refresh the new user's data
+    if (multi_user){
+      dispatch(getCoins());
+      dispatch(getProfile());
+      dispatch(loadImages());
+    }
+
+    dispatch({
+      type: LOGGED_IN,
+      ...data
     });
   };
 };
 
-export const SAVED_ACCESS_TOKEN = 'SAVED_ACCESS_TOKEN';
-export const savedAccessToken = (access_token) => {
-  return {
-    type: SAVED_ACCESS_TOKEN,
-    access_token
-  }
-};
-
-export const logout = () => {
+export const logout = (silent) => {
   return (dispatch) => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        {text: 'Yes', onPress: () => {
-          dispatch(loggedOut());
-          dispatch(changeMainTab('earnCoins'));
-        }},
-        {text: 'Cancel'}
-      ]);
-  };
-};
-
-export const invalidateAccessToken = () => {
-  return (dispatch) => {
-    AsyncStorage.removeItem('access_token', (err) => {
-      dispatch(invalidatedAccessToken());
+    let logoutAction = () => {
+      dispatch(loggedOut());
       dispatch(changeMainTab('earnCoins'));
-    });
-  };
-};
+    }
 
-export const INVALIDATED_ACCESS_TOKEN = 'INVALIDATED_ACCESS_TOKEN';
-export const invalidatedAccessToken = () => {
-  return {
-    type: INVALIDATED_ACCESS_TOKEN
+    if (silent){
+      logoutAction();
+    } else {
+      Alert.alert(
+        'Logout',
+        'Are you sure you want to logout?',
+        [
+          {text: 'Yes', onPress: logoutAction},
+          {text: 'Cancel'}
+        ]);
+    }
   };
 };
 

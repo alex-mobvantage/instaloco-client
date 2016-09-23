@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import qs from 'qs';
 import { Actions } from 'react-native-router-flux'
 
-import { login, loadAccessToken, saveAccessToken } from '../actions/auth';
+import { login } from '../actions/auth';
 
 import * as commonStyles from '../styles/common';
 
@@ -17,7 +17,6 @@ class LoginLayout extends Component {
 
   componentDidMount(){
     let { dispatch } = this.props;
-    dispatch(loadAccessToken());
   }
 
   render(){

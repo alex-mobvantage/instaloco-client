@@ -1,5 +1,5 @@
 import { COINS_RECEIVED, PROFILE_RECEIVED } from '../actions/user';
-import { INVALIDATED_ACCESS_TOKEN } from '../actions/auth';
+import { LOGGED_OUT } from '../actions/auth';
 
 export const user = (state, action) => {
   let defaultState = {
@@ -24,7 +24,7 @@ export const user = (state, action) => {
       return Object.assign({}, state, {
         profile: action.profile
       });
-    case INVALIDATED_ACCESS_TOKEN:
+    case LOGGED_OUT:
       return Object.assign({}, state, defaultState);
     default:
       return state;
