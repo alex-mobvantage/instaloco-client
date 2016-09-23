@@ -33,6 +33,8 @@ export const nextImage = (state = {}, action) => {
       return Object.assign({}, state, {
         can_follow: false
       });
+    case LOGGED_OUT:
+      return {};
     default:
       return state;
   }
