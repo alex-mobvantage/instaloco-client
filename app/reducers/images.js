@@ -8,7 +8,7 @@ export const images = (state = {images: [], canLoadMore: true}, action) => {
     case LOADED_IMAGES:
       return Object.assign({}, state, {
         images: _.uniqBy(state.images.concat(action.images), image => image.id),
-        canLoadMore: action.images.length === 20
+        canLoadMore: action.images.length === 18
       });
     case INVALIDATED_ACCESS_TOKEN:
       return Object.assign({}, state, {

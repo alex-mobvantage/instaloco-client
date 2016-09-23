@@ -24,12 +24,12 @@ const GetLikesLayout = React.createClass({
           onLoadMoreAsync={this.loadMoreContentAsync}
           renderRow={(rowData) => (
             <GetLikeImage
-              image_url={rowData.images.standard_resolution.url}
-              thumbnail_url={rowData.images.thumbnail.url}
+              image_url={this.getImageWithSize(rowData.images, 1080)}
+              thumbnail_url={this.getImageWithSize(rowData.images, 150)}
               image_width={image_width}
               image_height={image_width}
               media_id={rowData.id}
-              likes={rowData.likes.count} />
+              likes={rowData.likeCount} />
           )} />
         {this.props.loading && <Spinner />}
         </View>
@@ -44,6 +44,11 @@ const GetLikesLayout = React.createClass({
   loadMoreContentAsync(){
     let { dispatch, last_media_id } = this.props;
     dispatch(loadImages(last_media_id));
+  },
+
+  getImageWithSize(images, width){
+    let matches = images.filter(image => image.width === width);
+    return matches.length ? matches[0].url : null;
   }
 });
 

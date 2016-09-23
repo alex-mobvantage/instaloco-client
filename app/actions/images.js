@@ -6,15 +6,10 @@ import qs from 'qs';
 export const LOAD_IMAGES = 'LOAD_IMAGES';
 export const loadImages = (last_media_id) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginLoadingImages());
 
-    fetch(API_HOST + '/images?' + qs.stringify({ access_token, last_media_id }))
-      .then(response => response.json())
+    fetch(API_HOST + '/images?' + qs.stringify({ last_media_id }))
+      .then(response => response.json().catch(err => {}))
       .then(images => dispatch(loadedImages(images)))
       .catch(err => dispatch(unexpectedError(err)));
   };
@@ -28,10 +23,10 @@ export const beginLoadingImages = () => {
 };
 
 export const LOADED_IMAGES = 'LOADED_IMAGES';
-export const loadedImages = (data) => {
+export const loadedImages = (images) => {
   return {
     type: LOADED_IMAGES,
-    ...data
+    images
   };
 };
 
