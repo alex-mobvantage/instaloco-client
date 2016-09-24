@@ -21,13 +21,6 @@ class MainViewLayout extends Component {
   componentDidMount(){
     PushNotificationIOS.addEventListener('register', this.onPushNotificationRegistration.bind(this));
     NetInfo.addEventListener('change', this.onNetworkStateChanged.bind(this));
-
-    let { dispatch } = this.props;
-    dispatch(getProfile());
-    dispatch(getCoins());
-    dispatch(saveDeviceInfo());
-    dispatch(refreshDeviceToken());
-    dispatch(loadReferralData());
   }
 
   componentWillUnmount(){

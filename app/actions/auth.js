@@ -1,6 +1,6 @@
 import { API_HOST } from '../constants';
-import { getProfile, getCoins } from './user';
-import { changeMainTab } from './nav';
+import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from './user';
+import { changeMainTab, changeNavTitle } from './nav';
 import { Alert, AsyncStorage } from 'react-native';
 import { unexpectedError } from './error';
 import qs from 'qs';
@@ -40,6 +40,7 @@ export const loginFromCachedCredentials = () => {
     .spread((username, password) => {
       if (username && password){
         dispatch(changeMainTab('earnCoins'));
+        dispatch(changeNavTitle('Earn coins'));
         dispatch(beginLoginFromCachedCredentials());
         dispatch(login(username, password));
       }
@@ -58,8 +59,12 @@ export const LOGGED_IN = 'LOGGED_IN';
 export const loggedIn = (data) => {
   return (dispatch, getState) => {
     dispatch(changeMainTab('earnCoins'));
+    dispatch(changeNavTitle('Earn coins'));
     dispatch(getCoins());
     dispatch(getProfile());
+    dispatch(saveDeviceInfo());
+    dispatch(refreshDeviceToken());
+    dispatch(loadReferralData());
 
     dispatch({
       type: LOGGED_IN,
