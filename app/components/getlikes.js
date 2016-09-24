@@ -12,6 +12,16 @@ import GetLikeImage from './getlikeimage';
 import * as commonStyles from '../styles/common';
 
 const GetLikesLayout = React.createClass({
+  componentDidMount(){
+    this.loadImages();
+  },
+
+  componentWillUpdate(props, state){
+    if (props.active && props.images.length === 0 && !props.loading){
+      this.loadImages();
+    }
+  },
+
   render(){
     let image_width = Dimensions.get('window').width / 3;
     return (
@@ -37,14 +47,14 @@ const GetLikesLayout = React.createClass({
     );
   },
 
-  componentDidMount(){
-    let { dispatch } = this.props;
-    dispatch(loadImages());
-  },
-
   loadMoreContentAsync(){
     let { dispatch, last_media_id } = this.props;
     dispatch(loadImages(last_media_id, true /* suppress loading */));
+  },
+
+  loadImages(){
+    let { dispatch } = this.props;
+    dispatch(loadImages());
   }
 });
 
@@ -66,8 +76,10 @@ const mapStateToParams = (state) => {
   return {
     last_media_id: state.images.images.length > 0 ? state.images.images[state.images.images.length - 1].id : null,
     dataSource: dataSourceFromImages(state.images.images),
+    images: state.images.images,
     canLoadMoreContent: state.images.canLoadMore && !state.loading.getLikes,
-    loading: state.loading.getLikes
+    loading: state.loading.getLikes,
+    active: state.mainTab === 'getLikes'
   };
 };
 

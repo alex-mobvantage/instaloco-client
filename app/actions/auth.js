@@ -1,6 +1,6 @@
 import { API_HOST } from '../constants';
 import { getProfile, getCoins } from './user';
-import { loadImage, loadImages } from './images';
+import { nextImage } from './images';
 import { changeMainTab } from './nav';
 import { Alert, AsyncStorage } from 'react-native';
 import { unexpectedError } from './error';
@@ -40,26 +40,27 @@ export const loginFromCachedCredentials = () => {
     ])
     .spread((username, password) => {
       if (username && password){
-        dispatch(loggedIn(null));
+        dispatch(changeMainTab('earnCoins'));
+        dispatch(beginLoginFromCachedCredentials());
         dispatch(login(username, password));
       }
     });
-  }
-}
+  };
+};
+
+export const BEGIN_LOGIN_FROM_CACHED_CREDENTIALS = 'BEGIN_LOGIN_FROM_CACHED_CREDENTIALS';
+export const beginLoginFromCachedCredentials = () => {
+  return {
+    type: BEGIN_LOGIN_FROM_CACHED_CREDENTIALS
+  };
+};
 
 export const LOGGED_IN = 'LOGGED_IN';
 export const loggedIn = (data) => {
   return (dispatch, getState) => {
-    let { multi_user } = getState().login;
-
-    // If we have previously logged out this session,
-    // refresh the new user's data
-    if (multi_user){
-      dispatch(getCoins());
-      dispatch(getProfile());
-      dispatch(loadImage());
-      dispatch(loadImages());
-    }
+    dispatch(changeMainTab('earnCoins'));
+    dispatch(getCoins());
+    dispatch(getProfile());
 
     dispatch({
       type: LOGGED_IN,
@@ -72,7 +73,6 @@ export const logout = (silent) => {
   return (dispatch) => {
     let logoutAction = () => {
       dispatch(loggedOut());
-      dispatch(changeMainTab('earnCoins'));
       AsyncStorage.multiRemove(['username', 'password']);
     }
 

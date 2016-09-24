@@ -104,7 +104,7 @@ const mapSceneNetworkPropsToScene = (props) => {
 
 const mapAuthStatesToSceneProps = (state) => {
   return {
-    logged_in: state.login.logged_in
+    logged_in: state.login.logged_in || state.login.cached_credentials
   };
 };
 

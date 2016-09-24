@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NetInfo, TabBarIOS, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import { PushNotificationIOS } from 'react-native'
+import { PushNotificationIOS } from 'react-native';
 
 import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from '../actions/user';
 import { changeMainTab, changeNavTitle } from '../actions/nav';
@@ -28,9 +28,6 @@ class MainViewLayout extends Component {
     dispatch(saveDeviceInfo());
     dispatch(refreshDeviceToken());
     dispatch(loadReferralData());
-
-    // TODO: Get this value automatically
-    dispatch(changeNavTitle('Earn coins'));
   }
 
   componentWillUnmount(){
@@ -39,55 +36,34 @@ class MainViewLayout extends Component {
   }
 
   render(){
-    let { dispatch, tab } = this.props;
+    let { dispatch, activeTab } = this.props;
+    let tabs = [
+      {id: 'earnCoins', title: 'Earn coins', icon: 'picture-o', cmp: <GetCoins />},
+      {id: 'getLikes', title: 'Get likes', icon: 'heart', cmp: <GetLikes />},
+      {id: 'getFollowers', title: 'Get followers', icon: 'users', cmp: <GetFollowers />},
+      {id: 'freeCoins', title: 'Free coins', icon: 'plus-circle', cmp: <OfferWall />},
+      {id: 'more', title: 'More', icon: 'ellipsis-h', cmp: <More />}
+    ];
 
     return (
       <TabBarIOS tintColor='black' removeClippedSubviews>
-        <Icon.TabBarItemIOS
-          title='Earn coins'
-          iconName='picture-o'
-          selectedIconName='picture-o'
-          iconSize={20}
-          selected={tab === 'earnCoins'}
-          onPress={() => {dispatch(changeMainTab('earnCoins')); dispatch(changeNavTitle('Earn coins')); }}>
-          <GetCoins />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title='Get likes'
-          iconName='heart'
-          selectedIconName='heart'
-          iconSize={20}
-          selected={tab === 'getLikes'}
-          onPress={() => {dispatch(changeMainTab('getLikes')); dispatch(changeNavTitle('Get likes')); }}>
-          <GetLikes />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title='Get followers'
-          iconName='users'
-          selectedIconName='users'
-          iconSize={20}
-          selected={tab === 'getFollowers'}
-          onPress={() => {dispatch(changeMainTab('getFollowers')); dispatch(changeNavTitle('Get followers')); }}>
-          <GetFollowers />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title='Free coins'
-          iconName='plus-circle'
-          selectedIconName='plus-circle'
-          iconSize={20}
-          selected={tab === 'freeCoins'}
-          onPress={() => {dispatch(changeMainTab('freeCoins')); dispatch(changeNavTitle('Free coins')); }}>
-          <OfferWall />
-        </Icon.TabBarItemIOS>
-        <Icon.TabBarItemIOS
-          title='More'
-          iconName='ellipsis-h'
-          selectedIconName='ellipsis-h'
-          iconSize={20}
-          selected={tab === 'more'}
-          onPress={() => {dispatch(changeMainTab('more')); dispatch(changeNavTitle('More')); }}>
-          <More />
-        </Icon.TabBarItemIOS>
+        {
+          tabs.map(tab => (
+            <Icon.TabBarItemIOS
+              key={'tab-' + tab.id}
+              title={tab.title}
+              iconName={tab.icon}
+              selectedIconName={tab.icon}
+              iconSize={20}
+              selected={tab.id === activeTab}
+              onPress={() => {
+                dispatch(changeMainTab(tab.id));
+                dispatch(changeNavTitle(tab.title));
+              }}>
+              {tab.cmp}
+            </Icon.TabBarItemIOS>
+          ))
+        }
       </TabBarIOS>
     );
   }
@@ -116,7 +92,7 @@ const mapStateToProps = (state) => {
   return {
     offerwallEnabled: state.config.offerwall_enabled,
     online: state.network !== 'none' && state.network !== 'unknown',
-    tab: state.mainTab
+    activeTab: state.mainTab
   };
 };
 

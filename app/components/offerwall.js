@@ -9,15 +9,21 @@ import Offer from './offer';
 
 import * as commonStyles from '../styles/common';
 
-class OfferWallLayout extends Component {
+const OfferWallLayout = React.createClass({
   componentDidMount(){
-    AppState.addEventListener('change', this.onAppStateChange.bind(this));
+    AppState.addEventListener('change', this.onAppStateChange);
     this.fetchOffers();
-  }
+  },
 
   componentWillUnmount(){
-    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
-  }
+    AppState.removeEventListener('change', this.onAppStateChange);
+  },
+
+  componentWillUpdate(props, state){
+    if (props.active && props.offers.length === 0 && !props.loading){
+      this.fetchOffers();
+    }
+  },
   
   render(){
     return (
@@ -38,19 +44,19 @@ class OfferWallLayout extends Component {
         {this.props.loading && <Spinner />}
       </View>
     );
-  }
+  },
 
   onAppStateChange(currentState){
     if (currentState === 'active'){
       this.fetchOffers();
     }
-  }
+  },
 
   fetchOffers(){
     let { dispatch } = this.props;
     dispatch(fetchOffers());
   }
-}
+});
 
 const dataSourceFromOffers = (offers) => {
   let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -60,7 +66,9 @@ const dataSourceFromOffers = (offers) => {
 const mapStateToProps = (state) => {
   return {
     dataSource: dataSourceFromOffers(state.offers),
-    loading: state.loading.offerwall
+    offers: state.offers,
+    loading: state.loading.offerwall,
+    active: state.mainTab === 'freeCoins'
   };
 };
 

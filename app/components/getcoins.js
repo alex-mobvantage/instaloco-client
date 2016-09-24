@@ -56,17 +56,21 @@ class ImageDisplayLayout extends Component {
 
 const ImageDisplay = connect()(ImageDisplayLayout);
 
-class GetCoinsLayout extends Component {
+const GetCoinsLayout = React.createClass({
   componentDidMount(){
-    AppState.addEventListener('change', this.onAppStateChange.bind(this));
-
-    let { dispatch } = this.props;
-    dispatch(nextImage());
-  }
+    AppState.addEventListener('change', this.onAppStateChange);
+    this.loadImage();
+  },
 
   componentWillUnmount(){
-    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
-  }
+    AppState.removeEventListener('change', this.onAppStateChange);
+  },
+
+  componentWillUpdate(props, state){
+    if (props.active && !props.image_url && !props.loading){
+      this.loadImage();
+    }
+  },
 
   render(){
     let { loading, image_url, media_id, can_follow, user_id } = this.props;
@@ -88,20 +92,26 @@ class GetCoinsLayout extends Component {
         {loading && <Spinner />}
       </View>
     );
-  }
+  },
 
   onAppStateChange(currentState){
     let { dispatch, image_url } = this.props;
     if (currentState === 'active' && !image_url){
       dispatch(nextImage());
     }
+  },
+
+  loadImage(){
+    let { dispatch } = this.props;
+    dispatch(nextImage());
   }
-}
+});
 
 const mapStateToProps = (state) => {
   return {
     ...state.nextImage,
-    loading: state.loading.getCoins
+    loading: state.loading.getCoins,
+    active: state.mainTab === 'earnCoins'
   };
 };
 
