@@ -1,79 +1,98 @@
+import { API_HOST } from '../constants';
 import { getProfile, getCoins } from './user';
-import { loadImages } from './images';
+import { loadImage, loadImages } from './images';
 import { changeMainTab } from './nav';
 import { Alert, AsyncStorage } from 'react-native';
+import { unexpectedError } from './error';
+import qs from 'qs';
+import Promise from 'bluebird';
 
-export const LOAD_ACCESS_TOKEN = 'LOAD_ACCESS_TOKEN';
-export const loadAccessToken = () => {
-  return (dispatch) => {
-    AsyncStorage.getItem('access_token', function(err, token){
-      if (token){
-        dispatch(loadedAccessToken(token));
-      }
-    });
-  }
-};
-
-export const LOADED_ACCESS_TOKEN = 'LOADED_ACCESS_TOKEN';
-export const loadedAccessToken = (access_token) => {
+export const BEGIN_LOGIN = 'BEGIN_LOGIN';
+export const beginLogin = () => {
   return {
-    type: LOADED_ACCESS_TOKEN,
-    access_token
+    type: BEGIN_LOGIN
   };
 };
 
-export const SAVE_ACCESS_TOKEN = 'SAVE_ACCESS_TOKEN';
-export const saveAccessToken = (token) => {
+export const login = (username, password) => {
+  return (dispatch) => {
+    dispatch(beginLogin());
+
+    fetch(API_HOST + '/auth?' + qs.stringify({ username, password }))
+      .then(res => res.json().catch(err => {}))
+      .then(data => dispatch(loggedIn(data)))
+      .then(() => {
+        return Promise.all([
+          AsyncStorage.setItem('username', username),
+          AsyncStorage.setItem('password', password)
+        ])
+        .catch(err => console.log('error saving credentials', err));
+      })
+      .catch(err => dispatch(unexpectedError(err)));
+  }
+};
+
+export const loginFromCachedCredentials = () => {
+  return (dispatch) => {
+    Promise.all([
+      AsyncStorage.getItem('username'),
+      AsyncStorage.getItem('password')
+    ])
+    .spread((username, password) => {
+      if (username && password){
+        dispatch(loggedIn(null));
+        dispatch(login(username, password));
+      }
+    });
+  }
+}
+
+export const LOGGED_IN = 'LOGGED_IN';
+export const loggedIn = (data) => {
   return (dispatch, getState) => {
-    AsyncStorage.setItem('access_token', token, (err) => {
-      if (!err){
-        let { multi_user } = getState().login;
-        dispatch(savedAccessToken(token));
+    let { multi_user } = getState().login;
 
-        // If we have previously logged out this session,
-        // refresh the new user's data
-        if (multi_user){
-          dispatch(getCoins());
-          dispatch(getProfile());
-          dispatch(loadImages());
-        }
-      }
+    // If we have previously logged out this session,
+    // refresh the new user's data
+    if (multi_user){
+      dispatch(getCoins());
+      dispatch(getProfile());
+      dispatch(loadImage());
+      dispatch(loadImages());
+    }
+
+    dispatch({
+      type: LOGGED_IN,
+      ...data
     });
   };
 };
 
-export const SAVED_ACCESS_TOKEN = 'SAVED_ACCESS_TOKEN';
-export const savedAccessToken = (access_token) => {
-  return {
-    type: SAVED_ACCESS_TOKEN,
-    access_token
-  }
-};
-
-export const logout = () => {
+export const logout = (silent) => {
   return (dispatch) => {
-    Alert.alert(
-      'Logout',
-      'Are you sure you want to logout?',
-      [
-        {text: 'Yes', onPress: () => dispatch(invalidateAccessToken())},
-        {text: 'Cancel'}
-      ]);
-  };
-};
-
-export const invalidateAccessToken = () => {
-  return (dispatch) => {
-    AsyncStorage.removeItem('access_token', (err) => {
-      dispatch(invalidatedAccessToken());
+    let logoutAction = () => {
+      dispatch(loggedOut());
       dispatch(changeMainTab('earnCoins'));
-    });
+      AsyncStorage.multiRemove(['username', 'password']);
+    }
+
+    if (silent){
+      logoutAction();
+    } else {
+      Alert.alert(
+        'Logout',
+        'Are you sure you want to logout?',
+        [
+          {text: 'Yes', onPress: logoutAction},
+          {text: 'Cancel'}
+        ]);
+    }
   };
 };
 
-export const INVALIDATED_ACCESS_TOKEN = 'INVALIDATED_ACCESS_TOKEN';
-export const invalidatedAccessToken = () => {
+export const LOGGED_OUT = 'LOGGED_OUT';
+export const loggedOut = () => {
   return {
-    type: INVALIDATED_ACCESS_TOKEN
+    type: LOGGED_OUT
   };
 };

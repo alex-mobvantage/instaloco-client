@@ -52,15 +52,10 @@ export const purchaseCoins = (identifier) => {
 
 const transactionComplete = (transactionIdentifier) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginTransactionComplete());
 
     InAppUtils.receiptData((error, receiptData) => {
-      fetch(API_HOST + '/purchase?' + qs.stringify({ transactionIdentifier, receiptData, access_token }), {method: 'POST'})
+      fetch(API_HOST + '/purchase?' + qs.stringify({ transactionIdentifier, receiptData }), {method: 'POST'})
         .then(response => response.json().catch(err => {}))
         .then(data => {
           dispatch(purchasedCoins(data));

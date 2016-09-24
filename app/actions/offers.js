@@ -6,14 +6,9 @@ import Promise from 'bluebird';
 
 export const fetchOffers = () => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     dispatch(beginFetchOffers());
 
-    fetch(API_HOST + '/offers?' + qs.stringify({ access_token }))
+    fetch(API_HOST + '/offers')
       .then(response => response.json())
       .then(data => {
         dispatch(fetchedOffers(data));
@@ -40,12 +35,7 @@ export const fetchedOffers = (data) => {
 
 export const fetchOffer = (id) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
-    fetch(API_HOST + '/offer/' + id + '?' + qs.stringify({ access_token }))
+    fetch(API_HOST + '/offer/' + id)
       .then(response => response.json().catch(err => {}))
       .then(data => dispatch(fetchedOffer(data)))
       .catch(err => dispatch(unexpectedError(err)));
@@ -62,14 +52,9 @@ export const fetchedOffer = (data) => {
 
 export const beginOffer = (offer_id, redirect_url) => {
   return (dispatch, getState) => {
-    let { access_token } = getState().login;
-    if (!access_token){
-      return;
-    }
-
     requestPushPermissions()
       .then(() => dispatch(startBeginOffer()))
-      .then(() => fetch(API_HOST + '/offers/begin?' + qs.stringify({ access_token, offer_id }), {method: 'POST'}))
+      .then(() => fetch(API_HOST + '/offers/begin?' + qs.stringify({ offer_id }), {method: 'POST'}))
       .then(response => response.json().catch(err => {}))
       .then(data => {
         Linking.openURL(redirect_url);

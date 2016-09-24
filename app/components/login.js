@@ -1,52 +1,67 @@
-import React from 'react';
-import { AsyncStorage, Linking, View } from 'react-native';
+import React, { Component } from 'react';
+import { TextInput, StyleSheet, View } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
-import qs from 'qs';
-import { Actions } from 'react-native-router-flux'
 
-import { loadAccessToken, saveAccessToken } from '../actions/auth';
+import Spinner from './spinner';
 
-const LoginLayout = React.createClass({
+import { login, loginFromCachedCredentials } from '../actions/auth';
+
+import * as commonStyles from '../styles/common';
+
+class LoginLayout extends Component {
+  state = {
+    username: '',
+    password: ''
+  }
+
   componentDidMount(){
-    Linking.addEventListener('url', this._handleOpenURL);
-    
     let { dispatch } = this.props;
-    dispatch(loadAccessToken());
-  },
-
-  componentWillUnmount(){
-    Linking.removeEventListener('url', this._handleOpenURL);
-  },
-
-  _handleOpenURL(event){
-    // TODO: Harden this 
-    let path = event.url.substring('likesforapps://'.length, event.url.indexOf('?'));
-    if (path === 'login'){
-      let params = event.url.substring(event.url.indexOf('?') + 1);
-      let data = qs.parse(params);
-
-      let { dispatch } = this.props;
-      dispatch(saveAccessToken(data.access_token));
-    }
-  },
+    dispatch(loginFromCachedCredentials());
+  }
 
   render(){
+    let { dispatch, loading } = this.props;
+
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.centered, styles.container]}>
+        <TextInput
+          style={commonStyles.inputs.text}
+          placeholder='username'
+          autoCorrect={false}
+          autoCapitalize='none'
+          onChangeText={(username) => this.setState({username})}
+          value={this.state.username} />
+        <TextInput
+          style={commonStyles.inputs.text}
+          secureTextEntry
+          placeholder='password'
+          autoCorrect={false}
+          autoCapitalize='none'
+          onChangeText={(password) => this.setState({password})}
+          value={this.state.password} />
         <Button
-          onPress={() => Linking.openURL(
-            'https://api.instagram.com/oauth/authorize/?' + qs.stringify({
-              client_id: 'cfa0b79d5bbe413492a09c9069ccbe58',
-              redirect_uri: 'http://likesforapps.herokuapp.com/auth',
-              response_type: 'code',
-              scope: 'likes public_content relationships'
-            }))}>
+          containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
+          style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
+          onPress={() => dispatch(login(this.state.username, this.state.password))}>
           Login
         </Button>
+        {loading && <Spinner />}
       </View>
     );
-  },
+  }
+};
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 72
+  }
 });
 
-export default Login = connect()(LoginLayout);
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading.login
+  };
+};
+
+export default Login = connect(mapStateToProps)(LoginLayout);
