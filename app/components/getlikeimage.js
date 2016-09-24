@@ -8,7 +8,7 @@ import { navigateToPurchaseLikes } from '../actions/nav';
 import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
 
-const GetLikeImageLayout = React.createClass({
+class GetLikeImageLayout extends Component {
   render(){
     let { dispatch, image_url, thumbnail_url, image_width, image_height, media_id, likes } = this.props;
     return (
@@ -27,7 +27,7 @@ const GetLikeImageLayout = React.createClass({
       </TouchableHighlight>
     );
   }
-});
+};
 
 const styles = StyleSheet.create({
   image: {

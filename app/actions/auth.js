@@ -1,6 +1,5 @@
 import { API_HOST } from '../constants';
 import { getProfile, getCoins } from './user';
-import { nextImage } from './images';
 import { changeMainTab } from './nav';
 import { Alert, AsyncStorage } from 'react-native';
 import { unexpectedError } from './error';

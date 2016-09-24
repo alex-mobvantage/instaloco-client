@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ActivityIndicator, Dimensions, ListView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
