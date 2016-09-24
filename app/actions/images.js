@@ -10,7 +10,7 @@ export const loadImages = (last_media_id) => {
 
     fetch(API_HOST + '/images?' + qs.stringify({ last_media_id }))
       .then(response => response.json().catch(err => {}))
-      .then(images => dispatch(loadedImages(images)))
+      .then(data => dispatch(loadedImages(data)))
       .catch(err => dispatch(unexpectedError(err)));
   };
 };
@@ -23,10 +23,10 @@ export const beginLoadingImages = () => {
 };
 
 export const LOADED_IMAGES = 'LOADED_IMAGES';
-export const loadedImages = (images) => {
+export const loadedImages = (data) => {
   return {
     type: LOADED_IMAGES,
-    images
+    ...data
   };
 };
 
