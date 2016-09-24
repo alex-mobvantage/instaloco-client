@@ -44,7 +44,7 @@ const GetLikesLayout = React.createClass({
 
   loadMoreContentAsync(){
     let { dispatch, last_media_id } = this.props;
-    dispatch(loadImages(last_media_id));
+    dispatch(loadImages(last_media_id, true /* suppress loading */));
   }
 });
 
