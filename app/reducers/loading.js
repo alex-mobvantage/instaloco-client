@@ -1,4 +1,4 @@
-import { BEGIN_LOGIN, LOGGED_IN } from '../actions/auth';
+import { BEGIN_LOGIN, LOGGED_IN, LOGIN_ERROR } from '../actions/auth';
 
 import { 
   BEGIN_PURCHASE_FOLLOWERS, PURCHASED_FOLLOWERS,
@@ -42,6 +42,7 @@ export const loading = (state, action) => {
       return Object.assign({}, state, {
         login: true
       });
+    case LOGIN_ERROR:
     case LOGGED_IN:
       return Object.assign({}, state, {
         login: false

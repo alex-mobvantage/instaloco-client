@@ -18,15 +18,18 @@ export const login = (username, password) => {
     dispatch(beginLogin());
 
     fetch(API_HOST + '/auth?' + qs.stringify({ username, password }))
-      .then(res => res.json().catch(err => {}))
-      .then(data => dispatch(loggedIn(data)))
-      .then(() => {
-        return Promise.all([
-          AsyncStorage.setItem('username', username),
-          AsyncStorage.setItem('password', password)
-        ])
-        .catch(err => console.log('error saving credentials', err));
-      })
+      .then(res => res.json().catch(err => {}).then(data => {
+        if (res.ok){
+          dispatch(loggedIn(data));
+          return Promise.all([
+            AsyncStorage.setItem('username', username),
+            AsyncStorage.setItem('password', password)
+          ])
+          .catch(err => console.log('error saving credentials', err));
+        } else {
+          dispatch(loginError(data));
+        }
+      }))
       .catch(err => dispatch(unexpectedError(err)));
   }
 };
@@ -70,6 +73,14 @@ export const loggedIn = (data) => {
       type: LOGGED_IN,
       ...data
     });
+  };
+};
+
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const loginError = (data) => {
+  return {
+    type: LOGIN_ERROR,
+    ...data
   };
 };
 
