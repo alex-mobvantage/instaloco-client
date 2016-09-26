@@ -4,11 +4,9 @@ import { getCoins } from './user';
 import qs from 'qs';
 
 export const LOAD_IMAGES = 'LOAD_IMAGES';
-export const loadImages = (last_media_id, suppressLoading) => {
+export const loadImages = (last_media_id) => {
   return (dispatch, getState) => {
-    if (!suppressLoading){
-      dispatch(beginLoadingImages());
-    }
+    dispatch(beginLoadingImages());
 
     fetch(API_HOST + '/images?' + qs.stringify({ last_media_id }))
       .then(response => response.json().catch(err => {}))

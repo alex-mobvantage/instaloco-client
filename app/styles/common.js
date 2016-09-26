@@ -4,7 +4,8 @@ import { StyleSheet } from 'react-native';
 export const containers = StyleSheet.create({
   base: {
     flex: 1,
-    marginTop: 64
+    marginTop: 64,
+    overflow: 'hidden'
   },
   
   tabbed: {

@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator, Dimensions, ListView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
+import SGListView from 'react-native-sglistview';
 import _ from 'lodash';
 
 import { loadImages } from '../actions/images';
@@ -26,13 +27,23 @@ const GetLikesLayout = React.createClass({
     let image_width = Dimensions.get('window').width / 3;
     return (
       <View style={[commonStyles.containers.base, commonStyles.containers.tabbed]}>
-        <ListView
+        <SGListView
           contentContainerStyle={styles.list}
           dataSource={this.props.dataSource}
           enableEmptySections={true}
-          renderScrollComponent={props => <InfiniteScrollView {...props} />}
+          renderScrollComponent={props => (
+            <InfiniteScrollView
+              {...props}
+              distanceToLoadMore={1} />
+          )}
           canLoadMore={this.props.canLoadMoreContent}
           onLoadMoreAsync={this.loadMoreContentAsync}
+          removeClippedSubviews
+          initialListSize={18}
+          stickyHeaderIndices={[]}
+          onEndReachedThreshold={image_width * 4}
+          scrollRenderAheadDistance={image_width * 4}
+          pageSize={3}
           renderRow={(rowData) => (
             <GetLikeImage
               image_url={_.maxBy(rowData.images, image => image.width).url}
@@ -40,7 +51,8 @@ const GetLikesLayout = React.createClass({
               image_width={image_width}
               image_height={image_width}
               media_id={rowData.id}
-              likes={rowData.likeCount} />
+              likes={rowData.likeCount}
+              style={{overflow: 'hidden'}} />
           )} />
         {this.props.loading && <Spinner />}
         </View>
@@ -49,7 +61,7 @@ const GetLikesLayout = React.createClass({
 
   loadMoreContentAsync(){
     let { dispatch, last_media_id } = this.props;
-    dispatch(loadImages(last_media_id, true /* suppress loading */));
+    dispatch(loadImages(last_media_id));
   },
 
   loadImages(){
