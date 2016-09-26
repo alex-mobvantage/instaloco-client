@@ -36,7 +36,7 @@ class PurchaseCoinsLayout extends Component {
           ))
         }
         </View>
-        {media_id && image_url && likes &&
+        {media_id && image_url &&
           <View style={{flexDirection: 'row'}}>
             <Button
               containerStyle={[commonStyles.buttons.base, commonStyles.buttons.secondary, styles.skipButton]}
