@@ -96,6 +96,9 @@ export const inputs = StyleSheet.create({
   text: {
     borderColor: colors.secondary,
     borderWidth: 1, 
-    height: 26
+    height: 32,
+    fontSize: 14,
+    padding: 6,
+    borderRadius: 5
   }
 });
