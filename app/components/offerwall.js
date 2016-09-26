@@ -27,7 +27,7 @@ const OfferWallLayout = React.createClass({
   
   render(){
     return (
-      <View style={[commonStyles.containers.base, commonStyles.containers.tabbed, styles.container]}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.tabbed]}>
         <ListView
           dataSource={this.props.dataSource}
           enableEmptySections={true}
@@ -71,12 +71,5 @@ const mapStateToProps = (state) => {
     active: state.mainTab === 'freeCoins'
   };
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 12,
-    paddingBottom: 50
-  }
-})
 
 export default OfferWall = connect(mapStateToProps)(OfferWallLayout);
