@@ -46,8 +46,8 @@ const GetLikesLayout = React.createClass({
           pageSize={3}
           renderRow={(rowData) => (
             <GetLikeImage
-              image_url={_.maxBy(rowData.images, image => image.width).url}
-              thumbnail_url={_.minBy(rowData.images, image => image.width).url}
+              image_url={rowData.fullsize}
+              thumbnail_url={rowData.thumbnail}
               image_width={image_width}
               image_height={image_width}
               media_id={rowData.id}

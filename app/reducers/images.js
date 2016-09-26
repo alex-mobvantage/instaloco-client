@@ -7,7 +7,19 @@ export const images = (state = {images: [], canLoadMore: true}, action) => {
   switch (action.type){
     case LOADED_IMAGES:
       return Object.assign({}, state, {
-        images: _.uniqBy(state.images.concat(action.images), image => image.id),
+        images: _.uniqBy(
+          state.images.concat(
+            action.images
+              .map(image => _.pick(image, ['id', 'likeCount', 'images']))
+              .map(image => { return {
+                id: image.id,
+                likeCount: image.likeCount,
+                thumbnail: _.minBy(image.images, img => img.width).url,
+                fullsize: _.maxBy(image.images, img => img.width).url
+              }})
+          ),
+          image => image.id
+        ),
         canLoadMore: action.canLoadMore
       });
     case LOGGED_OUT:
