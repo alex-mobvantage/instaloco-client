@@ -3,6 +3,7 @@ import { ActivityIndicator, Dimensions, ListView, StyleSheet, View } from 'react
 import { connect } from 'react-redux';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
 import SGListView from 'react-native-sglistview';
+import StaticContainer from 'react-static-container';
 import _ from 'lodash';
 
 import { loadImages } from '../actions/images';
@@ -45,14 +46,16 @@ const GetLikesLayout = React.createClass({
           scrollRenderAheadDistance={image_width * 4}
           pageSize={3}
           renderRow={(rowData) => (
-            <GetLikeImage
-              image_url={rowData.fullsize}
-              thumbnail_url={rowData.thumbnail}
-              image_width={image_width}
-              image_height={image_width}
-              media_id={rowData.id}
-              likes={rowData.likeCount}
-              style={{overflow: 'hidden'}} />
+            <StaticContainer>
+              <GetLikeImage
+                image_url={rowData.fullsize}
+                thumbnail_url={rowData.thumbnail}
+                image_width={image_width}
+                image_height={image_width}
+                media_id={rowData.id}
+                likes={rowData.likeCount}
+                style={{overflow: 'hidden'}} />
+              </StaticContainer>
           )} />
         {this.props.loading && <Spinner />}
         </View>
