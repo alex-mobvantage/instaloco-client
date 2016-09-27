@@ -67,7 +67,10 @@ const GetCoinsLayout = React.createClass({
   },
 
   componentWillUpdate(props, state){
-    if (props.active && !props.image_url && !props.loading){
+    if (!this.props.active &&
+        props.active &&
+        !props.image_url &&
+        !props.loading){
       this.loadImage();
     }
   },
