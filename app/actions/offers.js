@@ -6,9 +6,11 @@ import Promise from 'bluebird';
 
 export const fetchOffers = () => {
   return (dispatch, getState) => {
+    let { network } = getState();
+
     dispatch(beginFetchOffers());
 
-    fetch(API_HOST + '/offers')
+    fetch(API_HOST + '/offers?' + qs.stringify({ wifi: network === 'wifi' }))
       .then(response => response.json())
       .then(data => {
         dispatch(fetchedOffers(data));
