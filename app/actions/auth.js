@@ -89,6 +89,7 @@ export const logout = (silent) => {
     let logoutAction = () => {
       dispatch(loggedOut());
       AsyncStorage.multiRemove(['username', 'password']);
+      fetch(API_HOST + '/logout').catch(err => console.log('Failed to logout', err));
     }
 
     if (silent){
