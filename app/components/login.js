@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Spinner from './spinner';
 
-import { login, loginFromCachedCredentials } from '../actions/auth';
+import { login } from '../actions/auth';
 
 import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
@@ -15,11 +15,6 @@ class LoginLayout extends Component {
   state = {
     username: '',
     password: ''
-  }
-
-  componentDidMount(){
-    let { dispatch } = this.props;
-    dispatch(loginFromCachedCredentials());
   }
 
   render(){

@@ -60,7 +60,7 @@ class NavBarLayout extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    title: ownProps.title || state.navTitle,
+    title: ownProps.title || state.nav.navTitle,
     coins: state.user.coins,
     profile_image: state.user.profile.picture
   };

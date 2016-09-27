@@ -1,22 +1,27 @@
-import { MAIN_TAB_CHANGE, NAV_TITLE_CHANGE } from '../actions/nav';
-import { LOGGED_OUT } from '../actions/auth';
+import { MAIN_TAB_CHANGE } from '../actions/nav';
+import { BEGIN_LOGIN_FROM_CACHED_CREDENTIALS, LOGGED_IN, LOGGED_OUT } from '../actions/auth';
 
-export const navTitle = (state = '', action) => {
-  switch (action.type){
-    case NAV_TITLE_CHANGE:
-      return action.title;
-    default:
-      return state;
-  }
-};
-
-export const mainTab = (state = '', action) => {
+export const nav = (state = {navTitle: '', mainTab: '', mainTabsDisabled: true}, action) => {
   switch (action.type){
     case MAIN_TAB_CHANGE:
-      return action.key;
+      return Object.assign({}, state, {
+        mainTab: action.key,
+        navTitle: action.title
+      });
     case LOGGED_OUT:
-      return '';
+      return Object.assign({}, state, {
+        mainTab: '',
+        navTitle: ''
+      });
+    case BEGIN_LOGIN_FROM_CACHED_CREDENTIALS:
+      return Object.assign({}, state, {
+        mainTabsDisabled: true
+      });
+    case LOGGED_IN:
+      return Object.assign({}, state, {
+        mainTabsDisabled: false
+      });
     default:
       return state;
   }
-};
+}

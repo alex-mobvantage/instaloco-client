@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { PushNotificationIOS } from 'react-native';
 
 import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from '../actions/user';
-import { changeMainTab, changeNavTitle } from '../actions/nav';
+import { changeMainTab } from '../actions/nav';
 
 import NavBar from './navbar';
 import GetCoins from './getcoins';
@@ -29,7 +29,7 @@ class MainViewLayout extends Component {
   }
 
   render(){
-    let { dispatch, activeTab } = this.props;
+    let { dispatch, activeTab, tabsDisabled } = this.props;
     let tabs = [
       {id: 'earnCoins', title: 'Earn coins', icon: 'picture-o', cmp: <GetCoins />},
       {id: 'getLikes', title: 'Get likes', icon: 'heart', cmp: <GetLikes />},
@@ -50,8 +50,11 @@ class MainViewLayout extends Component {
               iconSize={20}
               selected={tab.id === activeTab}
               onPress={() => {
-                dispatch(changeMainTab(tab.id));
-                dispatch(changeNavTitle(tab.title));
+                if (tabsDisabled){
+                  return;
+                }
+
+                dispatch(changeMainTab(tab.id, tab.title));
               }}>
               {tab.cmp}
             </Icon.TabBarItemIOS>
@@ -85,7 +88,8 @@ const mapStateToProps = (state) => {
   return {
     offerwallEnabled: state.config.offerwall_enabled,
     online: state.network !== 'none' && state.network !== 'unknown',
-    activeTab: state.mainTab
+    activeTab: state.nav.mainTab,
+    tabsDisabled: state.nav.mainTabsDisabled
   };
 };
 

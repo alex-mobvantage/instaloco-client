@@ -68,7 +68,7 @@ const mapStateToProps = (state) => {
     dataSource: dataSourceFromOffers(state.offers),
     offers: state.offers,
     loading: state.loading.offerwall,
-    active: state.mainTab === 'freeCoins'
+    active: state.nav.mainTab === 'freeCoins'
   };
 };
 

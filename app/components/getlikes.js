@@ -94,7 +94,7 @@ const mapStateToParams = (state) => {
     images: state.images.images,
     canLoadMoreContent: state.images.canLoadMore && !state.loading.getLikes,
     loading: state.loading.getLikes,
-    active: state.mainTab === 'getLikes'
+    active: state.nav.mainTab === 'getLikes'
   };
 };
 

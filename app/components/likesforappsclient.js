@@ -24,6 +24,7 @@ import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
 import { saveDeviceToken, loadReferralData } from '../actions/user';
 import { getNetworkState, networkStateUpdated } from '../actions/network';
+import { loginFromCachedCredentials } from '../actions/auth';
 
 let store = createStore(
   app,
@@ -36,6 +37,7 @@ let store = createStore(
   )
 );
 
+store.dispatch(loginFromCachedCredentials());
 store.dispatch(loadConfig());
 store.dispatch(loadProducts());
 store.dispatch(loadReferralData());

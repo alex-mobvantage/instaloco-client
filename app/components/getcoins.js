@@ -114,7 +114,7 @@ const mapStateToProps = (state) => {
   return {
     ...state.nextImage,
     loading: state.loading.getCoins,
-    active: state.mainTab === 'earnCoins'
+    active: state.nav.mainTab === 'earnCoins'
   };
 };
 

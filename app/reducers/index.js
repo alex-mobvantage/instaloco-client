@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { login } from './auth';
 import { nextImage, images } from './images';
-import { mainTab, navTitle } from './nav';
+import { nav } from './nav';
 import { user } from './user';
 import { config } from './config';
 import { products } from './purchase';
@@ -13,8 +13,7 @@ const app = combineReducers({
   login,
   nextImage,
   images,
-  mainTab,
-  navTitle,
+  nav,
   user,
   config,
   products,

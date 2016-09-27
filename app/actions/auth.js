@@ -42,8 +42,7 @@ export const loginFromCachedCredentials = () => {
     ])
     .spread((username, password) => {
       if (username && password){
-        dispatch(changeMainTab('earnCoins'));
-        dispatch(changeNavTitle('Earn coins'));
+        dispatch(changeMainTab('earnCoins', 'Earn coins'));
         dispatch(beginLoginFromCachedCredentials());
         dispatch(login(username, password));
       }
@@ -61,8 +60,7 @@ export const beginLoginFromCachedCredentials = () => {
 export const LOGGED_IN = 'LOGGED_IN';
 export const loggedIn = (data) => {
   return (dispatch, getState) => {
-    dispatch(changeMainTab('earnCoins'));
-    dispatch(changeNavTitle('Earn coins'));
+    dispatch(changeMainTab('earnCoins', 'Earn coins'));
     dispatch(getCoins());
     dispatch(getProfile());
     dispatch(saveDeviceInfo());
