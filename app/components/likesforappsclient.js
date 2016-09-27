@@ -78,14 +78,16 @@ class LikesForAppsClient extends Component {
                 tabs={true}
                 component={connect(mapAuthStatesToSceneProps)(Switch)}
                 selector={mapSceneAuthPropsToScene}>
-                <Scene key='login' component={Login} />
-                <Scene key='main' component={MainView} />
+                <Scene key='unauthenticated' component={Login} />
+                <Scene key='authenticated'>
+                  <Scene key='main' component={MainView} />
+                  <Scene key='purchaseLikes' component={PurchaseLikes} />
+                  <Scene key='purchaseCoins' component={PurchaseCoins} />
+                  <Scene key='faq' component={FAQ} />
+                  <Scene key='legal' component={Legal} />
+                  <Scene key='offerDetails' component={OfferDetails} />
+                </Scene>
               </Scene>
-              <Scene key='purchaseLikes' component={PurchaseLikes} />
-              <Scene key='purchaseCoins' component={PurchaseCoins} />
-              <Scene key='faq' component={FAQ} />
-              <Scene key='legal' component={Legal} />
-              <Scene key='offerDetails' component={OfferDetails} />
             </Scene>
           </Scene>
         </Router>
@@ -111,7 +113,7 @@ const mapAuthStatesToSceneProps = (state) => {
 };
 
 const mapSceneAuthPropsToScene = (props) => {
-  return props.logged_in ? 'main' : 'login';
+  return props.logged_in ? 'authenticated' : 'unauthenticated';
 };
 
 export default LikesForAppsClient;
