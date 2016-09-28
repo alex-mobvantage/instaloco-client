@@ -1,4 +1,4 @@
-import { API_HOST } from '../constants';
+import { request } from './api';
 import { unexpectedError } from './error';
 import { getCoins } from './user';
 import { NativeModules } from 'react-native'
@@ -7,10 +7,11 @@ import qs from 'qs';
 
 export const loadProducts = () => {
   return (dispatch) => {
-    fetch(API_HOST + '/products')
-      .then(response => response.json())
-      .then(data => dispatch(loadedProductIdentifiers(data)))
-      .catch(err => dispatch(unexpectedError(err)));
+    dispatch(request({
+      authenticated: false,
+      path: '/products',
+      success: data => dispatch(loadedProductIdentifiers(data))
+    }));
   };
 };
 
@@ -55,13 +56,15 @@ const transactionComplete = (transactionIdentifier) => {
     dispatch(beginTransactionComplete());
 
     InAppUtils.receiptData((error, receiptData) => {
-      fetch(API_HOST + '/purchase?' + qs.stringify({ transactionIdentifier, receiptData }), {method: 'POST'})
-        .then(response => response.json().catch(err => {}))
-        .then(data => {
+      dispatch(request({
+        path: '/purchase?' + qs.stringify({ transactionIdentifier, receiptData }),
+        options: {method: 'POST'},
+        success: data => {
           dispatch(purchasedCoins(data));
           dispatch(getCoins());
-        })
-        .catch(err => dispatch(unexpectedError(err)));
+        },
+        failure: data => duspatch(purchaseCoins(data))
+      }));
     });
   };
 };

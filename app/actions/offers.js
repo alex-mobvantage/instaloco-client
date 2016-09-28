@@ -1,4 +1,4 @@
-import { API_HOST } from '../constants';
+import { request } from './api';
 import { unexpectedError } from './error';
 import qs from 'qs';
 import { Alert, AsyncStorage, Linking, PushNotificationIOS } from 'react-native';
@@ -6,17 +6,16 @@ import Promise from 'bluebird';
 
 export const fetchOffers = () => {
   return (dispatch, getState) => {
-    let { network } = getState();
-
     dispatch(beginFetchOffers());
 
-    fetch(API_HOST + '/offers?' + qs.stringify({ wifi: network === 'wifi' }))
-      .then(response => response.json())
-      .then(data => {
+    let { network } = getState();
+    dispatch(request({
+      path: '/offers?' + qs.stringify({ wifi: network === 'wifi' }),
+      success: data => {
         dispatch(fetchedOffers(data));
         dispatch(showOfferWallTutorial());
-      })
-      .catch(err => dispatch(unexpectedError(err)));
+      }
+    }));
   }
 };
 
@@ -36,11 +35,11 @@ export const fetchedOffers = (data) => {
 };
 
 export const fetchOffer = (id) => {
-  return (dispatch, getState) => {
-    fetch(API_HOST + '/offer/' + id)
-      .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(fetchedOffer(data)))
-      .catch(err => dispatch(unexpectedError(err)));
+  return (dispatch) => {
+    dispatch(request({
+      path: '/offer/' + id,
+      success: data => dispatch(fetchedOffer(data))
+    }));
   }
 }
 
@@ -56,13 +55,15 @@ export const beginOffer = (offer_id, redirect_url) => {
   return (dispatch, getState) => {
     requestPushPermissions()
       .then(() => dispatch(startBeginOffer()))
-      .then(() => fetch(API_HOST + '/offers/begin?' + qs.stringify({ offer_id }), {method: 'POST'}))
-      .then(response => response.json().catch(err => {}))
-      .then(data => {
-        Linking.openURL(redirect_url);
-        dispatch(fetchOffer(offer_id));
-        dispatch(beganOffer(data));
-      })
+      .then(() => dispatch(request({
+        path: '/offers/begin?' + qs.stringify({ offer_id }),
+        options: {method: 'POST'},
+        success: data => {
+          Linking.openURL(redirect_url);
+          dispatch(fetchOffer(offer_id));
+          dispatch(beganOffer(data));
+        }
+      })))
       .catch(err => dispatch(unexpectedError(err)));
   };
 };

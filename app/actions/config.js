@@ -1,12 +1,12 @@
-import { API_HOST } from '../constants';
-import { unexpectedError } from './error';
+import { request } from './api';
 
 export const loadConfig = () => {
   return (dispatch) => {
-    fetch(API_HOST + '/config')
-      .then(response => response.json())
-      .then(data => dispatch(configReceived(data)))
-      .catch(err => dispatch(unexpectedError(err)));
+    dispatch(request({
+      authenticated: false,
+      path: '/config',
+      success: data => dispatch(configReceived(data))
+    }));
   };
 };
 

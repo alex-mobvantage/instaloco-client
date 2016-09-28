@@ -1,20 +1,20 @@
-import { API_HOST } from '../constants';
-import { unexpectedError } from './error';
+import { request } from './api';
 import qs from 'qs';
 
 import { getCoins } from './user';
 
 export const purchaseLikes = (media_id, image_url, likes) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginPurchaseLikes());
-
-    fetch(API_HOST + '/images/getlikes?' + qs.stringify({media_id, image_url, likes}), { method: 'POST' })
-      .then(response => response.json().catch(err => {}))
-      .then(data => {
+    dispatch(request({
+      path: '/images/getlikes?' + qs.stringify({media_id, image_url, likes}),
+      options: { method: 'POST' },
+      success: data => {
         dispatch(purchasedLikes(data));
         dispatch(getCoins());
-      })
-      .catch(err => dispatch(unexpectedError(err)));
+      },
+      failure: data => dispatch(purchasedLikes(data))
+    }));
   }
 };
 

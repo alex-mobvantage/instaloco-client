@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 export const UNEXPECTED_ERROR = 'UNEXPECTED_ERROR';
 export const unexpectedError = err => {
   return (dispatch, getState) => {
-    console.error(err);
+    console.log('ERROR', err);
     
     let { network } = getState();
     if (network !== 'unknown' && network !== 'none'){

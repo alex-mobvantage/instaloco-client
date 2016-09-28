@@ -59,7 +59,6 @@ const ImageDisplay = connect()(ImageDisplayLayout);
 const GetCoinsLayout = React.createClass({
   componentDidMount(){
     AppState.addEventListener('change', this.onAppStateChange);
-    this.loadImage();
   },
 
   componentWillUnmount(){

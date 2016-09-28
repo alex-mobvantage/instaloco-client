@@ -1,8 +1,8 @@
-import { API_HOST } from '../constants';
+import { request } from './api';
 import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from './user';
 import { changeMainTab, changeNavTitle } from './nav';
+import { nextImage } from './images';
 import { Alert, AsyncStorage } from 'react-native';
-import { unexpectedError } from './error';
 import qs from 'qs';
 import Promise from 'bluebird';
 
@@ -16,22 +16,20 @@ export const beginLogin = () => {
 export const login = (username, password) => {
   return (dispatch) => {
     dispatch(beginLogin());
-
-    fetch(API_HOST + '/auth?' + qs.stringify({ username, password }))
-      .then(res => res.json().catch(err => {}).then(data => {
-        if (res.ok){
-          dispatch(loggedIn(data));
-          return Promise.all([
-            AsyncStorage.setItem('username', username),
-            AsyncStorage.setItem('password', password)
-          ])
-          .catch(err => console.log('error saving credentials', err));
-        } else {
-          dispatch(loginError(data));
-        }
-      }))
-      .catch(err => dispatch(unexpectedError(err)));
-  }
+    dispatch(request({
+      authenticated: false,
+      path: '/auth?' + qs.stringify({ username, password }),
+      success: data => {
+        dispatch(loggedIn(data));
+        Promise.all([
+          AsyncStorage.setItem('username', username),
+          AsyncStorage.setItem('password', password)
+        ])
+        .catch(err => console.log('error saving credentials', err));
+      },
+      failure: data => dispatch(loginError(data))
+    }));
+  };
 };
 
 export const loginFromCachedCredentials = () => {
@@ -60,17 +58,18 @@ export const beginLoginFromCachedCredentials = () => {
 export const LOGGED_IN = 'LOGGED_IN';
 export const loggedIn = (data) => {
   return (dispatch, getState) => {
+    dispatch({
+      type: LOGGED_IN,
+      ...data
+    });
+    
     dispatch(changeMainTab('earnCoins', 'Earn coins'));
+    dispatch(nextImage());
     dispatch(getCoins());
     dispatch(getProfile());
     dispatch(saveDeviceInfo());
     dispatch(refreshDeviceToken());
     dispatch(loadReferralData());
-
-    dispatch({
-      type: LOGGED_IN,
-      ...data
-    });
   };
 };
 
@@ -87,7 +86,7 @@ export const logout = (silent) => {
     let logoutAction = () => {
       dispatch(loggedOut());
       AsyncStorage.multiRemove(['username', 'password']);
-      fetch(API_HOST + '/logout').catch(err => console.log('Failed to logout', err));
+      dispatch(request({path: '/logout'}));
     }
 
     if (silent){

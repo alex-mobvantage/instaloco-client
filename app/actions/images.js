@@ -1,17 +1,14 @@
-import { API_HOST } from '../constants';
-import { unexpectedError } from './error';
+import { request } from './api';
 import { getCoins } from './user';
 import qs from 'qs';
 
-export const LOAD_IMAGES = 'LOAD_IMAGES';
 export const loadImages = (last_media_id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginLoadingImages());
-
-    fetch(API_HOST + '/images?' + qs.stringify({ last_media_id }))
-      .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(loadedImages(data)))
-      .catch(err => dispatch(unexpectedError(err)));
+    dispatch(request({
+      path: '/images?' + qs.stringify({ last_media_id }),
+      success: data => dispatch(loadedImages(data))
+    }));
   };
 };
 
@@ -31,13 +28,12 @@ export const loadedImages = (data) => {
 };
 
 export const nextImage = () => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginLoadNextImage());
-
-    fetch(API_HOST + '/image')
-      .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(loadedNextImage(data)))
-      .catch(err => dispatch(unexpectedError(err)));
+    dispatch(request({
+      path: '/image',
+      success: data => dispatch(loadedNextImage(data))
+    }));
   }
 };
 
@@ -57,17 +53,18 @@ export const loadedNextImage = (data) => {
 };
 
 export const likeImage = (media_id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginLikeImage());
-
-    fetch(API_HOST + '/images/like?' + qs.stringify({media_id}), {method: 'POST'})
-      .then(response => response.json().catch(err => {}))
-      .then(data => {
+    dispatch(request({
+      path: '/images/like?' + qs.stringify({media_id}),
+      options: {method: 'POST'},
+      success: data => {
         dispatch(likedImage(data));
         dispatch(nextImage());
         dispatch(getCoins());
-      })
-      .catch(err => dispatch(unexpectedError(err)));
+      },
+      failure: data => dispatch(likedImage(data))
+    }));
   }
 };
 
@@ -87,14 +84,17 @@ export const likedImage = (data) => {
 };
 
 export const skipImage = (media_id) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginSkipImage());
-
-    fetch(API_HOST + '/images/skip?' + qs.stringify({media_id}), {method: 'POST'})
-      .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(skippedImage(data)))
-      .then(() => dispatch(nextImage()))
-      .catch(err => dispatch(unexpectedError(err)));
+    dispatch(request({
+      path: '/images/skip?' + qs.stringify({media_id}),
+      options: {method: 'POST'},
+      success: data => {
+        dispatch(skippedImage(data));
+        dispatch(nextImage());
+      },
+      failure: data => dispatch(skippedImage(data))
+    }));
   }
 };
 

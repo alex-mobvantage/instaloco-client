@@ -1,4 +1,4 @@
-import { API_HOST } from '../constants';
+import { request } from './api';
 import { unexpectedError } from './error';
 import DeviceInfo from 'react-native-device-info';
 import branch from 'react-native-branch'
@@ -6,11 +6,11 @@ import qs from 'qs';
 import { AdSupportIOS, AsyncStorage, PushNotificationIOS } from 'react-native';
 
 export const getProfile = () => {
-  return (dispatch, getState) => {
-    fetch(API_HOST + '/user/profile')
-      .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(profileReceived(data)))
-      .catch(err => dispatch(unexpectedError(err)));
+  return (dispatch) => {
+    dispatch(request({
+      path: '/user/profile',
+      success: data => dispatch(profileReceived(data))
+    }));
   };
 };
 
@@ -23,11 +23,11 @@ export const profileReceived = (profile) => {
 };
 
 export const getCoins = () => {
-  return (dispatch, getState) => {
-    fetch(API_HOST + '/user/coins')
-      .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(coinsReceived(data)))
-      .catch(err => dispatch(unexpectedError(err)));
+  return (dispatch) => {
+    dispatch(request({
+      path: '/user/coins',
+      success: data => dispatch(coinsReceived(data))
+    }));
   };
 };
 
@@ -45,34 +45,39 @@ export const saveDeviceInfo = () => {
       let device_os = DeviceInfo.getSystemVersion(),
         device_kind = DeviceInfo.getModel();
 
-      fetch(API_HOST + '/user/device?' + qs.stringify({ device_os, device_kind, idfa }), {method: 'POST'})
-        .then(() => dispatch(savedDeviceInfo()))
-        .catch(err => console.log(err));
+      dispatch(request({
+        path: '/user/device?' + qs.stringify({ device_os, device_kind, idfa }),
+        options: {method: 'POST'},
+        success: data => savedDeviceInfo(data)
+      }))
     },
-    unexpectedError);
+    err => dispatch(unexpectedError(err)));
   };
 };
 
 export const SAVED_DEVICE_INFO = 'SAVED_DEVICE_INFO';
-export const savedDeviceInfo = () => {
+export const savedDeviceInfo = (data) => {
   return {
-    type: SAVED_DEVICE_INFO
+    type: SAVED_DEVICE_INFO,
+    ...data
   };
 };
 
 export const saveDeviceToken = (token) => {
   return (dispatch, getState) => {
-    fetch(API_HOST + '/user/device_token?' + qs.stringify({ token }), {method: 'POST'})
-      .then(() => dispatch(savedDeviceToken(token)))
-      .catch(err => dispatch(unexpectedError(err)));
+    dispatch(request({
+      path: '/user/device_token?' + qs.stringify({ token }),
+      options: {method: 'POST'},
+      success: data => dispatch(savedDeviceToken(data))
+    }));
   };
 };
 
 export const SAVED_DEVICE_TOKEN = 'SAVED_DEVICE_TOKEN';
-export const savedDeviceToken = (token) => {
+export const savedDeviceToken = (data) => {
   return {
-    type: SAVED_DEVICE_INFO,
-    token
+    type: SAVED_DEVICE_TOKEN,
+    ...data
   };
 };
 
@@ -107,12 +112,14 @@ export const loadReferralData = () => {
 export const sendReferralData = (data) => {
   return (dispatch, getState) => {
     let { logged_in } = getState().login,
-      path = API_HOST + '/referral/' + (logged_in ? 'authenticated' : 'unauthenticated');
+      path = '/referral/' + (logged_in ? 'authenticated' : 'unauthenticated');
 
-    fetch(path + '?' + qs.stringify({ ...data }), {method: 'POST'})
-      .then(response => response.json().catch(err => {}))
-      .then(data => dispatch(sentReferralData(data)))
-      .catch(err => console.log(err));
+    dispatch(request({
+      authenticated: logged_in,
+      path: path + '?' + qs.stringify({ ...data }),
+      options: {method: 'POST'},
+      success: data => dispatch(sentReferralData(data))
+    }));
   };
 };
 
