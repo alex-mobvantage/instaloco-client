@@ -62,7 +62,8 @@ class LoginLayout extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 72
+    padding: 72,
+    marginTop: 0
   },
   headerContainer: {
     marginBottom: 30,

@@ -78,9 +78,9 @@ class LikesForAppsClient extends Component {
                 tabs={true}
                 component={connect(mapAuthStatesToSceneProps)(Switch)}
                 selector={mapSceneAuthPropsToScene}>
-                <Scene key='unauthenticated' component={Login} />
+                <Scene key='unauthenticated' hideNavBar component={Login} />
                 <Scene key='authenticated'>
-                  <Scene key='main' component={MainView} />
+                  <Scene key='main' initial component={MainView} />
                   <Scene key='purchaseLikes' component={PurchaseLikes} />
                   <Scene key='purchaseCoins' component={PurchaseCoins} />
                   <Scene key='faq' component={FAQ} />
