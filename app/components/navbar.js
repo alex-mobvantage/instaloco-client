@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { AppState, Image, Text, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavBar } from 'react-native-router-flux';
@@ -31,14 +31,14 @@ class CustomNavBar extends NavBar {
   }
 }
 
-class NavBarLayout extends Component {
+const NavBarLayout = React.createClass({
   componentDidMount(){
-    AppState.addEventListener('change', this.onAppStateChange.bind(this));
-  }
+    AppState.addEventListener('change', this.onAppStateChange);
+  },
 
   componentWillUnmount(){
-    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
-  }
+    AppState.removeEventListener('change', this.onAppStateChange);
+  },
 
   render(){
     return (
@@ -48,7 +48,7 @@ class NavBarLayout extends Component {
         navigationBarStyle={[styles.nav]}
         titleStyle={[fonts.base, fonts.bold]} />
     );
-  }
+  },
 
   onAppStateChange(currentState){
     if (currentState === 'active'){
@@ -56,7 +56,7 @@ class NavBarLayout extends Component {
       dispatch(getCoins());
     }
   }
-}
+});
 
 const mapStateToProps = (state, ownProps) => {
   return {

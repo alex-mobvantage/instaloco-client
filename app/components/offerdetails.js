@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { AppState, Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
@@ -11,14 +11,14 @@ import { beginOffer, fetchOffer } from '../actions/offers';
 import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
 
-class OfferDetailsLayout extends Component {
+const OfferDetailsLayout = React.createClass({
   componentDidMount(){
-    AppState.addEventListener('change', this.onAppStateChange.bind(this));
-  }
+    AppState.addEventListener('change', this.onAppStateChange);
+  },
 
   componentWillUnmount(){
-    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
-  }
+    AppState.removeEventListener('change', this.onAppStateChange);
+  },
 
   render(){
     let { loading, dispatch, id, title, points, image, description, click_id, redirect_url } = this.props;
@@ -65,7 +65,7 @@ class OfferDetailsLayout extends Component {
         {loading && <Spinner />}
       </View>
     );
-  }
+  },
 
   onAppStateChange(state){
     if (state === 'active'){
@@ -74,12 +74,14 @@ class OfferDetailsLayout extends Component {
         dispatch(fetchOffer(id));
       }
     }
-  }
+  },
 
-  static renderNavigationBar(navProps){
-    return <NavBar {...navProps} title='Free Coins' />;
+  statics: {
+    renderNavigationBar(navProps){
+      return <NavBar {...navProps} title='Free Coins' />;
+    }
   }
-}
+});
 
 const mapStateToProps = (state, ownProps) => {
   return {

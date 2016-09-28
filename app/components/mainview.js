@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NetInfo, TabBarIOS, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -17,16 +17,16 @@ import More from './more';
 import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
 
-class MainViewLayout extends Component {
+const MainViewLayout = React.createClass({
   componentDidMount(){
-    PushNotificationIOS.addEventListener('register', this.onPushNotificationRegistration.bind(this));
-    NetInfo.addEventListener('change', this.onNetworkStateChanged.bind(this));
-  }
+    PushNotificationIOS.addEventListener('register', this.onPushNotificationRegistration);
+    NetInfo.addEventListener('change', this.onNetworkStateChanged);
+  },
 
   componentWillUnmount(){
-    PushNotificationIOS.removeEventListener('register', this.onPushNotificationRegistration.bind(this));
-    NetInfo.removeEventListener('change', this.onNetworkStateChanged.bind(this));
-  }
+    PushNotificationIOS.removeEventListener('register', this.onPushNotificationRegistration);
+    NetInfo.removeEventListener('change', this.onNetworkStateChanged);
+  },
 
   render(){
     let { dispatch, activeTab, tabsDisabled } = this.props;
@@ -62,16 +62,12 @@ class MainViewLayout extends Component {
         }
       </TabBarIOS>
     );
-  }
-
-  static renderNavigationBar(navProps){
-    return <NavBar {...navProps} profileVisible={true} />;
-  }
+  },
 
   onPushNotificationRegistration(token){
     let { dispatch } = this.props;
     dispatch(saveDeviceToken(token));
-  }
+  },
 
   onNetworkStateChanged(state){
     let { dispatch, online } = this.props;
@@ -81,8 +77,14 @@ class MainViewLayout extends Component {
       dispatch(saveDeviceInfo());
       dispatch(refreshDeviceToken());
     }
+  },
+
+  statics: {
+    renderNavigationBar(navProps){
+      return <NavBar {...navProps} profileVisible={true} />;
+    }
   }
-};
+});
 
 const mapStateToProps = (state) => {
   return {
