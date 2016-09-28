@@ -21,7 +21,7 @@ const OfferDetailsLayout = React.createClass({
   },
 
   render(){
-    let { loading, dispatch, id, title, points, image, description, click_id, redirect_url } = this.props;
+    let { loading, dispatch, id, title, points, image, description, click_id, redirect_url, completed_at } = this.props;
 
     return (
       <View style={[commonStyles.containers.base, styles.container]}>
@@ -43,9 +43,12 @@ const OfferDetailsLayout = React.createClass({
           style={[commonStyles.fonts.base, commonStyles.fonts.button, click_id ? commonStyles.fonts.primaryButtonDisabled : commonStyles.fonts.primaryButton]}
           disabled={!!click_id}
           onPress={() => dispatch(beginOffer(id, redirect_url))}>
-          {click_id ? 'In progess' : 'Download'}
+          {click_id
+            ? (completed_at ? 'Completed' : 'In progess')
+            : 'Download'
+          }
         </Button>
-        {click_id &&
+        {(click_id && !completed_at) && 
           <TouchableOpacity onPress={() => Linking.openURL(redirect_url)}>
             <Text style={[commonStyles.fonts.base, commonStyles.fonts.link, styles.link]}>Link not working? Click here to try again</Text>
           </TouchableOpacity>
@@ -86,6 +89,7 @@ const OfferDetailsLayout = React.createClass({
 const mapStateToProps = (state, ownProps) => {
   return {
     click_id: ownProps.click_id || state.offer.click_id,
+    completed_at: state.offer.completed_at,
     loading: state.loading.offerDetails
   };
 };
