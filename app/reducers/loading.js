@@ -1,4 +1,4 @@
-import { BEGIN_LOGIN, LOGGED_IN, LOGIN_ERROR } from '../actions/auth';
+import { BEGIN_LOGIN, BEGIN_LOGIN_FROM_CACHED_CREDENTIALS, LOGGED_IN, LOGIN_ERROR } from '../actions/auth';
 
 import { 
   BEGIN_PURCHASE_FOLLOWERS, PURCHASED_FOLLOWERS,
@@ -38,6 +38,10 @@ export const loading = (state, action) => {
   }
 
   switch (action.type){
+    case BEGIN_LOGIN_FROM_CACHED_CREDENTIALS:
+      return Object.assign({}, state, {
+        getCoins: true
+      });
     case BEGIN_LOGIN:
       return Object.assign({}, state, {
         login: true
