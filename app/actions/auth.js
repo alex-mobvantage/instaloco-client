@@ -1,6 +1,7 @@
 import { API_HOST } from '../constants';
 import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from './user';
 import { changeMainTab, changeNavTitle } from './nav';
+import { nextImage } from './images';
 import { Alert, AsyncStorage } from 'react-native';
 import { unexpectedError } from './error';
 import qs from 'qs';
@@ -66,6 +67,7 @@ export const loggedIn = (data) => {
     });
     
     dispatch(changeMainTab('earnCoins', 'Earn coins'));
+    dispatch(nextImage());
     dispatch(getCoins());
     dispatch(getProfile());
     dispatch(saveDeviceInfo());
