@@ -1,6 +1,4 @@
 import { request } from './api';
-import { API_HOST } from '../constants';
-import { unexpectedError } from './error';
 import { getCoins } from './user';
 import qs from 'qs';
 
