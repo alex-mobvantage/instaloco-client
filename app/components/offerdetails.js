@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
-import { Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { AppState, Image, Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 
 import Spinner from './spinner';
 import NavBar from './navbar';
 
-import { beginOffer } from '../actions/offers';
+import { beginOffer, fetchOffer } from '../actions/offers';
 
 import * as commonStyles from '../styles/common';
 import * as colors from '../styles/colors';
 
 class OfferDetailsLayout extends Component {
+  componentDidMount(){
+    AppState.addEventListener('change', this.onAppStateChange.bind(this));
+  }
+
+  componentWillUnmount(){
+    AppState.removeEventListener('change', this.onAppStateChange.bind(this));
+  }
+
   render(){
     let { loading, dispatch, id, title, points, image, description, click_id, redirect_url } = this.props;
 
@@ -57,6 +65,15 @@ class OfferDetailsLayout extends Component {
         {loading && <Spinner />}
       </View>
     );
+  }
+
+  onAppStateChange(state){
+    if (state === 'active'){
+      let { dispatch, id, click_id } = this.props;
+      if (click_id){
+        dispatch(fetchOffer(id));
+      }
+    }
   }
 
   static renderNavigationBar(navProps){
