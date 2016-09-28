@@ -1,3 +1,4 @@
+import { request } from './api';
 import { API_HOST } from '../constants';
 import { unexpectedError } from './error';
 import { getCoins, getProfile } from './user';
@@ -6,14 +7,15 @@ import qs from 'qs';
 export const purchaseFollowers = (followers) => {
   return (dispatch, getState) => {
     dispatch(beginPurchaseFollowers());
-
-    fetch(API_HOST + '/followers/get?' + qs.stringify({ followers }), {method: 'POST'})
-      .then(response => response.json().catch(err => {}))
-      .then(data => {
+    dispatch(request({
+      path: '/followers/get?' + qs.stringify({ followers }),
+      options: {method: 'POST'},
+      success: (data) => {
         dispatch(purchasedFollowers(data));
         dispatch(getCoins());
-      })
-      .catch((err) => dispatch(unexpectedError(err)));
+      },
+      failure: data => dispatch(purchasedFollowers(data))
+    }));
   };
 };
 
@@ -35,15 +37,16 @@ export const purchasedFollowers = (data) => {
 export const follow = (user_id) => {
   return (dispatch, getState) => {
     dispatch(beginFollow());
-
-    fetch(API_HOST + '/followers/follow?' + qs.stringify({ user_id }), {method: 'POST'})
-      .then(response => response.json().catch(err => {}))
-      .then(data => {
+    dispatch(request({
+      path: '/followers/follow?' + qs.stringify({ user_id }),
+      options: {method: 'POST'},
+      success: data => {
         dispatch(followed(data));
         dispatch(getCoins());
         dispatch(getProfile());
-      })
-      .catch(err => dispatch(unexpectedError(err)));
+      },
+      failure: data => dispatch(followed(data))
+    }));
   };
 };
 

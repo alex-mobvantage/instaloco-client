@@ -28,6 +28,8 @@ export const request = (opts) => {
         } else {
           if (opts.failure){
             opts.failure(data);
+          } else {
+            dispatch(unexpectedError(data));
           }
         }
       }))
