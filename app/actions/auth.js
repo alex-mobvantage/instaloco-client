@@ -60,17 +60,17 @@ export const beginLoginFromCachedCredentials = () => {
 export const LOGGED_IN = 'LOGGED_IN';
 export const loggedIn = (data) => {
   return (dispatch, getState) => {
+    dispatch({
+      type: LOGGED_IN,
+      ...data
+    });
+    
     dispatch(changeMainTab('earnCoins', 'Earn coins'));
     dispatch(getCoins());
     dispatch(getProfile());
     dispatch(saveDeviceInfo());
     dispatch(refreshDeviceToken());
     dispatch(loadReferralData());
-
-    dispatch({
-      type: LOGGED_IN,
-      ...data
-    });
   };
 };
 
