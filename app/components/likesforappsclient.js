@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { Scene, Router, Switch } from 'react-native-router-flux'
 import { NetInfo } from 'react-native';
+import codePush from 'react-native-code-push';
 
 import app from '../reducers';
 import accessTokenMiddleware from '../middleware/accesstoken';
@@ -116,4 +117,4 @@ const mapSceneAuthPropsToScene = (props) => {
   return props.logged_in ? 'authenticated' : 'unauthenticated';
 };
 
-export default LikesForAppsClient;
+export default codePush(LikesForAppsClient);
