@@ -1,5 +1,4 @@
 import { request } from './api';
-import { API_HOST } from '../constants';
 import { unexpectedError } from './error';
 import DeviceInfo from 'react-native-device-info';
 import branch from 'react-native-branch'
