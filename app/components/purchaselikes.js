@@ -25,11 +25,11 @@ class PurchaseLikesLayout extends Component {
             style={[styles.image, {width: image_width, height: image_width}]} />
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={[commonStyles.fonts.base, commonStyles.fonts.header]}>{likes}</Text>
-            <Icon name='heart' color={colors.heart} size={17} />
+            <Icon name='heart' color={colors.heart} size={17} style={{marginLeft: 5}} />
           </View>
 
           <Text style={[commonStyles.fonts.base, commonStyles.fonts.header, {marginTop: 12}]}>
-            Choose how many likes you would like to get
+            Choose how many likes you want
           </Text>
           
           <View style={[commonStyles.containers.list]}>
