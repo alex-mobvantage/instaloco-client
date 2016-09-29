@@ -3,7 +3,15 @@ import { getCoins } from './user';
 import qs from 'qs';
 
 export const loadImages = (last_media_id) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    let { lastLoaded } = getState().images;
+    if (lastLoaded !== null){
+      let now = new Date();
+      if (now.getTime() - lastLoaded.getTime() < 1000){
+        return;
+      }
+    }
+
     dispatch(beginLoadingImages());
     dispatch(request({
       path: '/images?' + qs.stringify({ last_media_id }),

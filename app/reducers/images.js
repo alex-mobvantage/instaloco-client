@@ -3,7 +3,7 @@ import { FOLLOWED } from '../actions/followers';
 import { LOGGED_OUT } from '../actions/auth';
 import _ from 'lodash';
 
-export const images = (state = {images: [], canLoadMore: true}, action) => {
+export const images = (state = {images: [], canLoadMore: true, lastLoaded: null}, action) => {
   switch (action.type){
     case LOADED_IMAGES:
       return Object.assign({}, state, {
@@ -20,7 +20,8 @@ export const images = (state = {images: [], canLoadMore: true}, action) => {
           ),
           image => image.id
         ),
-        canLoadMore: action.canLoadMore
+        canLoadMore: action.canLoadMore,
+        lastLoaded: new Date()
       });
     case LOGGED_OUT:
       return Object.assign({}, state, {
