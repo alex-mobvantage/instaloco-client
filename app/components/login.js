@@ -21,7 +21,7 @@ class LoginLayout extends Component {
     let { dispatch, loading } = this.props;
 
     return (
-      <View style={[commonStyles.containers.base, commonStyles.containers.centered, styles.container]}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.centered, commonStyles.containers.nonav, styles.container]}>
         <View style={styles.headerContainer}>
           <Text
             style={[commonStyles.fonts.base, styles.header]}>
@@ -63,7 +63,7 @@ class LoginLayout extends Component {
 const styles = StyleSheet.create({
   container: {
     padding: 72,
-    marginTop: 0
+    backgroundColor: colors.primary
   },
   headerContainer: {
     marginBottom: 30,
