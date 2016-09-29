@@ -72,7 +72,7 @@ class LikesForAppsClient extends Component {
             tabs={true}
             component={connect(mapNetworkStateToSceneProps)(Switch)}
             selector={mapSceneNetworkPropsToScene}>
-            <Scene key='offline' component={OfflineView} />
+            <Scene key='offline' hideNavBar component={OfflineView} />
             <Scene key='online'>
               <Scene
                 key='auth'

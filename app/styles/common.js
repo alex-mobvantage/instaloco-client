@@ -12,6 +12,10 @@ export const containers = StyleSheet.create({
     marginTop: 42
   },
 
+  nonav: {
+    marginTop: 0
+  },
+
   centered: {
     alignItems: 'center',
     justifyContent: 'center'
@@ -99,6 +103,7 @@ export const inputs = StyleSheet.create({
     height: 32,
     fontSize: 14,
     padding: 6,
-    borderRadius: 5
+    borderRadius: 5,
+    backgroundColor: 'white'
   }
 });
