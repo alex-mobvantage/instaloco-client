@@ -15,7 +15,8 @@ export const loadImages = (last_media_id) => {
     dispatch(beginLoadingImages());
     dispatch(request({
       path: '/images?' + qs.stringify({ last_media_id }),
-      success: data => dispatch(loadedImages(data))
+      success: data => dispatch(loadedImages(data)),
+      failure: data => dispatch(loadedImages(data))
     }));
   };
 };
@@ -40,7 +41,8 @@ export const nextImage = () => {
     dispatch(beginLoadNextImage());
     dispatch(request({
       path: '/image',
-      success: data => dispatch(loadedNextImage(data))
+      success: data => dispatch(loadedNextImage(data)),
+      failure: data => dispatch(loadedNextImage(data))
     }));
   }
 };

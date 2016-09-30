@@ -7,20 +7,22 @@ export const images = (state = {images: [], canLoadMore: true, lastLoaded: null}
   switch (action.type){
     case LOADED_IMAGES:
       return Object.assign({}, state, {
-        images: _.uniqBy(
-          state.images.concat(
-            action.images
-              .map(image => _.pick(image, ['id', 'likeCount', 'images']))
-              .map(image => { return {
-                id: image.id,
-                likeCount: image.likeCount,
-                thumbnail: _.minBy(image.images, img => img.width).url,
-                fullsize: _.maxBy(image.images, img => img.width).url
-              }})
-          ),
-          image => image.id
-        ),
-        canLoadMore: action.canLoadMore,
+        images: action.error
+          ? state.images
+          : _.uniqBy(
+              state.images.concat(
+                action.images
+                  .map(image => _.pick(image, ['id', 'likeCount', 'images']))
+                  .map(image => { return {
+                    id: image.id,
+                    likeCount: image.likeCount,
+                    thumbnail: _.minBy(image.images, img => img.width).url,
+                    fullsize: _.maxBy(image.images, img => img.width).url
+                  }})
+              ),
+              image => image.id
+            ),
+        canLoadMore: action.canLoadMore === true,
         lastLoaded: new Date()
       });
     case LOGGED_OUT:
@@ -44,7 +46,7 @@ export const nextImage = (state = {}, action) => {
       });
     case FOLLOWED:
       return Object.assign({}, state, {
-        can_follow: false
+        can_follow: action.error ? true : false
       });
     case LOGGED_OUT:
       return {};
