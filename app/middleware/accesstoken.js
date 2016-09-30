@@ -1,7 +1,7 @@
 import { logout } from '../actions/auth';
 
 export default accessTokenMiddleware = ({ dispatch }) => next => action => {
-  if (action.error === 'UNAUTHORIZED'){
+  if (action.error_type === 'UnauthorizedError'){
     dispatch(logout(true /* silent */));
   }
 

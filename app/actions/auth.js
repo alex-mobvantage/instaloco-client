@@ -28,39 +28,8 @@ export const login = (username, password) => {
         ])
         .catch(err => console.log('error saving credentials', err));
       },
-      failure: data => {
-        if (data.type === 'CHECKPOINT_ERROR'){
-          // don't invoke error middleware by passing error property
-          // so we can show a custom dialog
-          dispatch({
-            type: LOGIN_ERROR
-          });
-          dispatch(verifyCheckpoint(data));
-        } else {
-          dispatch(loginError(data));
-        }
-      }
+      failure: data => dispatch(loginError(data))
     }));
-  };
-};
-
-const verifyCheckpoint = (data) => {
-  return (dispatch) => {
-    Alert.alert(
-      'Error',
-      data.error,
-      [
-        {text: 'Cancel', style: 'cancel'},
-        {text: 'Verify', onPress: () => {
-          let deeplink = 'instagram://',
-            weblink = 'https://www.instagram.com';
-
-          Linking.canOpenURL(deeplink)
-            .then(can => Linking.openURL(can ? deeplink : weblink))
-            .catch(err => dispatch(unexpectedError(err)));
-        }}
-      ]
-    );
   };
 };
 
