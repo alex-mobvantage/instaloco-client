@@ -1,4 +1,5 @@
 import { Alert, Linking } from 'react-native';
+import { logout } from '../actions/auth';
 import { unexpectedError } from '../actions/error';
 
 export default errorMiddleware = store => next => action => {
@@ -7,6 +8,10 @@ export default errorMiddleware = store => next => action => {
       store.dispatch(verifyCheckpoint(action.error));
     } else {
       Alert.alert('Error', action.error);
+
+      if (action.error_type === 'UnauthorizedError'){
+        store.dispatch(logout(true /* silent */));
+      }
     }
   }
 

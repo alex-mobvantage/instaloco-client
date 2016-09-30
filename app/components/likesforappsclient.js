@@ -8,7 +8,6 @@ import { NetInfo } from 'react-native';
 import codePush from 'react-native-code-push';
 
 import app from '../reducers';
-import accessTokenMiddleware from '../middleware/accesstoken';
 import errorMiddleware from '../middleware/error';
 import successMiddleware from '../middleware/success';
 
@@ -32,7 +31,6 @@ let store = createStore(
   applyMiddleware(
     thunkMiddleware,
     createLogger(),
-    accessTokenMiddleware,
     errorMiddleware,
     successMiddleware
   )
