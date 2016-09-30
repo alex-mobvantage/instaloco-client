@@ -1,8 +1,9 @@
 import { request } from './api';
+import { unexpectedError } from './error';
 import { getProfile, getCoins, saveDeviceInfo, refreshDeviceToken, saveDeviceToken, loadReferralData } from './user';
 import { changeMainTab, changeNavTitle } from './nav';
 import { nextImage } from './images';
-import { Alert, AsyncStorage } from 'react-native';
+import { Alert, AsyncStorage, Linking } from 'react-native';
 import qs from 'qs';
 import Promise from 'bluebird';
 
@@ -27,8 +28,39 @@ export const login = (username, password) => {
         ])
         .catch(err => console.log('error saving credentials', err));
       },
-      failure: data => dispatch(loginError(data))
+      failure: data => {
+        if (data.type === 'CHECKPOINT_ERROR'){
+          // don't invoke error middleware by passing error property
+          // so we can show a custom dialog
+          dispatch({
+            type: LOGIN_ERROR
+          });
+          dispatch(verifyCheckpoint(data));
+        } else {
+          dispatch(loginError(data));
+        }
+      }
     }));
+  };
+};
+
+const verifyCheckpoint = (data) => {
+  return (dispatch) => {
+    Alert.alert(
+      'Error',
+      data.error,
+      [
+        {text: 'Cancel', style: 'cancel'},
+        {text: 'Verify', onPress: () => {
+          let deeplink = 'instagram://',
+            weblink = 'https://www.instagram.com';
+
+          Linking.canOpenURL(deeplink)
+            .then(can => Linking.openURL(can ? deeplink : weblink))
+            .catch(err => dispatch(unexpectedError(err)));
+        }}
+      ]
+    );
   };
 };
 
