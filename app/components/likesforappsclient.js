@@ -19,6 +19,7 @@ import Legal from './legal';
 import PurchaseCoins from './purchasecoins';
 import OfferDetails from './offerdetails';
 import OfflineView from './offlineview';
+import WelcomeView from './welcomeview';
 
 import { loadConfig } from '../actions/config';
 import { loadProducts } from '../actions/purchase';
@@ -77,7 +78,10 @@ class LikesForAppsClient extends Component {
                 tabs={true}
                 component={connect(mapAuthStatesToSceneProps)(Switch)}
                 selector={mapSceneAuthPropsToScene}>
-                <Scene key='unauthenticated' hideNavBar component={Login} />
+                <Scene key='unauthenticated' hideNavBar>
+                  <Scene key='welcome' initial component={WelcomeView} />
+                  <Scene key='login' component={Login} />
+                </Scene>
                 <Scene key='authenticated'>
                   <Scene key='main' initial component={MainView} />
                   <Scene key='purchaseLikes' component={PurchaseLikes} />
