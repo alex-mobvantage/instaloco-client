@@ -23,7 +23,8 @@ class WelcomeView extends Component {
           </View>
           <Button
             containerStyle={styles.loginButtonContainer}
-            style={[commonStyles.fonts.base, styles.loginButton]}>
+            style={[commonStyles.fonts.base, styles.loginButton]}
+            onPress={Actions.login}>
             Login with Instagram
           </Button>
         </View>

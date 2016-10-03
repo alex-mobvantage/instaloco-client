@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Text, TextInput, StyleSheet, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, StyleSheet, View } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Actions } from 'react-native-router-flux';
 
 import Spinner from './spinner';
 
@@ -22,16 +22,13 @@ class LoginLayout extends Component {
 
     return (
       <View style={[commonStyles.containers.base, commonStyles.containers.centered, commonStyles.containers.nonav, styles.container]}>
-        <View style={styles.headerContainer}>
-          <Text
-            style={[commonStyles.fonts.base, styles.header]}>
-            Likes For Apps
-          </Text>
-          <Icon name='heart' color={colors.heart} size={30} />
-        </View>
+        <Text
+          style={[commonStyles.fonts.base, styles.header]}>
+          Login with Instagram
+        </Text>
         <TextInput
           style={[commonStyles.fonts.base, commonStyles.inputs.text, styles.input]}
-          placeholder='username'
+          placeholder='Instagram username'
           autoCorrect={false}
           autoCapitalize='none'
           onChangeText={(username) => this.setState({username})}
@@ -39,7 +36,7 @@ class LoginLayout extends Component {
         <TextInput
           style={[commonStyles.fonts.base, commonStyles.inputs.text, styles.input]}
           secureTextEntry
-          placeholder='password'
+          placeholder='Instagram password'
           autoCorrect={false}
           autoCapitalize='none'
           onChangeText={(password) => this.setState({password})}
@@ -54,6 +51,9 @@ class LoginLayout extends Component {
             </Button>
           </View>
         </View>
+        <TouchableOpacity onPress={() => Actions.welcome({ type: 'back' })}>
+          <Text style={[commonStyles.fonts.base, commonStyles.fonts.link, styles.link]}>Back</Text>
+        </TouchableOpacity>
         {loading && <Spinner />}
       </View>
     );
@@ -62,18 +62,20 @@ class LoginLayout extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 72,
-    backgroundColor: colors.primary
-  },
-  headerContainer: {
-    marginBottom: 30,
-    alignItems: 'center'
+    backgroundColor: colors.primary,
+    padding: 72
   },
   header: {
-    fontSize: 30
+    fontSize: 20,
+    marginBottom: 30,
+    textAlign: 'center'
   },
   input: {
     margin: 5
+  },
+  link: {
+    alignSelf: 'center',
+    marginTop: 12
   }
 });
 
