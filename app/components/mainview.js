@@ -29,7 +29,7 @@ const MainViewLayout = React.createClass({
   },
 
   render(){
-    let { dispatch, activeTab, tabsDisabled } = this.props;
+    let { dispatch, activeTab, tabsDisabled, offerwallEnabled } = this.props;
     let tabs = [
       {id: 'earnCoins', title: 'Earn coins', icon: 'picture-o', cmp: <GetCoins />},
       {id: 'getLikes', title: 'Get likes', icon: 'heart', cmp: <GetLikes />},
@@ -37,6 +37,10 @@ const MainViewLayout = React.createClass({
       {id: 'freeCoins', title: 'Free coins', icon: 'plus-circle', cmp: <OfferWall />},
       {id: 'more', title: 'More', icon: 'ellipsis-h', cmp: <More />}
     ];
+
+    if (!offerwallEnabled){
+      tabs.splice(3, 1);
+    }
 
     return (
       <TabBarIOS tintColor='black' removeClippedSubviews>
