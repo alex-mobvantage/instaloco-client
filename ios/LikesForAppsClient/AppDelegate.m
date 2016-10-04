@@ -46,7 +46,7 @@
   UIView* launchScreenView = [[[NSBundle mainBundle] loadNibNamed:@"LaunchScreen" owner:self options:nil] objectAtIndex:0];
   launchScreenView.frame = self.window.bounds;
   rootView.loadingView = launchScreenView;
-  rootView.loadingViewFadeDelay = 0.5;
+  rootView.loadingViewFadeDelay = 1;
 
   return YES;
 }
