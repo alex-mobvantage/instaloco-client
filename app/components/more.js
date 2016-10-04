@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
@@ -27,7 +27,8 @@ class MoreLayout extends Component {
           </TouchableHighlight>
           <TouchableHighlight
             underlayColor='rgba(0, 0, 0, 0.05)'
-            style={[commonStyles.containers.listItem, styles.listItem]}>
+            style={[commonStyles.containers.listItem, styles.listItem]}
+            onPress={() => Alert.alert('For support', 'Please contact instalocohelp@gmail.com for any questions or concerns.')}>
             <Text
               style={[commonStyles.fonts.base, commonStyles.fonts.button, styles.button]}>
               Support
