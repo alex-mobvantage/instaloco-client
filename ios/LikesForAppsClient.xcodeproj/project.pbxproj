@@ -30,6 +30,7 @@
 		3CBF4467FA584F3FBFB0CC4E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 555C8EA5EB6A4274B1411E99 /* libz.tbd */; };
 		419A02D2CF2E4F33A3D5D2F3 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1E33173EB2947D2A42E79D0 /* Foundation.ttf */; };
 		50F35358AD5F4290B34D514D /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35B3AEBC1FB547BF99FC69ED /* Octicons.ttf */; };
+		5C1E36DC1DA5797600849DBF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C1E36DB1DA5797600849DBF /* StoreKit.framework */; };
 		5C328DFE1D808426003C590C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C328DFD1D808426003C590C /* AdSupport.framework */; };
 		5C328DFF1D8085A5003C590C /* libRCTAdSupport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C328DFC1D8083F5003C590C /* libRCTAdSupport.a */; };
 		5C328E061D809DCA003C590C /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C328E051D809DC3003C590C /* libRCTPushNotification.a */; };
@@ -217,6 +218,7 @@
 		36ECDC388B9F4360A082E903 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		4289A27D2F21AB7844E876E4 /* Pods-LikesForAppsClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LikesForAppsClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LikesForAppsClient/Pods-LikesForAppsClient.debug.xcconfig"; sourceTree = "<group>"; };
 		555C8EA5EB6A4274B1411E99 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		5C1E36DB1DA5797600849DBF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5C328DF71D8083F5003C590C /* RCTAdSupport.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAdSupport.xcodeproj; path = "../node_modules/react-native/Libraries/AdSupport/RCTAdSupport.xcodeproj"; sourceTree = "<group>"; };
 		5C328DFD1D808426003C590C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		5C328E001D809DC3003C590C /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				6479C5C83EA24BC8B932EB4C /* libInAppUtils.a in Frameworks */,
 				2BE6BCCCAB6447C5BB9525DA /* libRNDeviceInfo.a in Frameworks */,
+				5C1E36DC1DA5797600849DBF /* StoreKit.framework in Frameworks */,
 				6F117B48CD9B46668174CE73 /* libRNBranch.a in Frameworks */,
 				1C3428F539C24F575B21F84A /* libPods-LikesForAppsClient.a in Frameworks */,
 				225A94C8BFE444BC900FD3E0 /* libRNVectorIcons.a in Frameworks */,
@@ -535,6 +538,7 @@
 		929A49E11C3934E8CF9B32B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C1E36DB1DA5797600849DBF /* StoreKit.framework */,
 				1956472760F8B75F53DF4585 /* libPods-LikesForAppsClient.a */,
 				7C5FE2FA4AAAEA5340239B4A /* libPods-LikesForAppsClientTests.a */,
 				555C8EA5EB6A4274B1411E99 /* libz.tbd */,
@@ -602,6 +606,14 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = RHWHPBDJ7S;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
