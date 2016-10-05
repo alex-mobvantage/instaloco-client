@@ -14,7 +14,7 @@ import * as colors from '../styles/colors';
 
 class ImageDisplayLayout extends Component {
   render(){
-    let { image_url, media_id, can_follow, user_id, dispatch } = this.props;
+    let { image_url, media_id, can_follow, user_id, coins_per_like, coins_per_follower, dispatch } = this.props;
 
     return (
       <View>
@@ -35,7 +35,7 @@ class ImageDisplayLayout extends Component {
               containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
               style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
               onPress={() => dispatch(likeImage(media_id))}>
-              Like
+              Like +{coins_per_like}
             </Button>
           </View>
           {can_follow &&
@@ -44,7 +44,7 @@ class ImageDisplayLayout extends Component {
                 containerStyle={[commonStyles.buttons.base, commonStyles.buttons.primary]}
                 style={[commonStyles.fonts.base, commonStyles.fonts.button, commonStyles.fonts.primaryButton]}
                 onPress={() => dispatch(follow(user_id))}>
-                Follow
+                Follow +{coins_per_follower}
               </Button>
             </View>
           }
@@ -75,7 +75,7 @@ const GetCoinsLayout = React.createClass({
   },
 
   render(){
-    let { loading, image_url, media_id, can_follow, user_id } = this.props;
+    let { loading, image_url, media_id, can_follow, user_id, coins_per_like, coins_per_follower } = this.props;
 
     return (
       <View style={[commonStyles.containers.base, commonStyles.containers.tabbed, commonStyles.containers.centered]}>
@@ -85,7 +85,9 @@ const GetCoinsLayout = React.createClass({
               image_url={image_url}
               media_id={media_id}
               can_follow={can_follow}
-              user_id={user_id} />
+              user_id={user_id}
+              coins_per_like={coins_per_like}
+              coins_per_follower={coins_per_follower} />
           : <Text style={[commonStyles.fonts.base]}>There are currently no images to like. Check back later</Text>
         }
         <TouchableOpacity onPress={() => Actions.purchaseCoins()}>
@@ -113,7 +115,9 @@ const mapStateToProps = (state) => {
   return {
     ...state.nextImage,
     loading: state.loading.getCoins,
-    active: state.nav.mainTab === 'earnCoins'
+    active: state.nav.mainTab === 'earnCoins',
+    coins_per_like: state.config.coins_per_like,
+    coins_per_follower: state.config.coins_per_follower
   };
 };
 
