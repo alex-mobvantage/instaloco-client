@@ -53,8 +53,9 @@ export const fetchedOffer = (data) => {
 
 export const beginOffer = (offer_id, redirect_url) => {
   return (dispatch, getState) => {
+    dispatch(startBeginOffer());
+
     requestPushPermissions()
-      .then(() => dispatch(startBeginOffer()))
       .then(() => dispatch(request({
         path: '/offers/begin?' + qs.stringify({ offer_id }),
         options: {method: 'POST'},
