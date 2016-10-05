@@ -75,7 +75,7 @@ const GetCoinsLayout = React.createClass({
   },
 
   render(){
-    let { loading, image_url, media_id, can_follow, user_id, coins_per_like, coins_per_follower } = this.props;
+    let { loading, image_url, media_id, can_follow, user_id, coins_per_like, coins_per_follower, iap_enabled } = this.props;
 
     return (
       <View style={[commonStyles.containers.base, commonStyles.containers.tabbed, commonStyles.containers.centered]}>
@@ -90,9 +90,11 @@ const GetCoinsLayout = React.createClass({
               coins_per_follower={coins_per_follower} />
           : <Text style={[commonStyles.fonts.base]}>There are currently no images to like. Check back later</Text>
         }
-        <TouchableOpacity onPress={() => Actions.purchaseCoins()}>
-          <Text style={[commonStyles.fonts.base, commonStyles.fonts.link, styles.link]}>Click here to get coins faster!</Text>
-        </TouchableOpacity>
+        {iap_enabled &&
+          <TouchableOpacity onPress={() => Actions.purchaseCoins()}>
+            <Text style={[commonStyles.fonts.base, commonStyles.fonts.link, styles.link]}>Click here to get coins faster!</Text>
+          </TouchableOpacity>
+        }
         {loading && <Spinner />}
       </View>
     );
@@ -117,7 +119,8 @@ const mapStateToProps = (state) => {
     loading: state.loading.getCoins,
     active: state.nav.mainTab === 'earnCoins',
     coins_per_like: state.config.coins_per_like,
-    coins_per_follower: state.config.coins_per_follower
+    coins_per_follower: state.config.coins_per_follower,
+    iap_enabled: state.config.iap_enabled
   };
 };
 

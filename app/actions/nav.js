@@ -11,7 +11,13 @@ export const changeMainTab = (key, title) => {
 };
 
 export const navigateToPurchaseLikes = (media_id, image_url, likes) => {
-  return () => {
+  return (dispatch, getState) => {
+    let { iap_enabled } = getState().config;
+    if (!iap_enabled){
+      Actions.purchaseLikes({media_id, image_url, likes});
+      return;
+    }
+
     AsyncStorage.getItem('navigations_to_purchase_likes')
       .then(navigations => {
         navigations = Number(navigations || 0);
