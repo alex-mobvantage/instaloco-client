@@ -885,6 +885,7 @@
 			baseConfigurationReference = 4289A27D2F21AB7844E876E4 /* Pods-LikesForAppsClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODEPUSH_KEY = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
@@ -919,6 +920,7 @@
 			baseConfigurationReference = E100547D3CF3662F87EE5D5B /* Pods-LikesForAppsClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODEPUSH_KEY = "r3nEcr710kfMnP32gQlq-uEp5wdDV17gRyHa-";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
@@ -997,6 +999,7 @@
 			baseConfigurationReference = E100547D3CF3662F87EE5D5B /* Pods-LikesForAppsClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODEPUSH_KEY = "1CEie0UukAkYR5dKe_1R9rSLAGqFV17gRyHa-";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
