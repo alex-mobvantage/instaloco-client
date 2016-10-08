@@ -1,1 +1,1 @@
-export const API_HOST = 'http://likesforapps.herokuapp.com';
+export const API_HOST = 'http://www.instaloco.com';
