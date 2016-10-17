@@ -21,7 +21,7 @@ export default errorMiddleware = store => next => action => {
 const verifyCheckpoint = (message) => {
   return (dispatch) => {
     Alert.alert(
-      'Error',
+      'Account Verification',
       message,
       [
         {text: 'Cancel', style: 'cancel'},
