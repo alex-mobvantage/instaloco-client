@@ -10,13 +10,16 @@ class WelcomeView extends Component {
   render(){
     let dimensions = Dimensions.get('window');
     return (
-      <View style={[commonStyles.containers.base, commonStyles.containers.centered, commonStyles.containers.nonav, styles.container]}>
+      <View style={[commonStyles.containers.base, commonStyles.containers.nonav, styles.container]}>
         <Image
           source={require('../resources/welcomebackground.png')}
           style={[styles.background, {width: dimensions.width, height: dimensions.height}]}
-          resizeMode='contain' />
+          resizeMode='cover' />
         <View style={styles.overlay}>
-          <Image source={require('../resources/logo.png')} style={styles.logo} resizeMode='contain' />
+          <Image
+            source={require('../resources/logo.png')}
+            style={{width: dimensions.width/3, height: dimensions.width/3}}
+            resizeMode='cover' />
           <View style={styles.headerContainer}>
             <Text style={[commonStyles.fonts.base, styles.name]}>InstaLoco</Text>
             <Text style={[commonStyles.fonts.base, styles.tagline]}>Get Likes and Followers for Instagram</Text>
@@ -46,29 +49,29 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(50, 50, 50, 0.7)',
+    alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
-  },
-  logo: {
-    width: 130,
-    height: 130
+    paddingTop: 40,
+    paddingBottom: 40
   },
   headerContainer: {
-    paddingLeft: 72,
-    paddingRight: 72
+    paddingLeft: 40,
+    paddingRight: 40
   },
   name: {
     fontSize: 50,
-    color: 'white'
+    color: 'white',
+    textAlign: 'center'
   },
   tagline: {
     fontSize: 30,
     color: 'white',
     textAlign: 'center',
-    marginTop: 30
+    marginTop: 10
   },
   loginButtonContainer: {
-    marginTop: 130,
+    marginTop: 50,
     backgroundColor: 'rgb(237, 113, 97)',
     borderWidth: 4,
     borderColor: 'rgb(192, 58, 43)',
