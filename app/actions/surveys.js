@@ -14,6 +14,6 @@ export const FETCHED_SURVEY = 'FETCHED_SURVEY';
 export const fetchedSurvey = (data) => {
   return {
     type: FETCHED_SURVEY,
-    data
+    ...data
   };
 };

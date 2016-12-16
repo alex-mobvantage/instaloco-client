@@ -9,7 +9,7 @@ export const containers = StyleSheet.create({
   },
   
   tabbed: {
-    marginTop: 42
+    marginTop: 44
   },
 
   nonav: {
