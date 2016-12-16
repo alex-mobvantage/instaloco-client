@@ -8,6 +8,7 @@ import { products } from './purchase';
 import { offer, offers } from './offers';
 import { loading } from './loading';
 import { network } from './network';
+import { survey } from './surveys';
 
 const app = combineReducers({
   login,
@@ -20,7 +21,8 @@ const app = combineReducers({
   offer,
   offers,
   loading,
-  network
+  network,
+  survey
 });
 
 export default app;

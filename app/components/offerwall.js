@@ -6,6 +6,7 @@ import { fetchOffers } from '../actions/offers';
 
 import Spinner from './spinner';
 import Offer from './offer';
+import SurveyBanner from './surveybanner';
 
 import * as commonStyles from '../styles/common';
 
@@ -40,7 +41,8 @@ const OfferWallLayout = React.createClass({
               description={rowData.description}
               click_id={rowData.click_id}
               redirect_url={rowData.redirect_url} />
-          )} />
+          )}
+          renderHeader={() => <SurveyBanner />} />
         {this.props.loading && <Spinner />}
       </View>
     );
