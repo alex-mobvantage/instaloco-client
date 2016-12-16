@@ -25,7 +25,7 @@ class SurveyBannerLayout extends Component {
           <Text style={styles.emoji}>💰</Text>
           <View>
             <Text style={[commonStyles.fonts.base, styles.text]}>TRY A SURVEY</Text>
-            <Text style={[commonStyles.fonts.base, styles.text]}>EARN MORE POINTS</Text>
+            <Text style={[commonStyles.fonts.base, styles.text]}>EARN MORE COINS</Text>
           </View>
         </View>
       </TouchableOpacity>
