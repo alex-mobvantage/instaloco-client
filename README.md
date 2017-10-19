@@ -10,8 +10,8 @@ I'm publishing this here to serve as a pretty complete sample architecture for a
 
 ## Screenshots
 
-![Earn coins](https://lh6.googleusercontent.com/vIcZohVdTsneMSlspodpD0aHhZRS7Dd1YP-ubzGrxwGG3GzMpCGbCrQhE0w6Cq1f9lPYtjDp99BAhhc=w800-rw)
+![Earn coins](https://i.imgur.com/fFwiLkp.png)
 
-![Get followers](https://lh6.googleusercontent.com/dzPJlV018xzhG_B2Qbq0srvUeCEBh9oxuVlqC06iR6tpKcK8KljX9JH_Y0dCVuqJIESpeJDK4Jsffgw=w800-rw)
+![Get followers](https://i.imgur.com/fu5v9Zm.png)
 
-![Free coins](https://lh3.googleusercontent.com/oaatKDNtlQm28jm68_jESAQd-UwucbPPoqhZ4bY45I6EuZYLU_pbl6iWKGgMzLtYlk9BZKK6HuHwbhc=w800-rw)
+![Free coins](https://i.imgur.com/4SMoyY3.png)
